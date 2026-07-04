@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interview Preparation Course — Isuru Mahanama</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f8f8f6;
+  --white:#ffffff;
+  --ink:#0a0a0a;
+  --ink2:#3a3a3a;
+  --ink3:#6b6b6b;
+  --ink4:#9a9a9a;
+  --rule:#e2e2e0;
+  --rule2:#eeeeec;
+  --green:#2d6a4f;
+  --green-bg:#f0fdf4;
+  --green-border:#bbf7d0;
+  --blue:#2563eb;
+  --blue-bg:#eff6ff;
+  --amber:#b45309;
+  --amber-bg:#fffbeb;
+  --amber-border:#fde68a;
+  --red:#dc2626;
+  --red-bg:#fef2f2;
+  --mono:'DM Mono',monospace;
+  --sans:'DM Sans',sans-serif;
+  --serif:'Instrument Serif',serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+
+/* ── Nav ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(248,248,246,0.93);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--rule);
+  padding:0 2rem;height:52px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.nav-left{display:flex;align-items:center;gap:1.5rem}
+.nav-title{font-family:var(--mono);font-size:0.78rem;font-weight:500;color:var(--ink)}
+.nav-sub{font-family:var(--mono);font-size:0.72rem;color:var(--ink4)}
+.nav-progress{display:flex;align-items:center;gap:0.75rem}
+.nav-progress-label{font-family:var(--mono);font-size:0.7rem;color:var(--ink4)}
+.progress-bar{width:120px;height:4px;background:var(--rule);border-radius:2px;overflow:hidden}
+.progress-fill{height:100%;background:var(--green);border-radius:2px;width:0%;transition:width 0.3s}
+
+/* ── Hero ── */
+.hero{
+  padding:8rem 2rem 4rem;
+  max-width:820px;margin:0 auto;
+}
+.hero-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:var(--mono);font-size:0.72rem;font-weight:500;
+  color:var(--green);background:var(--green-bg);
+  border:1px solid var(--green-border);
+  border-radius:100px;padding:4px 12px;margin-bottom:1.5rem;
+}
+.hero-tag::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--green)}
+.hero h1{
+  font-family:var(--serif);font-style:italic;
+  font-size:clamp(2.5rem,5vw,4rem);font-weight:400;
+  line-height:1.1;letter-spacing:-0.02em;
+  color:var(--ink);margin-bottom:1rem;
+}
+.hero-desc{font-size:1rem;color:var(--ink2);max-width:560px;line-height:1.75;margin-bottom:2.5rem}
+.hero-desc strong{color:var(--ink);font-weight:500}
+
+/* Stats row */
+.hero-stats{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  border:1px solid var(--rule);background:var(--rule);gap:1px;
+  margin-bottom:3rem;
+}
+.stat-cell{background:var(--white);padding:1rem 1.25rem}
+.stat-n{font-family:var(--mono);font-size:1.4rem;font-weight:500;color:var(--ink);line-height:1}
+.stat-n em{color:var(--green);font-style:normal}
+.stat-l{font-family:var(--mono);font-size:0.65rem;color:var(--ink4);margin-top:4px;letter-spacing:0.04em}
+
+/* ── Layout ── */
+.wrap{max-width:820px;margin:0 auto;padding:0 2rem}
+.page-section{padding:4rem 0;border-top:1px solid var(--rule)}
+
+/* ── Section headers ── */
+.sec-head{display:flex;align-items:center;gap:1rem;margin-bottom:2.5rem}
+.sec-num{font-family:var(--mono);font-size:0.7rem;color:var(--ink4)}
+.sec-title{font-size:1.3rem;font-weight:600;color:var(--ink);letter-spacing:-0.02em}
+.sec-rule{flex:1;height:1px;background:var(--rule2)}
+
+/* ── Phase cards (overview) ── */
+.phase-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--rule);border:1px solid var(--rule);margin-bottom:3rem}
+.phase-card{background:var(--white);padding:1.5rem}
+.phase-week{font-family:var(--mono);font-size:0.68rem;color:var(--ink4);margin-bottom:0.4rem;letter-spacing:0.06em;text-transform:uppercase}
+.phase-name{font-size:1rem;font-weight:600;color:var(--ink);margin-bottom:0.5rem}
+.phase-topics{font-size:0.85rem;color:var(--ink3);line-height:1.6}
+.phase-card.active{background:var(--green-bg);border-left:3px solid var(--green)}
+.phase-card.active .phase-week{color:var(--green)}
+
+/* ── Module cards ── */
+.module{
+  border:1px solid var(--rule);background:var(--white);
+  border-radius:4px;margin-bottom:1px;
+  overflow:hidden;
+}
+.module-head{
+  padding:1.25rem 1.5rem;
+  display:flex;align-items:center;gap:1rem;
+  cursor:pointer;
+  transition:background 0.15s;
+  user-select:none;
+}
+.module-head:hover{background:var(--bg)}
+.module-num{font-family:var(--mono);font-size:0.7rem;color:var(--ink4);min-width:28px}
+.module-info{flex:1}
+.module-title{font-size:0.975rem;font-weight:500;color:var(--ink);margin-bottom:2px}
+.module-meta{font-family:var(--mono);font-size:0.72rem;color:var(--ink4)}
+.module-badge{
+  font-family:var(--mono);font-size:0.65rem;font-weight:500;
+  padding:2px 8px;border-radius:3px;white-space:nowrap;
+}
+.badge-easy{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
+.badge-medium{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border)}
+.badge-hard{background:var(--red-bg);color:var(--red);border:1px solid #fecaca}
+.module-toggle{font-family:var(--mono);font-size:0.8rem;color:var(--ink4);transition:transform 0.2s;flex-shrink:0}
+.module-toggle.open{transform:rotate(90deg)}
+
+.module-body{
+  display:none;
+  padding:0 1.5rem 1.5rem;
+  border-top:1px solid var(--rule2);
+}
+.module-body.open{display:block}
+
+/* Content inside module */
+.concept-block{margin-top:1.25rem}
+.concept-label{font-family:var(--mono);font-size:0.68rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink4);margin-bottom:0.6rem}
+.concept-text{font-size:0.9rem;color:var(--ink2);line-height:1.75}
+.concept-text strong{color:var(--ink);font-weight:500}
+.concept-text p+p{margin-top:0.75rem}
+
+.code-block{
+  background:#0a0a0a;border-radius:4px;
+  padding:1.25rem 1.5rem;margin:1rem 0;
+  overflow-x:auto;
+}
+.code-block pre{
+  font-family:var(--mono);font-size:0.8rem;
+  color:#e0e0e0;line-height:1.7;margin:0;
+}
+.code-comment{color:#555}
+.code-keyword{color:#a3a3ff}
+.code-string{color:#86efac}
+.code-fn{color:#93c5fd}
+.code-num{color:#fbbf24}
+
+.problem-list{margin-top:1rem}
+.problem-item{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0.65rem 0;border-bottom:1px solid var(--rule2);
+  font-size:0.875rem;
+}
+.problem-item:first-child{border-top:1px solid var(--rule2)}
+.problem-name{color:var(--ink2)}
+.problem-right{display:flex;align-items:center;gap:0.75rem}
+.problem-diff{font-family:var(--mono);font-size:0.7rem}
+.diff-easy{color:var(--green)}
+.diff-medium{color:var(--amber)}
+.diff-hard{color:var(--red)}
+.problem-link{font-family:var(--mono);font-size:0.72rem;color:var(--blue)}
+
+.tip-box{
+  background:var(--blue-bg);border:1px solid #bfdbfe;border-radius:4px;
+  padding:1rem 1.25rem;margin-top:1rem;
+}
+.tip-box-label{font-family:var(--mono);font-size:0.68rem;font-weight:500;color:var(--blue);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.4rem}
+.tip-box-text{font-size:0.875rem;color:var(--ink2);line-height:1.7}
+
+.pattern-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:1rem}
+.pattern-tag{
+  font-family:var(--mono);font-size:0.75rem;
+  padding:0.5rem 0.75rem;
+  border:1px solid var(--rule);background:var(--bg);
+  color:var(--ink2);border-radius:3px;
+}
+
+/* ── Interview process ── */
+.process-steps{display:flex;flex-direction:column;gap:1px;background:var(--rule);border:1px solid var(--rule)}
+.process-step{background:var(--white);padding:1.25rem 1.5rem;display:grid;grid-template-columns:36px 1fr;gap:1rem;align-items:start}
+.step-num{font-family:var(--mono);font-size:0.72rem;color:var(--white);background:var(--ink);width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.step-title{font-size:0.95rem;font-weight:500;color:var(--ink);margin-bottom:0.35rem}
+.step-desc{font-size:0.875rem;color:var(--ink2);line-height:1.65}
+.step-example{font-family:var(--mono);font-size:0.78rem;color:var(--ink3);margin-top:0.4rem;padding:0.5rem 0.75rem;background:var(--bg);border-left:2px solid var(--rule)}
+
+/* ── Complexity table ── */
+.complexity-table{width:100%;border-collapse:collapse;margin-top:1rem;font-size:0.85rem}
+.complexity-table th{font-family:var(--mono);font-size:0.7rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--ink4);padding:0.6rem 0.75rem;border-bottom:1px solid var(--rule);text-align:left;background:var(--bg)}
+.complexity-table td{padding:0.6rem 0.75rem;border-bottom:1px solid var(--rule2);color:var(--ink2)}
+.complexity-table tr:last-child td{border-bottom:none}
+.complexity-table td:nth-child(2),.complexity-table td:nth-child(3){font-family:var(--mono);font-size:0.78rem}
+.good{color:var(--green)}
+.ok{color:var(--amber)}
+.bad{color:var(--red)}
+
+/* ── Checklist ── */
+.checklist{display:flex;flex-direction:column;gap:0}
+.check-item{
+  display:flex;align-items:flex-start;gap:0.75rem;
+  padding:0.75rem 0;border-bottom:1px solid var(--rule2);
+  font-size:0.9rem;color:var(--ink2);
+  cursor:pointer;
+}
+.check-item:first-child{border-top:1px solid var(--rule2)}
+.check-item input{margin-top:3px;accent-color:var(--green);cursor:pointer;flex-shrink:0}
+.check-item.checked{color:var(--ink4);text-decoration:line-through}
+
+/* ── Footer ── */
+footer{border-top:1px solid var(--rule);padding:2rem;text-align:center}
+.footer-text{font-family:var(--mono);font-size:0.72rem;color:var(--ink4)}
+
+@media(max-width:640px){
+  nav{padding:0 1rem}
+  .nav-progress{display:none}
+  .hero{padding:6rem 1rem 3rem}
+  .wrap{padding:0 1rem}
+  .hero-stats{grid-template-columns:1fr 1fr}
+  .phase-grid{grid-template-columns:1fr}
+  .pattern-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-left">
+    <span class="nav-title">Interview Prep</span>
+    <span class="nav-sub">Isuru Mahanama</span>
+  </div>
+  <div class="nav-progress">
+    <span class="nav-progress-label">Progress</span>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    <span class="nav-progress-label" id="progressPct">0%</span>
+  </div>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-tag">Technical Interview Course</div>
+  <h1>Your path to senior engineer interviews</h1>
+  <p class="hero-desc">A structured, <strong>8-week course</strong> built specifically for you — covering every topic that appears in technical interviews at Google, Microsoft, Amazon, Atlassian, and similar companies. Work through it in order. Come back here to practice.</p>
+
+  <div class="hero-stats">
+    <div class="stat-cell">
+      <div class="stat-n"><em>8</em></div>
+      <div class="stat-l">weeks to complete</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-n">10</div>
+      <div class="stat-l">core topics</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-n">40+</div>
+      <div class="stat-l">practice problems</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-n"><em>3</em></div>
+      <div class="stat-l">interview types</div>
+    </div>
+  </div>
+</div>
+
+<!-- Course overview -->
+<div class="wrap">
+  <div class="page-section">
+    <div class="sec-head">
+      <span class="sec-num">01</span>
+      <span class="sec-title">8-week roadmap</span>
+      <div class="sec-rule"></div>
+    </div>
+    <div class="phase-grid">
+      <div class="phase-card active">
+        <div class="phase-week">Weeks 1 – 2</div>
+        <div class="phase-name">Foundations</div>
+        <div class="phase-topics">Arrays · Strings · Hash Maps · Two Pointers · Sliding Window</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-week">Weeks 3 – 4</div>
+        <div class="phase-name">Linear structures</div>
+        <div class="phase-topics">Linked Lists · Stacks · Queues · Binary Search</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-week">Weeks 5 – 6</div>
+        <div class="phase-name">Non-linear structures</div>
+        <div class="phase-topics">Trees · Recursion · Graphs · BFS / DFS</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-week">Weeks 7 – 8</div>
+        <div class="phase-name">Advanced + mock interviews</div>
+        <div class="phase-topics">Dynamic Programming · Mock sessions · System design intro</div>
+      </div>
+    </div>
+
+    <!-- Interview process -->
+    <div class="sec-head" style="margin-top:3rem">
+      <span class="sec-num">02</span>
+      <span class="sec-title">How to behave in a coding interview</span>
+      <div class="sec-rule"></div>
+    </div>
+    <p style="font-size:0.9rem;color:var(--ink2);margin-bottom:1.5rem;line-height:1.75">Before you learn any topic, learn this. This is what separates candidates who get offers from those who don't — it's not just about solving the problem.</p>
+    <div class="process-steps">
+      <div class="process-step">
+        <div class="step-num">1</div>
+        <div>
+          <div class="step-title">Clarify before you touch the keyboard</div>
+          <div class="step-desc">Ask questions. Restate the problem in your own words. Confirm input types, edge cases, and constraints. Interviewers deliberately leave things vague to see if you ask.</div>
+          <div class="step-example">"Just to confirm — the input array can have duplicates, and I should return indices, not values, right?"</div>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">2</div>
+        <div>
+          <div class="step-title">Think out loud — always</div>
+          <div class="step-desc">The interviewer cannot see inside your head. Narrate every thought. A candidate who explains their thinking and gets a wrong answer is better than one who stays silent and gets the right answer.</div>
+          <div class="step-example">"I'm thinking of brute force first — nested loops, O(n²). That works but let me see if I can do better with a hash map..."</div>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">3</div>
+        <div>
+          <div class="step-title">Start with brute force, then optimise</div>
+          <div class="step-desc">Never jump straight to the optimal solution. Say the brute force first, explain why it's slow, then work toward something better. This shows structured thinking.</div>
+          <div class="step-example">"Brute force is O(n²) with two nested loops. I can bring it to O(n) using a hash map to store values I've seen."</div>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">4</div>
+        <div>
+          <div class="step-title">State time and space complexity</div>
+          <div class="step-desc">After writing your solution, always say the Big O complexity unprompted. This is expected at senior level — not saying it is a red flag.</div>
+          <div class="step-example">"This runs in O(n) time and O(n) space because of the hash map."</div>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">5</div>
+        <div>
+          <div class="step-title">Test your own code with examples</div>
+          <div class="step-desc">Once you've written the code, walk through it manually with a simple input. Then test edge cases — empty array, single element, all duplicates, negative numbers.</div>
+          <div class="step-example">"Let me trace through with input [2,7,11,15], target=9... index 0, value 2, I need 7, check hash map... found it at index 1. Returns [0,1]. Correct."</div>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">6</div>
+        <div>
+          <div class="step-title">Never freeze in silence</div>
+          <div class="step-desc">If you're stuck, say so out loud. Ask for a hint if needed — that's allowed. "I'm stuck on how to handle the duplicate case, could I get a nudge?" is far better than 3 minutes of silence.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Complexity reference -->
+  <div class="page-section">
+    <div class="sec-head">
+      <span class="sec-num">03</span>
+      <span class="sec-title">Big O complexity — you must know this</span>
+      <div class="sec-rule"></div>
+    </div>
+    <p style="font-size:0.9rem;color:var(--ink2);margin-bottom:1rem;line-height:1.75">Big O describes how your algorithm scales with input size. Every solution you give in an interview must include a complexity analysis.</p>
+    <table class="complexity-table">
+      <thead>
+        <tr><th>Notation</th><th>Name</th><th>Example</th><th>Rating</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>O(1)</code></td><td>Constant</td><td>Hash map lookup</td><td class="good">Excellent</td></tr>
+        <tr><td><code>O(log n)</code></td><td>Logarithmic</td><td>Binary search</td><td class="good">Excellent</td></tr>
+        <tr><td><code>O(n)</code></td><td>Linear</td><td>Single loop</td><td class="good">Good</td></tr>
+        <tr><td><code>O(n log n)</code></td><td>Linearithmic</td><td>Merge sort</td><td class="ok">Acceptable</td></tr>
+        <tr><td><code>O(n²)</code></td><td>Quadratic</td><td>Nested loops</td><td class="ok">Brute force only</td></tr>
+        <tr><td><code>O(2ⁿ)</code></td><td>Exponential</td><td>Recursive subsets</td><td class="bad">Avoid</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Modules -->
+  <div class="page-section">
+    <div class="sec-head">
+      <span class="sec-num">04</span>
+      <span class="sec-title">Course modules — click to expand</span>
+      <div class="sec-rule"></div>
+    </div>
+
+    <!-- Module 1 -->
+    <div class="module">
+      <div class="module-head" onclick="toggle(this)">
+        <span class="module-num">01</span>
+        <div class="module-info">
+          <div class="module-title">Arrays & Strings</div>
+          <div class="module-meta">Week 1  ·  Foundation of every interview</div>
+        </div>
+        <span class="module-badge badge-easy">Start here</span>
+        <span class="module-toggle">▶</span>
+      </div>
+      <div class="module-body">
+        <div class="concept-block">
+          <div class="concept-label">What you need to know</div>
+          <div class="concept-text">
+            <p>Arrays are the most common data structure in interviews. You must be fluent in: iterating, indexing, slicing, reversing, sorting, and searching. For strings — the key insight is that a string is just an array of characters.</p>
+            <p><strong>The most important pattern:</strong> Two Pointers. Use two indices (start and end, or slow and fast) to solve problems in O(n) that would otherwise take O(n²).</p>
+          </div>
+        </div>
+
+        <div class="concept-block">
+          <div class="concept-label">Two pointers pattern — example</div>
+          <div class="code-block"><pre><span class="code-comment"># Check if a string is a palindrome</span>
+<span class="code-keyword">def</span> <span class="code-fn">is_palindrome</span>(s):
+    left, right = <span class="code-num">0</span>, len(s) - <span class="code-num">1</span>
+    
+    <span class="code-keyword">while</span> left &lt; right:
+        <span class="code-keyword">if</span> s[left] != s[right]:
+            <span class="code-keyword">return</span> <span class="code-keyword">False</span>
+        left += <span class="code-num">1</span>
+        right -= <span class="code-num">1</span>
+    
+    <span class="code-keyword">return</span> <span class="code-keyword">True</span>
+
+<span class="code-comment"># Time: O(n)  Space: O(1)</span></pre></div>
+        </div>
+
+        <div class="concept-block">
+          <div class="concept-label">Sliding window pattern — example</div>
+          <div class="code-block"><pre><span class="code-comment"># Maximum sum subarray of size k</span>
+<span class="code-keyword">def</span> <span class="code-fn">max_sum_subarray</span>(arr, k):
+    window_sum = sum(arr[:k])
+    max_sum = window_sum
+    
+    <span class="code-keyword">for</span> i <span class="code-keyword">in</span> range(k, len(arr)):
+        window_sum += arr[i] - arr[i - k]  <span class="code-comment"># slide</span>
+        max_sum = max(max_sum, window_sum)
+    
+    <span class="code-keyword">return</span> max_sum
+
+<span class="code-comment"># Time: O(n)  Space: O(1)</span></pre></div>
+        </div>
+
+        <div class="tip-box">
+          <div class="tip-box-label">Interview tip</div>
+          <div class="tip-box-text">When you see a problem involving a contiguous subarray or substring — your first thought should be sliding window. When you see a sorted array — your first thought should be two pointers.</div>
+        </div>
+
+        <div class="concept-block">
+          <div class="concept-label">Practice problems — do these in order</div>
+          <div class="problem-list">
+            <div class="problem-item"><span class="problem-name">Two Sum</span><div class="problem-right"><span class="problem-diff diff-easy">Easy</span><a class="problem-link" href="https://leetcode.com/problems/two-sum/" target="_blank">LeetCode #1 ↗</a></div></div>
+            <div class="problem-item"><span class="problem-name">Best Time to Buy and Sell Stock</span><div class="problem-right"><span class="problem-diff diff-easy">Easy</span><a class="problem-link" href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock/" target="_blank">LeetCode #121 ↗</a></div></div>
+            <div class="problem-item"><span class="problem-name">Contains Duplicate</span><div class="problem-right"><span class="problem-diff diff-easy">Easy</span><a class="problem-link" href="https://leetcode.com/problems/contains-duplicate/" target="_blank">LeetCode #217 ↗</a></div></div>
+            <div class="problem-item"><span class="problem-name">Valid Anagram</span><div class="problem-right"><span class="problem-diff diff-easy">Easy</span><a class="problem-link" href="https://leetcode.com/problems/valid-anagram/" target="_blank">LeetCode #242 ↗</a></div></div>
+            <div class="problem-item"><span class="problem-name">Longest Substring Without Repeating Characters</span><div class="problem-right"><span class="problem-diff diff-medium">Medium</span><a class="problem-link" href="https://leetcode.com/problems/longest-substring-without-repeating-characters/" target="_blank">LeetCode #3 ↗</a></div></div>
+            <div class="problem-item"><span class="problem-name">3Sum</span><div class="problem-right"><span class="problem-diff diff-medium">Medium</span><a class="problem-link" href="https://leetcode.com/problems/3sum/" target="_blank">LeetCode #15 ↗</a></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Module 2 -->
+    <div class="module">
+      <div class="module-head" onclick="toggle(this)">
+        <span class="module-num">02</span>
+        <div class="module-info">
+          <div class="module-title">Hash Maps & Sets</div>
+          <div class="module-meta">Week 1  ·  Optimises almost every brute force</div>
+        </div>
+        <span class="module-badge badge-easy">Week 1</span>
+        <span class="module-toggle">▶</span>
+      </div>
+      <div class="module-body">
+        <div class="concept-block">
+          <div class="concept-label">Why hash maps matter</div>
+          <div class="concept-text">
+            <p>A hash map gives you O(1) average lookup, insert, and delete. The single most common optimisation in interviews is: <strong>"instead of searching the array again (O(n)), store what you've seen in a hash map (O(1) lookup)".</strong></p>
+            <p>If your brute force uses two nested loops, a hash map will almost always bring it from O(n²) to O(n).</p>
+          </div>
+        </div>
+        <div class="concept-block">
+          <div class="concept-label">The classic pattern</div>
+          <div class="code-block"><pre><span class="code-comment"># Two Sum — hash map solution</span>
+<span class="code-keyword">def</span> <span class="code-fn">two_sum</span>(nums, target):
+    seen = {}  <span class="code-comment"># value -> index</span>
+    
+    <span class="code-keyword">for</span> i, num <span class="code-keyword">in</span> enumerate(nums):
+        complement = target - num
+        
+        <span class="code-keyword">if</span> complement <span class="code-keyword">in</span> seen:
+            <span class="code-keyword">return</span> [seen[complement], i]
+        
+        seen[num] = i
+    
+    <span class="code-keyword">return</span> []
+
+<span class="code-comment"># Time: O(n)  Space: O(n)</span>
+<span class="code-comment"># vs brute force: O(n²) time, O(1) space</span></pre></div>
+        </div>
+        <div class="concept-block">
+          <div class="concept-label">Practice problems</div>
+          <div class="problem-list">
+            <div class="problem-item"><span class="problem-name">Two Sum</span><div class="problem-right"><span class="problem-diff diff-easy">Easy</span><a class="problem-link" href="https://leetcode.com/problems/two-sum/" target="_blank">LeetCode #1 ↗</a></div></div>
+            <div class="problem-item"><span class="problem-name">Group Anagrams</span><div class="problem-right"><span class="problem-diff diff-medium">Medium</span><a class="problem-link" href="https://leetcode.com/problems/group-anagrams/" target="_blank">LeetCode #49 ↗</a></div></div>
+            <div class="problem-item"><span class="problem-name">Top K Frequent Elements</span><div class="problem-right"><span class="problem-diff diff-medium">Medium</span><a class="problem-link" href="https://leetcode.com/problems/top-k-frequent-elements/" target="_blank">LeetCode #347 ↗</a></div></div>
+            <div class="problem-item"><span class="problem-name">Longest Consecutive Sequence</span><div class="problem-right"><span class="problem-diff diff-medium">Medium</span><a class="problem-link" href="https://leetcode.com/problems/longest-consecutive-sequence/" target="_blank">LeetCode #128 ↗</a></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Module 3 -->
+    <div class="module">
+      <div class="module-head" onclick="toggle(this)">
+        <span class="module-num">03</span>
+        <div class="module-info">
+          <div class="module-title">Linked Lists</div>
+          <div class="module-meta">Week 2  ·  Pointer manipulation</div>
+        </div>
+        <span class="module-badge badge-easy">Week 2</span>
+        <span class="module-toggle">▶</span>
+      </div>
+      <div class="module-body">
+        <div class="concept-block">
+          <div class="concept-label">What you need to know</div>
+          <div class="concept-text">
+            <p>Linked list problems are about pointer manipulation. The key patterns are: <strong>fast & slow pointers</strong> (detect cycles, find middle), <strong>reversing a list</strong>, and <strong>merging lists</strong>.</p>
+            <p>Always draw it out on paper first. Pointer bugs are hard to spot in your head but obvious on paper.</p>
+          </div>
+        </div>
+        <div class="concept-block">
+          <div class="concept-label">Fast & slow pointer — detect cycle</div>
+          <div class="code-block"><pre><span class="code-keyword">def</span> <span class="code-fn">has_cycle</span>(head):
+    slow, fast = head, head
+    
+    <span class="code-keyword">while</span> fast <span class="code-keyword">and</span> fast.next:
+        slow = slow.next        <span class="code-comment"># moves 1 step</span>
+        fast = fast.next.next   <span class="code-comment"># moves 2 steps</span>
+        
+        <span class="code-keyword">if</span> slow == fast:
+            <span class="code-keyword">return</span> <span class="code-keyword">True</span>
+    
+    <span class="code-keyword">return</span> <span class="code-keyword">False</span>
+
+<span class="code-comment"># Time: O(n)  Space: O(1)</span></pre></div>
+        </div>
+        <div class="concept-block">
+          <div class="concept-label">Reversing a linked list</div>
+          <div class="code-block"><pre><span class="code-keyword">def</span> <span class="code-fn">reverse_list</span>(head):
+    prev = <span class="code-keyword">None</span>
+    curr = head
+    
+    <span class="code-keyword">while</span> curr:
+        next_node = curr.next  <span class="code-comment"># save next</span>
+        curr.next = prev       <span class="code-comment"># reverse pointer</span>
+        prev = curr            <span class="code-comment"># move prev forward</span>
+        curr = next_node       <span class="code-comment"># move curr forward</span>
+    
+    <span class="code-keyword">return</span> prev
+
+<span class="code-comment"># Time: O(n)  Space: O(1)</span></pre></div>
+        </div>
+        <div class="tip-box">
+          <div class="tip-box-label">Interview tip</div>
+          <div class="tip-box-text">Always check for null/None before accessing .next. Forgetting null checks is the most common linked list mistake. Say "I'll add null checks here" even if the interviewer hasn't asked.</div>
+        </div>
+        <div class="concept-block">
+          <div class="concept-label">Practice problems</div>
+          <div class="problem-list">
+            <div class="problem-item"><span class="problem-name">Reverse Linked List</span><div class="problem-right"><span class="problem-diff diff-easy">Easy</span><a class="problem-link" href="https://leetcode.com/problems/reverse-linked-list/" target="_blank">LeetCode #206 ↗</a></div></div>
+            <div class="problem-item"><span class="problem-name">Linked List Cycle</span><div class="problem-right"><span class="problem-diff diff-easy">Easy</span><a class="problem-link" href="https://leetcode.com/problems/linked-list-cycle/" target="_blank">LeetCode #141 ↗</a></div></div>
+            <div class="problem-item"><span class="problem-name">Merge Two Sorted Lists</span><div class="problem-right"><span class="problem-diff diff-easy">Easy</span><a class="problem-link" href="https://leetcode.com/problems/merge-two-sorted-lists/" target="_blank">LeetCode #21 ↗</a></div></div>
+            <div class="problem-item"><span class="problem-name">Remove Nth Node From End of List</span><div class="problem-right"><span class="problem-diff diff-medium">Medium</span><a class="problem-link" href="https://leetcode.com/problems/remove-nth-node-from-end-of-list/" target="_blank">LeetCode #19 ↗</a></div></div>
+            <div class="problem-item"><span class="problem-name">Reorder List</span><div class="problem-right"><span class="problem-diff diff-medium">Medium</span><a class="problem-link" href="https://leetcode.com/problems/reorder-list/" target="_blank">LeetCode #143 ↗</a></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Module 4 -->
+    <div class="module">
+      <div class="module-head" onclick="toggle(this)">
+        <span class="module-num">04</span>
+        <div class="module-info">
+          <div class="module-title">Stacks & Queues</div>
+          <div class="module-meta">Week 2  ·  LIFO and FIFO patterns</div>
+        </div>
+        <span class="module-badge badge-easy">Week 2</span>
+        <span class="module-toggle">▶</span>
+      </div>
+      <div class="module-body">
+        <div class="concept-block">
+          <div class="concept-label">When to use each</div>
+          <div class="concept-text">
+            <p><strong>Stack (LIFO)</strong> — use when you need to process things in reverse order, track opening/closing pairs (brackets), or undo operations. Implemented with a list in Python.</p>
+            <p><strong>Queue (FIFO)</strong> — use for level-order traversal of trees, BFS in graphs, or processing items in arrival order. Use collections.deque in Python for O(1) operations.</p>
+          </div>
+        </div>
+        <div class="concept-block">
+          <div class="concept-label">Classic stack problem — valid parentheses</div>
+          <div class="code-block"><pre><span class="code-keyword">def</span> <span class="code-fn">is_valid</span>(s):
+    stack = []
+    pairs = {<span class="code-string">')'</span>: <span class="code-string">'('</span>, <span class="code-string">'}'</span>: <span class="code-string">'{'</span>, <span class="code-string">']'</span>: <span class="code-string">'['</span>}
+    
+    <span class="code-keyword">for</span> char <span class="code-keyword">in</span> s:
+        <span class="code-keyword">if</span> char <span class="code-keyword">in</span> pairs:
+            <span class="code-keyword">if not</span> stack <span class="code-keyword">or</span> stack[-<span class="code-num">1</span>] != pairs[char]:
+                <span class="code-keyword">return</span> <span class="code-keyword">False</span>
+            stack.pop()
+        <span class="code-keyword">else</span>:
+            stack.append(char)
+    
+    <span class="code-keyword">return not</span> stack
+
+<span class="code-comment"># Time: O(n)  Space: O(n)</span></pre></div>
+        </div>
+        <div class="concept-block">
+          <div class="concept-label">Practice problems</div>
+          <div class="problem-list">
+            <div class="problem-item"><span class="problem-name">Valid Parentheses</span><div class="problem-right"><span class="problem-diff diff-easy">Easy</span><a class="problem-link" href="https://leetcode.com/problems/valid-parentheses/" target="_blank">LeetCode #20 ↗</a></div></div>
+            <div class="problem-item"><span class="problem-name">Min Stack</span><div class="problem-right"><span class="problem-diff diff-medium">Medium</span><a class="problem-link" href="https://leetcode.com/problems/min-stack/" target="_blank">LeetCode #155 ↗</a></div></div>
+            <div class="problem-item"><span class="problem-name">Daily Temperatures</span><div class="problem-right"><span class="problem-diff diff-medium">Medium</span><a class="problem-link" href="https://leetcode.com/problems/daily-temperatures/" target="_blank">LeetCode #739 ↗</a></div></div>
+            <div class="problem-item"><span class="problem-name">Evaluate Reverse Polish Notation</span><div class="problem-right"><span class="problem-diff diff-medium">Medium</span><a class="problem-link" href="https://leetcode.com/problems/evaluate-reverse-polish-notation/" target="_blank">LeetCode #150 ↗</a></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Module 5 -->
+    <div class="module">
+      <div class="module-head" onclick="toggle(this)">
+        <span class="module-num">05</span>
+        <div class="module-info">
+          <div class="module-title">Binary Search</div>
+          <div class="module-meta">Week 3  ·  Eliminate half the search space each step</div>
+        </div>
+        <span class="module-badge badge-medium">Week 3</span>
+        <span class="module-toggle">▶</span>
+      </div>
+      <div class="module-body">
+        <div class="concept-block">
+          <div class="concept-label">The key insight</div>
+          <div class="concept-text">
+            <p>Binary search isn't just for finding a value in a sorted array. The real pattern is: <strong>any time you can eliminate half the search space based on a condition, you can use binary search.</strong></p>
+            <p>Watch for phrases like "sorted array", "find the minimum", "find the boundary", "search in rotated array" — these all hint at binary search.</p>
+          </div>
+        </div>
+        <div class="concept-block">
+          <div class="concept-label">Template — memorise this</div>
+          <div class="code-block"><pre><span class="code-keyword">def</span> <span class="code-fn">binary_search</span>(nums, target):
+    left, right = <span class="code-num">0</span>, len(nums) - <span class="code-num">1</span>
+    
+    <span class="code-keyword">while</span> left &lt;= right:
+        mid = left + (right - left) // <span class="code-num">2</span>  <span class="code-comment"># avoids overflow</span>
+        
+        <span class="code-keyword">if</span> nums[mid] == target:
+            <span class="code-keyword">return</span> mid
+        <span class="code-keyword">elif</span> nums[mid] &lt; target:
+            left = mid + <span class="code-num">1</span>   <span class="code-comment"># search right half</span>
+        <span class="code-keyword">else</span>:
+            right = mid - <span class="code-num">1</span>  <span class="code-comment"># search left half</span>
+    
+    <span class="code-keyword">return</span> -<span class="code-num">1</span>  <span class="code-comment"># not found</span>
+
+<span class="code-comment"># Time: O(log n)  Space: O(1)</span></pre></div>
+        </div>
+        <div class="tip-box">
+          <div class="tip-box-label">Common mistake</div>
+          <div class="tip-box-text">Use <code>mid = left + (right - left) // 2</code> not <code>mid = (left + right) // 2</code>. The second can cause integer overflow in languages like Java and C#. Always use the safe version — interviewers notice this.</div>
+        </div>
+        <div class="concept-block">
+          <div class="concept-label">Practice problems</div>
+          <div class="problem-list">
+            <div class="problem-item"><span class="problem-name">Binary Search</span><div class="problem-right"><span class="problem-diff diff-easy">Easy</span><a class="problem-link" href="https://leetcode.com/problems/binary-search/" target="_blank">LeetCode #704 ↗</a></div></div>
+            <div class="problem-item"><span class="problem-name">Search a 2D Matrix</span><div class="problem-right"><span class="problem-diff diff-medium">Medium</span><a class="problem-link" href="https://leetcode.com/problems/search-a-2d-matrix/" target="_blank">LeetCode #74 ↗</a></div></div>
+            <div class="problem-item"><span class="problem-name">Find Minimum in Rotated Sorted Array</span><div class="problem-right"><span class="problem-diff diff-medium">Medium</span><a class="problem-link" href="https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/" target="_blank">LeetCode #153 ↗</a></div></div>
+            <div class="problem-item"><span class="problem-name">Search in Rotated Sorted Array</span><div class="problem-right"><span class="problem-diff diff-medium">Medium</span><a class="problem-link" href="https://leetcode.com/problems/search-in-rotated-sorted-array/" target="_blank">LeetCode #33 ↗</a></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Module 6 -->
+    <div class="module">
+      <div class="module-head" onclick="toggle(this)">
+        <span class="module-num">06</span>
+        <div class="module-info">
+          <div class="module-title">Trees & Recursion</div>
+          <div class="module-meta">Week 4–5  ·  Very common at all levels</div>
+        </div>
+        <span class="module-badge badge-medium">Week 4</span>
+        <span class="module-toggle">▶</span>
+      </div>
+      <div class="module-body">
+        <div class="concept-block">
+          <div class="concept-label">The three traversals — must know all three</div>
+          <div class="code-block"><pre><span class="code-comment"># Inorder: Left -> Root -> Right (gives sorted order for BST)</span>
+<span class="code-keyword">def</span> <span class="code-fn">inorder</span>(root):
+    <span class="code-keyword">if not</span> root: <span class="code-keyword">return</span> []
+    <span class="code-keyword">return</span> inorder(root.left) + [root.val] + inorder(root.right)
+
+<span class="code-comment"># Preorder: Root -> Left -> Right (copy a tree)</span>
+<span class="code-keyword">def</span> <span class="code-fn">preorder</span>(root):
+    <span class="code-keyword">if not</span> root: <span class="code-keyword">return</span> []
+    <span class="code-keyword">return</span> [root.val] + preorder(root.left) + preorder(root.right)
+
+<span class="code-comment"># Postorder: Left -> Right -> Root (delete a tree)</span>
+<span class="code-keyword">def</span> <span class="code-fn">postorder</span>(root):
+    <span class="code-keyword">if not</span> root: <span class="code-keyword">return</span> []
+    <span class="code-keyword">return</span> postorder(root.left) + postorder(root.right) + [root.val]
+
+<span class="code-comment"># All: Time O(n)  Space O(h) where h = height of tree</span></pre></div>
+        </div>
+        <div class="concept-block">
+          <div class="concept-label">BFS — level order traversal</div>
+          <div class="code-block"><pre><span class="code-keyword">from</span> collections <span class="code-keyword">import</span> deque
+
+<span class="code-keyword">def</span> <span class="code-fn">level_order</span>(root):
+    <span class="code-keyword">if not</span> root: <span class="code-keyword">return</span> []
+    result, queue = [], deque([root])
+    
+    <span class="code-keyword">while</span> queue:
+        level = []
+        <span class="code-keyword">for</span> _ <span class="code-keyword">in</span> range(len(queue)):
+            node = queue.popleft()
+            level.append(node.val)
+            <span class="code-keyword">if</span> node.left: queue.append(node.left)
+            <span class="code-keyword">if</span> node.right: queue.append(node.right)
+        result.append(level)
+    
+    <span class="code-keyword">return</span> result
+
+<span class="code-comment"># Time: O(n)  Space: O(n)</span></pre></div>
+        </div>
+        <div class="concept-block">
+          <div class="concept-label">Practice problems</div>
+          <div class="problem-list">
+            <div class="problem-item"><span class="problem-name">Maximum Depth of Binary Tree</span><div class="problem-right"><span class="problem-diff diff-easy">Easy</span><a class="problem-link" href="https://leetcode.com/problems/maximum-depth-of-binary-tree/" target="_blank">LeetCode #104 ↗</a></div></div>
+            <div class="problem-item"><span class="problem-name">Invert Binary Tree</span><div class="problem-right"><span class="problem-diff diff-easy">Easy</span><a class="problem-link" href="https://leetcode.com/problems/invert-binary-tree/" target="_blank">LeetCode #226 ↗</a></div></div>
+            <div class="problem-item"><span class="problem-name">Validate Binary Search Tree</span><div class="problem-right"><span class="problem-diff diff-medium">Medium</span><a class="problem-link" href="https://leetcode.com/problems/validate-binary-search-tree/" target="_blank">LeetCode #98 ↗</a></div></div>
+            <div class="problem-item"><span class="problem-name">Level Order Traversal</span><div class="problem-right"><span class="problem-diff diff-medium">Medium</span><a class="problem-link" href="https://leetcode.com/problems/binary-tree-level-order-traversal/" target="_blank">LeetCode #102 ↗</a></div></div>
+            <div class="problem-item"><span class="problem-name">Lowest Common Ancestor of BST</span><div class="problem-right"><span class="problem-diff diff-medium">Medium</span><a class="problem-link" href="https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/" target="_blank">LeetCode #235 ↗</a></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Module 7 -->
+    <div class="module">
+      <div class="module-head" onclick="toggle(this)">
+        <span class="module-num">07</span>
+        <div class="module-info">
+          <div class="module-title">Graphs & BFS / DFS</div>
+          <div class="module-meta">Week 5–6  ·  Senior-level favourite</div>
+        </div>
+        <span class="module-badge badge-medium">Week 5</span>
+        <span class="module-toggle">▶</span>
+      </div>
+      <div class="module-body">
+        <div class="concept-block">
+          <div class="concept-label">When to use BFS vs DFS</div>
+          <div class="concept-text">
+            <p><strong>BFS</strong> — use when you need the shortest path, or need to explore level by level. Uses a queue.</p>
+            <p><strong>DFS</strong> — use when you need to explore all paths, detect cycles, or find connected components. Uses recursion or a stack.</p>
+          </div>
+        </div>
+        <div class="concept-block">
+          <div class="concept-label">DFS template</div>
+          <div class="code-block"><pre><span class="code-keyword">def</span> <span class="code-fn">dfs</span>(graph, node, visited):
+    <span class="code-keyword">if</span> node <span class="code-keyword">in</span> visited:
+        <span class="code-keyword">return</span>
+    
+    visited.add(node)
+    <span class="code-comment"># process node here</span>
+    
+    <span class="code-keyword">for</span> neighbour <span class="code-keyword">in</span> graph[node]:
+        dfs(graph, neighbour, visited)
+
+<span class="code-comment"># Time: O(V + E)  Space: O(V)</span>
+<span class="code-comment"># V = vertices, E = edges</span></pre></div>
+        </div>
+        <div class="concept-block">
+          <div class="concept-label">Practice problems</div>
+          <div class="problem-list">
+            <div class="problem-item"><span class="problem-name">Number of Islands</span><div class="problem-right"><span class="problem-diff diff-medium">Medium</span><a class="problem-link" href="https://leetcode.com/problems/number-of-islands/" target="_blank">LeetCode #200 ↗</a></div></div>
+            <div class="problem-item"><span class="problem-name">Clone Graph</span><div class="problem-right"><span class="problem-diff diff-medium">Medium</span><a class="problem-link" href="https://leetcode.com/problems/clone-graph/" target="_blank">LeetCode #133 ↗</a></div></div>
+            <div class="problem-item"><span class="problem-name">Course Schedule</span><div class="problem-right"><span class="problem-diff diff-medium">Medium</span><a class="problem-link" href="https://leetcode.com/problems/course-schedule/" target="_blank">LeetCode #207 ↗</a></div></div>
+            <div class="problem-item"><span class="problem-name">Pacific Atlantic Water Flow</span><div class="problem-right"><span class="problem-diff diff-medium">Medium</span><a class="problem-link" href="https://leetcode.com/problems/pacific-atlantic-water-flow/" target="_blank">LeetCode #417 ↗</a></div></div>
+            <div class="problem-item"><span class="problem-name">Word Ladder</span><div class="problem-right"><span class="problem-diff diff-hard">Hard</span><a class="problem-link" href="https://leetcode.com/problems/word-ladder/" target="_blank">LeetCode #127 ↗</a></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Module 8 -->
+    <div class="module">
+      <div class="module-head" onclick="toggle(this)">
+        <span class="module-num">08</span>
+        <div class="module-info">
+          <div class="module-title">Dynamic Programming</div>
+          <div class="module-meta">Week 7  ·  Hardest topic — most rewarding to crack</div>
+        </div>
+        <span class="module-badge badge-hard">Week 7</span>
+        <span class="module-toggle">▶</span>
+      </div>
+      <div class="module-body">
+        <div class="concept-block">
+          <div class="concept-label">What DP actually is</div>
+          <div class="concept-text">
+            <p>Dynamic Programming is just <strong>recursion + memoization</strong>. If a recursive solution recalculates the same subproblems, store the results in a table and reuse them.</p>
+            <p>The two signs you need DP: <strong>(1) overlapping subproblems</strong> — the same calculation is done multiple times, and <strong>(2) optimal substructure</strong> — the best solution is built from best solutions to smaller problems.</p>
+          </div>
+        </div>
+        <div class="concept-block">
+          <div class="concept-label">Classic — Fibonacci with memoization</div>
+          <div class="code-block"><pre><span class="code-comment"># Without DP: O(2ⁿ) — terrible</span>
+<span class="code-keyword">def</span> <span class="code-fn">fib_slow</span>(n):
+    <span class="code-keyword">if</span> n &lt;= <span class="code-num">1</span>: <span class="code-keyword">return</span> n
+    <span class="code-keyword">return</span> fib_slow(n-<span class="code-num">1</span>) + fib_slow(n-<span class="code-num">2</span>)
+
+<span class="code-comment"># With memoization: O(n) — excellent</span>
+<span class="code-keyword">def</span> <span class="code-fn">fib</span>(n, memo={}):
+    <span class="code-keyword">if</span> n <span class="code-keyword">in</span> memo: <span class="code-keyword">return</span> memo[n]
+    <span class="code-keyword">if</span> n &lt;= <span class="code-num">1</span>: <span class="code-keyword">return</span> n
+    memo[n] = fib(n-<span class="code-num">1</span>, memo) + fib(n-<span class="code-num">2</span>, memo)
+    <span class="code-keyword">return</span> memo[n]
+
+<span class="code-comment"># Time: O(n)  Space: O(n)</span></pre></div>
+        </div>
+        <div class="concept-block">
+          <div class="concept-label">Practice problems — in this order</div>
+          <div class="problem-list">
+            <div class="problem-item"><span class="problem-name">Climbing Stairs</span><div class="problem-right"><span class="problem-diff diff-easy">Easy</span><a class="problem-link" href="https://leetcode.com/problems/climbing-stairs/" target="_blank">LeetCode #70 ↗</a></div></div>
+            <div class="problem-item"><span class="problem-name">House Robber</span><div class="problem-right"><span class="problem-diff diff-medium">Medium</span><a class="problem-link" href="https://leetcode.com/problems/house-robber/" target="_blank">LeetCode #198 ↗</a></div></div>
+            <div class="problem-item"><span class="problem-name">Coin Change</span><div class="problem-right"><span class="problem-diff diff-medium">Medium</span><a class="problem-link" href="https://leetcode.com/problems/coin-change/" target="_blank">LeetCode #322 ↗</a></div></div>
+            <div class="problem-item"><span class="problem-name">Longest Increasing Subsequence</span><div class="problem-right"><span class="problem-diff diff-medium">Medium</span><a class="problem-link" href="https://leetcode.com/problems/longest-increasing-subsequence/" target="_blank">LeetCode #300 ↗</a></div></div>
+            <div class="problem-item"><span class="problem-name">Word Break</span><div class="problem-right"><span class="problem-diff diff-medium">Medium</span><a class="problem-link" href="https://leetcode.com/problems/word-break/" target="_blank">LeetCode #139 ↗</a></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Weekly checklist -->
+  <div class="page-section">
+    <div class="sec-head">
+      <span class="sec-num">05</span>
+      <span class="sec-title">Week 1 checklist — start here</span>
+      <div class="sec-rule"></div>
+    </div>
+    <p style="font-size:0.875rem;color:var(--ink3);margin-bottom:1.5rem;font-family:var(--mono)">Check off each item as you complete it. Progress saves in your browser.</p>
+    <div class="checklist" id="checklist">
+      <label class="check-item"><input type="checkbox" onchange="updateProgress()"> Understand Big O notation — can explain O(1), O(n), O(log n), O(n²)</label>
+      <label class="check-item"><input type="checkbox" onchange="updateProgress()"> Solve Two Sum on LeetCode (Hash Map solution)</label>
+      <label class="check-item"><input type="checkbox" onchange="updateProgress()"> Solve Best Time to Buy and Sell Stock</label>
+      <label class="check-item"><input type="checkbox" onchange="updateProgress()"> Solve Contains Duplicate</label>
+      <label class="check-item"><input type="checkbox" onchange="updateProgress()"> Understand Two Pointers pattern — can code palindrome check from scratch</label>
+      <label class="check-item"><input type="checkbox" onchange="updateProgress()"> Understand Sliding Window pattern — can code max subarray sum</label>
+      <label class="check-item"><input type="checkbox" onchange="updateProgress()"> Solve Valid Anagram</label>
+      <label class="check-item"><input type="checkbox" onchange="updateProgress()"> Solve Longest Substring Without Repeating Characters</label>
+      <label class="check-item"><input type="checkbox" onchange="updateProgress()"> Practise saying your thought process out loud while solving</label>
+      <label class="check-item"><input type="checkbox" onchange="updateProgress()"> Solve 3Sum (hard for week 1 — attempt even if you don't finish)</label>
+    </div>
+  </div>
+
+  <!-- What's next -->
+  <div class="page-section">
+    <div class="sec-head">
+      <span class="sec-num">06</span>
+      <span class="sec-title">What's coming next</span>
+      <div class="sec-rule"></div>
+    </div>
+    <div class="phase-grid">
+      <div class="phase-card">
+        <div class="phase-week">Next module</div>
+        <div class="phase-name">System design interviews</div>
+        <div class="phase-topics">How to design URL shorteners, chat apps, Instagram, ride-sharing systems — the senior engineer interview round</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-week">After that</div>
+        <div class="phase-name">Behavioural interviews</div>
+        <div class="phase-topics">STAR method, answering "tell me about yourself", handling conflict questions, Amazon Leadership Principles</div>
+      </div>
+    </div>
+    <div class="tip-box" style="margin-top:1.5rem">
+      <div class="tip-box-label">How to use this with Claude</div>
+      <div class="tip-box-text">Come back to this chat anytime. Say "give me a mock problem on arrays" or "explain dynamic programming again" or "mock interview me right now" — I'll quiz you, review your code, and give feedback exactly like a real interviewer would.</div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p class="footer-text">Interview Preparation Course · Built for Isuru Mahanama · Start with Module 01 and work in order</p>
+</footer>
+
+<script>
+function toggle(head) {
+  const body = head.nextElementSibling;
+  const arrow = head.querySelector('.module-toggle');
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  arrow.classList.toggle('open', !isOpen);
+}
+
+function updateProgress() {
+  const items = document.querySelectorAll('.check-item input');
+  const checked = document.querySelectorAll('.check-item input:checked').length;
+  const pct = Math.round((checked / items.length) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressPct').textContent = pct + '%';
+  document.querySelectorAll('.check-item').forEach(item => {
+    item.classList.toggle('checked', item.querySelector('input').checked);
+  });
+}
+</script>
+</body>
+</html>

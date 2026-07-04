@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>.NET & Angular Interview Prep — Isuru Mahanama</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f8f8f6;
+  --white:#ffffff;
+  --ink:#0a0a0a;
+  --ink2:#3a3a3a;
+  --ink3:#6b6b6b;
+  --ink4:#9a9a9a;
+  --rule:#e2e2e0;
+  --rule2:#eeeeec;
+  --green:#2d6a4f;
+  --green-bg:#f0fdf4;
+  --green-border:#bbf7d0;
+  --blue:#2563eb;
+  --blue-bg:#eff6ff;
+  --blue-border:#bfdbfe;
+  --purple:#7c3aed;
+  --purple-bg:#f5f3ff;
+  --purple-border:#ddd6fe;
+  --amber:#b45309;
+  --amber-bg:#fffbeb;
+  --amber-border:#fde68a;
+  --red:#dc2626;
+  --red-bg:#fef2f2;
+  --mono:'DM Mono',monospace;
+  --sans:'DM Sans',sans-serif;
+  --serif:'Instrument Serif',serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration:none}
+
+/* Nav */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(248,248,246,0.93);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--rule);
+  padding:0 2rem;height:52px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.nav-title{font-family:var(--mono);font-size:0.78rem;font-weight:500;color:var(--ink)}
+.nav-left{display:flex;align-items:center;gap:1.5rem}
+.nav-pages{display:flex;gap:0.25rem;flex-wrap:wrap}
+.nav-page{font-family:var(--mono);font-size:0.72rem;color:var(--ink4);padding:4px 10px;border-radius:4px;transition:all 0.15s;white-space:nowrap}
+.nav-page:hover{color:var(--ink);background:var(--rule2);text-decoration:none}
+.nav-page.active{color:var(--green);background:var(--green-bg);border:1px solid var(--green-border)}
+.nav-links{display:flex;gap:1.5rem}
+.nav-links a{font-family:var(--mono);font-size:0.72rem;color:var(--ink4);transition:color 0.15s}
+.nav-links a:hover{color:var(--ink)}
+
+/* Hero */
+.hero{padding:8rem 2rem 4rem;max-width:860px;margin:0 auto}
+.hero-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:var(--mono);font-size:0.72rem;font-weight:500;
+  color:var(--blue);background:var(--blue-bg);
+  border:1px solid var(--blue-border);
+  border-radius:100px;padding:4px 12px;margin-bottom:1.5rem;
+}
+.hero h1{
+  font-family:var(--serif);font-style:italic;
+  font-size:clamp(2.2rem,5vw,3.5rem);font-weight:400;
+  line-height:1.1;letter-spacing:-0.02em;
+  color:var(--ink);margin-bottom:1rem;
+}
+.hero-desc{font-size:1rem;color:var(--ink2);max-width:580px;line-height:1.75;margin-bottom:2.5rem}
+.hero-desc strong{color:var(--ink);font-weight:500}
+
+/* Tech switcher */
+.tech-tabs{display:flex;gap:1px;background:var(--rule);border:1px solid var(--rule);margin-bottom:2rem;width:fit-content}
+.tech-tab{
+  font-family:var(--mono);font-size:0.8rem;font-weight:500;
+  padding:0.6rem 1.5rem;background:var(--white);
+  color:var(--ink3);cursor:pointer;transition:all 0.15s;border:none;
+}
+.tech-tab.active-dotnet{background:var(--purple-bg);color:var(--purple)}
+.tech-tab.active-angular{background:var(--red-bg);color:var(--red)}
+
+/* Layout */
+.wrap{max-width:860px;margin:0 auto;padding:0 2rem}
+.page-section{padding:3.5rem 0;border-top:1px solid var(--rule)}
+.sec-head{display:flex;align-items:center;gap:1rem;margin-bottom:2rem}
+.sec-num{font-family:var(--mono);font-size:0.7rem;color:var(--ink4)}
+.sec-title{font-size:1.2rem;font-weight:600;color:var(--ink);letter-spacing:-0.02em}
+.sec-rule{flex:1;height:1px;background:var(--rule2)}
+
+/* Content panels */
+.panel{display:none}
+.panel.active{display:block}
+
+/* Question cards */
+.q-card{
+  border:1px solid var(--rule);background:var(--white);
+  border-radius:4px;margin-bottom:1px;overflow:hidden;
+}
+.q-head{
+  padding:1.1rem 1.5rem;display:flex;align-items:flex-start;
+  gap:1rem;cursor:pointer;transition:background 0.15s;user-select:none;
+}
+.q-head:hover{background:var(--bg)}
+.q-level{
+  font-family:var(--mono);font-size:0.65rem;font-weight:500;
+  padding:2px 8px;border-radius:3px;white-space:nowrap;margin-top:2px;flex-shrink:0;
+}
+.lv-basic{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
+.lv-mid{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border)}
+.lv-senior{background:var(--red-bg);color:var(--red);border:1px solid #fecaca}
+.q-text{font-size:0.95rem;font-weight:500;color:var(--ink);flex:1;line-height:1.5}
+.q-toggle{font-family:var(--mono);font-size:0.8rem;color:var(--ink4);transition:transform 0.2s;flex-shrink:0;margin-top:2px}
+.q-toggle.open{transform:rotate(90deg)}
+.q-body{display:none;padding:0 1.5rem 1.5rem;border-top:1px solid var(--rule2)}
+.q-body.open{display:block}
+
+/* Answer content */
+.answer-label{font-family:var(--mono);font-size:0.68rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink4);margin:1.25rem 0 0.6rem}
+.answer-text{font-size:0.9rem;color:var(--ink2);line-height:1.75}
+.answer-text p+p{margin-top:0.75rem}
+.answer-text strong{color:var(--ink);font-weight:500}
+.answer-text ul{margin:0.5rem 0 0 1rem}
+.answer-text ul li{margin-bottom:0.35rem}
+
+.code-block{
+  background:#0a0a0a;border-radius:4px;
+  padding:1.25rem 1.5rem;margin:0.75rem 0;overflow-x:auto;
+}
+.code-block pre{font-family:var(--mono);font-size:0.78rem;color:#e0e0e0;line-height:1.7;margin:0}
+.ck{color:#a3a3ff}.cs{color:#86efac}.cf{color:#93c5fd}.cn{color:#fbbf24}.cc{color:#555}
+
+.tip-box{background:var(--blue-bg);border:1px solid var(--blue-border);border-radius:4px;padding:1rem 1.25rem;margin-top:1rem}
+.tip-label{font-family:var(--mono);font-size:0.68rem;font-weight:500;color:var(--blue);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.4rem}
+.tip-text{font-size:0.875rem;color:var(--ink2);line-height:1.7}
+
+.warn-box{background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:4px;padding:1rem 1.25rem;margin-top:1rem}
+.warn-label{font-family:var(--mono);font-size:0.68rem;font-weight:500;color:var(--amber);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.4rem}
+.warn-text{font-size:0.875rem;color:var(--ink2);line-height:1.7}
+
+/* Category label */
+.cat-label{
+  font-family:var(--mono);font-size:0.7rem;font-weight:500;
+  letter-spacing:0.08em;text-transform:uppercase;
+  color:var(--ink4);padding:0.5rem 0;
+  border-bottom:1px solid var(--rule);margin-bottom:1px;margin-top:2rem;
+}
+.cat-label:first-child{margin-top:0}
+
+/* Checklist */
+.checklist{display:flex;flex-direction:column;gap:0}
+.check-item{display:flex;align-items:flex-start;gap:0.75rem;padding:0.75rem 0;border-bottom:1px solid var(--rule2);font-size:0.9rem;color:var(--ink2);cursor:pointer}
+.check-item:first-child{border-top:1px solid var(--rule2)}
+.check-item input{margin-top:3px;accent-color:var(--green);cursor:pointer;flex-shrink:0}
+.check-item.checked{color:var(--ink4);text-decoration:line-through}
+
+/* Scenario box */
+.scenario{background:var(--purple-bg);border:1px solid var(--purple-border);border-radius:4px;padding:1.25rem 1.5rem;margin-top:1rem}
+.scenario-label{font-family:var(--mono);font-size:0.68rem;font-weight:500;color:var(--purple);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.5rem}
+.scenario-text{font-size:0.875rem;color:var(--ink2);line-height:1.7;font-style:italic}
+
+footer{border-top:1px solid var(--rule);padding:2rem;text-align:center}
+.footer-text{font-family:var(--mono);font-size:0.72rem;color:var(--ink4)}
+
+@media(max-width:640px){
+  nav{padding:0 1rem}
+  .nav-links{display:none}
+  .hero{padding:6rem 1rem 3rem}
+  .wrap{padding:0 1rem}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-left">
+    <span class="nav-title">Interview Prep</span>
+    <div class="nav-pages">
+      <a href="index.html" class="nav-page">Algorithms</a>
+      <a href="dotnet-angular-prep.html" class="nav-page active">.NET &amp; Angular</a>
+      <a href="ai-ml-prep.html" class="nav-page">AI &amp; ML</a>
+      <a href="system-design-prep.html" class="nav-page">System Design</a>
+      <a href="database-prep.html" class="nav-page">Databases</a>
+      <a href="behavioural-prep.html" class="nav-page">Behavioural</a>
+      <a href="modern-tech-prep.html" class="nav-page">Modern Tech</a>
+    </div>
+  </div>
+  <div class="nav-links">
+    <a href="#checklist">Checklist</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-tag">Technology Interview Prep</div>
+  <h1>.NET Core & Angular<br>interview mastery</h1>
+  <p class="hero-desc">
+    Unlike coding interviews, technology interviews test <strong>depth of understanding</strong> — can you explain why, not just how? These are the questions senior engineers get asked at big companies. Know every answer here cold.
+  </p>
+  <div class="tech-tabs">
+    <button class="tech-tab active-dotnet" onclick="switchTab('dotnet')">⚙️ .NET Core</button>
+    <button class="tech-tab" onclick="switchTab('angular')">🔺 Angular</button>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- ═══════════════════════════════ .NET PANEL ═══════════════════════════════ -->
+  <div class="panel active" id="panel-dotnet">
+
+    <div class="page-section" id="concepts">
+      <div class="sec-head">
+        <span class="sec-num">01</span>
+        <span class="sec-title">.NET Core — Interview questions</span>
+        <div class="sec-rule"></div>
+      </div>
+
+      <!-- FUNDAMENTALS -->
+      <div class="cat-label">Fundamentals — every interview asks these</div>
+
+      <div class="q-card">
+        <div class="q-head" onclick="toggle(this)">
+          <span class="q-level lv-basic">Basic</span>
+          <span class="q-text">What is the difference between .NET Framework and .NET Core?</span>
+          <span class="q-toggle">▶</span>
+        </div>
+        <div class="q-body">
+          <div class="answer-label">Answer</div>
+          <div class="answer-text">
+            <p><strong>.NET Framework</strong> is Windows-only, older, and ships with Windows. It cannot run on Linux or Mac.</p>
+            <p><strong>.NET Core</strong> (now just called .NET from version 5+) is cross-platform, open source, faster, and designed for modern cloud and microservice architectures. It runs on Windows, Linux, and Mac.</p>
+            <p>At Mainframe you use .NET Core — which is the right choice for any new production system today.</p>
+          </div>
+          <div class="tip-box">
+            <div class="tip-label">How to say it in an interview</div>
+            <div class="tip-text">"In my current role at Mainframe we use .NET Core specifically because of its performance advantages and cross-platform support — it runs identically on our development machines and Linux production servers."</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head" onclick="toggle(this)">
+          <span class="q-level lv-basic">Basic</span>
+          <span class="q-text">What is middleware in ASP.NET Core and how does it work?</span>
+          <span class="q-toggle">▶</span>
+        </div>
+        <div class="q-body">
+          <div class="answer-label">Answer</div>
+          <div class="answer-text">
+            <p>Middleware is software assembled into the request pipeline to handle requests and responses. Each middleware component can: process the request, pass it to the next middleware, or short-circuit the pipeline.</p>
+            <p>They run in the order they are added in <strong>Program.cs</strong> — order matters.</p>
+          </div>
+          <div class="code-block"><pre><span class="cc">// Order matters — authentication before authorization</span>
+app.UseAuthentication();
+app.UseAuthorization();
+app.UseMiddleware&lt;<span class="cf">LoggingMiddleware</span>&gt;();
+app.MapControllers();</pre></div>
+          <div class="answer-text">
+            <p>Common built-in middleware: <strong>UseRouting, UseAuthentication, UseAuthorization, UseStaticFiles, UseCors, UseExceptionHandler.</strong></p>
+          </div>
+          <div class="tip-box">
+            <div class="tip-label">Senior angle</div>
+            <div class="tip-text">Mention that at Mainframe you used middleware for cross-cutting concerns like logging and authentication — it keeps that logic out of your controllers and centralised in one place.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head" onclick="toggle(this)">
+          <span class="q-level lv-basic">Basic</span>
+          <span class="q-text">What is dependency injection and why is it important?</span>
+          <span class="q-toggle">▶</span>
+        </div>
+        <div class="q-body">
+          <div class="answer-label">Answer</div>
+          <div class="answer-text">
+            <p>Dependency Injection (DI) is a design pattern where a class receives its dependencies from outside rather than creating them itself. ASP.NET Core has DI built in.</p>
+            <p><strong>Why it matters:</strong> loose coupling, easier testing, and easier to swap implementations.</p>
+          </div>
+          <div class="code-block"><pre><span class="cc">// Register in Program.cs</span>
+builder.Services.AddScoped&lt;<span class="cf">IPaymentService</span>, <span class="cf">IPayService</span>&gt;();
+
+<span class="cc">// Inject into controller — no "new" keyword needed</span>
+<span class="ck">public class</span> <span class="cf">PaymentController</span> : ControllerBase
+{
+    <span class="ck">private readonly</span> <span class="cf">IPaymentService</span> _paymentService;
+
+    <span class="ck">public</span> <span class="cf">PaymentController</span>(<span class="cf">IPaymentService</span> paymentService)
+    {
+        _paymentService = paymentService;
+    }
+}</pre></div>
+          <div class="answer-label">Three lifetimes — must know all three</div>
+          <div class="answer-text">
+            <ul>
+              <li><strong>Transient</strong> — new instance every time it's requested. Use for lightweight, stateless services.</li>
+              <li><strong>Scoped</strong> — one instance per HTTP request. Most common — use for database contexts.</li>
+              <li><strong>Singleton</strong> — one instance for the entire application lifetime. Use for caching, configuration.</li>
+            </ul>
+          </div>
+          <div class="warn-box">
+            <div class="warn-label">Common interview trap</div>
+            <div class="warn-text">Interviewers often ask "what happens if you inject a Scoped service into a Singleton?" — the answer is a captive dependency problem. The Singleton holds a reference to a Scoped service that should have been disposed, causing bugs. Always inject services of equal or longer lifetime.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ASYNC -->
+      <div class="cat-label">Async & Performance</div>
+
+      <div class="q-card">
+        <div class="q-head" onclick="toggle(this)">
+          <span class="q-level lv-mid">Mid</span>
+          <span class="q-text">What is async/await and when should you use it?</span>
+          <span class="q-toggle">▶</span>
+        </div>
+        <div class="q-body">
+          <div class="answer-label">Answer</div>
+          <div class="answer-text">
+            <p><strong>async/await</strong> is C#'s way of writing asynchronous code that looks synchronous. When you await an operation, the thread is released to handle other requests — it doesn't sit there blocked waiting.</p>
+            <p>Use it for I/O-bound operations: database calls, HTTP requests, file reads. Don't use it for CPU-bound work — use Task.Run() for that instead.</p>
+          </div>
+          <div class="code-block"><pre><span class="cc">// ❌ Synchronous — blocks the thread</span>
+<span class="ck">public</span> <span class="cf">BetSlip</span> GetBetSlip(<span class="ck">int</span> id)
+{
+    <span class="ck">return</span> _db.BetSlips.Find(id);
+}
+
+<span class="cc">// ✓ Asynchronous — releases thread while waiting</span>
+<span class="ck">public async</span> Task&lt;<span class="cf">BetSlip</span>&gt; GetBetSlipAsync(<span class="ck">int</span> id)
+{
+    <span class="ck">return await</span> _db.BetSlips.FindAsync(id);
+}</pre></div>
+          <div class="tip-box">
+            <div class="tip-label">Real world connection</div>
+            <div class="tip-text">"In our betting platform at Mainframe, all our database and third-party API calls are async — because under load, blocking threads would exhaust the thread pool and kill throughput."</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head" onclick="toggle(this)">
+          <span class="q-level lv-mid">Mid</span>
+          <span class="q-text">What is the difference between IEnumerable, IQueryable, and IList?</span>
+          <span class="q-toggle">▶</span>
+        </div>
+        <div class="q-body">
+          <div class="answer-label">Answer</div>
+          <div class="answer-text">
+            <ul>
+              <li><strong>IEnumerable</strong> — in-memory iteration. Query executes immediately when enumerated. Best for in-memory collections.</li>
+              <li><strong>IQueryable</strong> — deferred execution. Query is built up and sent to the database as SQL only when enumerated. Best for database queries — lets EF Core optimise the SQL.</li>
+              <li><strong>IList</strong> — in-memory, supports indexing and modification. Use when you need to add/remove items.</li>
+            </ul>
+          </div>
+          <div class="code-block"><pre><span class="cc">// IQueryable — filter happens IN the database (efficient)</span>
+<span class="cf">IQueryable</span>&lt;<span class="cf">Bet</span>&gt; query = _db.Bets.Where(b => b.UserId == userId);
+
+<span class="cc">// IEnumerable — ALL records loaded first, THEN filtered in memory (slow!)</span>
+<span class="cf">IEnumerable</span>&lt;<span class="cf">Bet</span>&gt; bets = _db.Bets.AsEnumerable().Where(b => b.UserId == userId);</pre></div>
+          <div class="warn-box">
+            <div class="warn-label">Senior-level point to make</div>
+            <div class="warn-text">Using IEnumerable on a large table is a common performance bug — it loads every row into memory before filtering. Always use IQueryable for database queries and only materialise with .ToList() or .ToListAsync() when you're done composing the query.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- WEB API -->
+      <div class="cat-label">Web API & REST</div>
+
+      <div class="q-card">
+        <div class="q-head" onclick="toggle(this)">
+          <span class="q-level lv-mid">Mid</span>
+          <span class="q-text">What are the HTTP status codes and when do you use each?</span>
+          <span class="q-toggle">▶</span>
+        </div>
+        <div class="q-body">
+          <div class="answer-label">Answer — must know these cold</div>
+          <div class="answer-text">
+            <ul>
+              <li><strong>200 OK</strong> — success, returns data</li>
+              <li><strong>201 Created</strong> — resource created successfully (POST)</li>
+              <li><strong>204 No Content</strong> — success but nothing to return (DELETE)</li>
+              <li><strong>400 Bad Request</strong> — client sent invalid data</li>
+              <li><strong>401 Unauthorized</strong> — not authenticated (no token)</li>
+              <li><strong>403 Forbidden</strong> — authenticated but not allowed</li>
+              <li><strong>404 Not Found</strong> — resource doesn't exist</li>
+              <li><strong>409 Conflict</strong> — duplicate or state conflict</li>
+              <li><strong>500 Internal Server Error</strong> — something broke on the server</li>
+            </ul>
+          </div>
+          <div class="tip-box">
+            <div class="tip-label">Interview tip</div>
+            <div class="tip-text">Interviewers ask "what's the difference between 401 and 403?" very often. 401 = you haven't logged in. 403 = you're logged in but don't have permission. Simple but many people get it wrong.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head" onclick="toggle(this)">
+          <span class="q-level lv-mid">Mid</span>
+          <span class="q-text">How does JWT authentication work in ASP.NET Core?</span>
+          <span class="q-toggle">▶</span>
+        </div>
+        <div class="q-body">
+          <div class="answer-label">Answer</div>
+          <div class="answer-text">
+            <p>JWT (JSON Web Token) has three parts: <strong>Header.Payload.Signature</strong> — all base64 encoded and dot-separated.</p>
+            <p>The flow: user logs in → server validates credentials → server creates a JWT signed with a secret key → client stores the token → client sends it in every request as <code>Authorization: Bearer &lt;token&gt;</code> → server validates the signature and reads the claims.</p>
+          </div>
+          <div class="code-block"><pre><span class="cc">// Setup in Program.cs</span>
+builder.Services.AddAuthentication(<span class="cf">JwtBearerDefaults</span>.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = <span class="ck">new</span> <span class="cf">TokenValidationParameters</span>
+        {
+            ValidateIssuer = <span class="ck">true</span>,
+            ValidateAudience = <span class="ck">true</span>,
+            ValidateLifetime = <span class="ck">true</span>,
+            ValidateIssuerSigningKey = <span class="ck">true</span>,
+            IssuerSigningKey = <span class="ck">new</span> <span class="cf">SymmetricSecurityKey</span>(
+                Encoding.UTF8.GetBytes(config[<span class="cs">"Jwt:Secret"</span>]))
+        };
+    });
+
+<span class="cc">// Protect an endpoint</span>
+[<span class="cf">Authorize</span>]
+[<span class="cf">HttpGet</span>(<span class="cs">"profile"</span>)]
+<span class="ck">public</span> <span class="cf">IActionResult</span> GetProfile() => Ok(_userService.GetCurrentUser());</pre></div>
+          <div class="tip-box">
+            <div class="tip-label">Real world connection</div>
+            <div class="tip-text">You implemented JWT in HirMe for your freelancing platform — mention that. Also mention you handled authentication in the betting platform's third-party API integrations at Mainframe.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SENIOR LEVEL -->
+      <div class="cat-label">Senior-level questions</div>
+
+      <div class="q-card">
+        <div class="q-head" onclick="toggle(this)">
+          <span class="q-level lv-senior">Senior</span>
+          <span class="q-text">How do you handle database transactions in .NET Core to ensure data consistency?</span>
+          <span class="q-toggle">▶</span>
+        </div>
+        <div class="q-body">
+          <div class="answer-label">Answer</div>
+          <div class="answer-text">
+            <p>In EF Core, SaveChanges() wraps everything in a transaction by default. For complex operations spanning multiple steps, use explicit transactions:</p>
+          </div>
+          <div class="code-block"><pre><span class="ck">using var</span> transaction = <span class="ck">await</span> _db.Database.BeginTransactionAsync();
+<span class="ck">try</span>
+{
+    <span class="cc">// Place bet</span>
+    _db.Bets.Add(bet);
+    <span class="ck">await</span> _db.SaveChangesAsync();
+
+    <span class="cc">// Deduct balance</span>
+    user.Balance -= bet.Amount;
+    <span class="ck">await</span> _db.SaveChangesAsync();
+
+    <span class="ck">await</span> transaction.CommitAsync();
+}
+<span class="ck">catch</span>
+{
+    <span class="ck">await</span> transaction.RollbackAsync(); <span class="cc">// both operations undone</span>
+    <span class="ck">throw</span>;
+}</pre></div>
+          <div class="answer-text">
+            <p>This is critical in a betting system — if the bet is placed but the balance deduction fails, you have a consistency problem. The transaction ensures both succeed or both are rolled back.</p>
+          </div>
+          <div class="scenario">
+            <div class="scenario-label">Real scenario from your experience</div>
+            <div class="scenario-text">"In our betting platform at Mainframe, every bet placement is wrapped in a transaction — we place the bet AND deduct the user's balance atomically. If either step fails, the whole operation rolls back. A partial failure would mean a user placed a bet without paying for it."</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head" onclick="toggle(this)">
+          <span class="q-level lv-senior">Senior</span>
+          <span class="q-text">What is the repository pattern and when would you use it?</span>
+          <span class="q-toggle">▶</span>
+        </div>
+        <div class="q-body">
+          <div class="answer-label">Answer</div>
+          <div class="answer-text">
+            <p>The Repository pattern abstracts the data access layer behind an interface, so your business logic doesn't depend directly on EF Core or any specific database technology.</p>
+          </div>
+          <div class="code-block"><pre><span class="cc">// Interface — business logic depends on this abstraction</span>
+<span class="ck">public interface</span> <span class="cf">IBetRepository</span>
+{
+    Task&lt;<span class="cf">Bet</span>&gt; GetByIdAsync(<span class="ck">int</span> id);
+    Task AddAsync(<span class="cf">Bet</span> bet);
+    Task&lt;IEnumerable&lt;<span class="cf">Bet</span>&gt;&gt; GetByUserAsync(<span class="ck">int</span> userId);
+}
+
+<span class="cc">// Implementation — the actual EF Core code</span>
+<span class="ck">public class</span> <span class="cf">BetRepository</span> : <span class="cf">IBetRepository</span>
+{
+    <span class="ck">private readonly</span> <span class="cf">AppDbContext</span> _db;
+    <span class="ck">public</span> <span class="cf">BetRepository</span>(<span class="cf">AppDbContext</span> db) => _db = db;
+
+    <span class="ck">public async</span> Task&lt;<span class="cf">Bet</span>&gt; GetByIdAsync(<span class="ck">int</span> id)
+        => <span class="ck">await</span> _db.Bets.FindAsync(id);
+}</pre></div>
+          <div class="answer-text">
+            <p><strong>Benefits:</strong> easier unit testing (mock the interface), swap database without touching business logic, cleaner separation of concerns.</p>
+            <p><strong>When NOT to use it:</strong> simple CRUD applications where the abstraction adds complexity without benefit. EF Core's DbContext is already an abstraction.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head" onclick="toggle(this)">
+          <span class="q-level lv-senior">Senior</span>
+          <span class="q-text">How would you optimise a slow SQL query in a high-traffic system?</span>
+          <span class="q-toggle">▶</span>
+        </div>
+        <div class="q-body">
+          <div class="answer-label">Answer — give this as a structured process</div>
+          <div class="answer-text">
+            <ul>
+              <li><strong>1. Identify</strong> — use SQL Server's execution plan or EF Core logging to find the slow query</li>
+              <li><strong>2. Indexes</strong> — add indexes on columns used in WHERE, JOIN, and ORDER BY. Composite indexes for multi-column filters</li>
+              <li><strong>3. Avoid N+1</strong> — use .Include() in EF Core to eager-load related data instead of making one query per record</li>
+              <li><strong>4. Select only what you need</strong> — use .Select() to fetch specific columns, not entire entities</li>
+              <li><strong>5. Pagination</strong> — never return all rows. Use .Skip().Take() for paging</li>
+              <li><strong>6. Caching</strong> — cache frequently read, rarely changed data in memory</li>
+              <li><strong>7. Raw SQL</strong> — for complex queries, drop down to raw SQL or stored procedures</li>
+            </ul>
+          </div>
+          <div class="scenario">
+            <div class="scenario-label">Real scenario from your experience</div>
+            <div class="scenario-text">"At Mainframe I worked on optimising queries against transaction tables with millions of rows. The main wins were adding composite indexes on UserId + CreatedDate columns we were filtering on, and switching from loading full entities to projecting only the fields needed for the response."</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DESIGN PATTERNS & SOLID -->
+      <div class="cat-label">Design Patterns & SOLID</div>
+
+      <div class="q-card">
+        <div class="q-head" onclick="toggle(this)">
+          <span class="q-level lv-mid">Mid</span>
+          <span class="q-text">What are the SOLID principles?</span>
+          <span class="q-toggle">▶</span>
+        </div>
+        <div class="q-body">
+          <div class="answer-label">Answer — memorise all five</div>
+          <div class="answer-text">
+            <ul>
+              <li><strong>S — Single Responsibility</strong> — a class should have one reason to change. One job.</li>
+              <li><strong>O — Open/Closed</strong> — open for extension, closed for modification. Add behaviour without changing existing code.</li>
+              <li><strong>L — Liskov Substitution</strong> — subtypes must be substitutable for their base types without breaking things.</li>
+              <li><strong>I — Interface Segregation</strong> — many small specific interfaces are better than one large general one.</li>
+              <li><strong>D — Dependency Inversion</strong> — depend on abstractions (interfaces), not concrete implementations. This is what DI enables.</li>
+            </ul>
+          </div>
+          <div class="tip-box">
+            <div class="tip-label">Interview tip</div>
+            <div class="tip-text">Don't just recite them — give a one-line example of each. For Dependency Inversion, mention that ASP.NET Core's built-in DI is a direct application of this principle, which ties back to your daily work.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head" onclick="toggle(this)">
+          <span class="q-level lv-mid">Mid</span>
+          <span class="q-text">Explain the Singleton, Factory, and Strategy patterns</span>
+          <span class="q-toggle">▶</span>
+        </div>
+        <div class="q-body">
+          <div class="answer-label">Answer — the three most-asked patterns</div>
+          <div class="answer-text">
+            <ul>
+              <li><strong>Singleton</strong> — ensures only one instance of a class exists. Use for shared resources like configuration or a logger. In .NET Core, register a service as Singleton in DI.</li>
+              <li><strong>Factory</strong> — creates objects without exposing the creation logic. The caller asks the factory for an object and gets the right type back. Useful when object creation is complex or depends on conditions.</li>
+              <li><strong>Strategy</strong> — defines a family of interchangeable algorithms. Swap behaviour at runtime. e.g. different payment processing strategies (card vs IPay) behind a common interface.</li>
+            </ul>
+          </div>
+          <div class="code-block"><pre><span class="cc">// Strategy pattern — swap payment methods behind an interface</span>
+<span class="ck">public interface</span> <span class="cf">IPaymentStrategy</span>
+{
+    Task&lt;<span class="cf">PaymentResult</span>&gt; ProcessAsync(<span class="ck">decimal</span> amount);
+}
+
+<span class="ck">public class</span> <span class="cf">IPayStrategy</span> : <span class="cf">IPaymentStrategy</span> { <span class="cc">/* IPay logic */</span> }
+<span class="ck">public class</span> <span class="cf">CardStrategy</span> : <span class="cf">IPaymentStrategy</span> { <span class="cc">/* card logic */</span> }
+
+<span class="cc">// The context picks a strategy at runtime</span>
+<span class="ck">public class</span> <span class="cf">PaymentProcessor</span>
+{
+    <span class="ck">private readonly</span> <span class="cf">IPaymentStrategy</span> _strategy;
+    <span class="ck">public</span> <span class="cf">PaymentProcessor</span>(<span class="cf">IPaymentStrategy</span> strategy) => _strategy = strategy;
+}</pre></div>
+          <div class="scenario">
+            <div class="scenario-label">Connect to your experience</div>
+            <div class="scenario-text">"At Mainframe I integrated IPay as a payment gateway. A clean way to structure multiple payment providers is the Strategy pattern — each provider implements a common interface, so adding a new one doesn't touch existing code. That's the Open/Closed principle in action."</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head" onclick="toggle(this)">
+          <span class="q-level lv-senior">Senior</span>
+          <span class="q-text">What is the Unit of Work pattern and how does it relate to Repository?</span>
+          <span class="q-toggle">▶</span>
+        </div>
+        <div class="q-body">
+          <div class="answer-label">Answer</div>
+          <div class="answer-text">
+            <p>The <strong>Unit of Work</strong> pattern tracks changes across multiple repositories and commits them together as a single transaction. Repository handles one entity type; Unit of Work coordinates saving across many.</p>
+            <p><strong>Key insight:</strong> EF Core's DbContext already implements both patterns — it IS a Unit of Work (SaveChanges commits everything) and DbSet acts as a repository. So adding your own layer on top is often redundant unless you need to abstract away EF Core entirely.</p>
+          </div>
+          <div class="warn-box">
+            <div class="warn-label">Senior-level nuance</div>
+            <div class="warn-text">A great senior answer mentions that wrapping EF Core in custom Repository + Unit of Work is often over-engineering, since DbContext already provides both. Knowing when NOT to apply a pattern is as valuable as knowing the pattern.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════ ANGULAR PANEL ═══════════════════════════════ -->
+  <div class="panel" id="panel-angular">
+
+    <div class="page-section">
+      <div class="sec-head">
+        <span class="sec-num">01</span>
+        <span class="sec-title">Angular — Interview questions</span>
+        <div class="sec-rule"></div>
+      </div>
+
+      <!-- FUNDAMENTALS -->
+      <div class="cat-label">Fundamentals — every interview asks these</div>
+
+      <div class="q-card">
+        <div class="q-head" onclick="toggle(this)">
+          <span class="q-level lv-basic">Basic</span>
+          <span class="q-text">What is Angular and how is it different from React?</span>
+          <span class="q-toggle">▶</span>
+        </div>
+        <div class="q-body">
+          <div class="answer-label">Answer</div>
+          <div class="answer-text">
+            <p><strong>Angular</strong> is a full framework — it comes with everything built in: routing, forms, HTTP client, DI, state management patterns. It uses TypeScript by default and follows an opinionated structure.</p>
+            <p><strong>React</strong> is a UI library — it only handles the view layer. You pick your own router, state management, and HTTP library.</p>
+            <p><strong>Key Angular concepts:</strong> Components, Modules, Services, Directives, Pipes, Dependency Injection, RxJS Observables.</p>
+          </div>
+          <div class="tip-box">
+            <div class="tip-label">How to say it</div>
+            <div class="tip-text">"I use Angular daily at Mainframe for our betting platform frontend. I chose it because its opinionated structure scales well in large teams — everyone follows the same patterns, which reduces cognitive overhead."</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head" onclick="toggle(this)">
+          <span class="q-level lv-basic">Basic</span>
+          <span class="q-text">What is the difference between a Component and a Service in Angular?</span>
+          <span class="q-toggle">▶</span>
+        </div>
+        <div class="q-body">
+          <div class="answer-label">Answer</div>
+          <div class="answer-text">
+            <p><strong>Component</strong> — controls a piece of the UI. Has a template (HTML), styles (CSS), and logic (TypeScript). Responsible for displaying data and handling user interactions.</p>
+            <p><strong>Service</strong> — handles business logic, data fetching, and shared state. Has no UI. Injected into components via DI. Keeps components thin and focused on the view.</p>
+          </div>
+          <div class="code-block"><pre><span class="cc">// Service — handles data, no UI</span>
+@Injectable({ providedIn: <span class="cs">'root'</span> })
+<span class="ck">export class</span> <span class="cf">BetService</span> {
+  <span class="ck">constructor</span>(<span class="ck">private</span> http: <span class="cf">HttpClient</span>) {}
+
+  placeBet(bet: <span class="cf">Bet</span>): Observable&lt;<span class="cf">BetResult</span>&gt; {
+    <span class="ck">return this</span>.http.post&lt;<span class="cf">BetResult</span>&gt;(<span class="cs">'/api/bets'</span>, bet);
+  }
+}
+
+<span class="cc">// Component — handles UI, delegates logic to service</span>
+@Component({ selector: <span class="cs">'app-bet-slip'</span>, templateUrl: <span class="cs">'./bet-slip.component.html'</span> })
+<span class="ck">export class</span> <span class="cf">BetSlipComponent</span> {
+  <span class="ck">constructor</span>(<span class="ck">private</span> betService: <span class="cf">BetService</span>) {}
+
+  onSubmit() {
+    <span class="ck">this</span>.betService.placeBet(<span class="ck">this</span>.bet).subscribe(result => <span class="ck">this</span>.handleResult(result));
+  }
+}</pre></div>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head" onclick="toggle(this)">
+          <span class="q-level lv-basic">Basic</span>
+          <span class="q-text">What are Angular directives? What is the difference between structural and attribute directives?</span>
+          <span class="q-toggle">▶</span>
+        </div>
+        <div class="q-body">
+          <div class="answer-label">Answer</div>
+          <div class="answer-text">
+            <p>Directives extend HTML with new behaviour.</p>
+            <p><strong>Structural directives</strong> — change the DOM structure by adding or removing elements. Prefixed with *.</p>
+            <ul>
+              <li><code>*ngIf</code> — conditionally adds/removes an element</li>
+              <li><code>*ngFor</code> — repeats an element for each item in a list</li>
+              <li><code>*ngSwitch</code> — switches between views</li>
+            </ul>
+            <p><strong>Attribute directives</strong> — change the appearance or behaviour of an existing element without changing the DOM structure.</p>
+            <ul>
+              <li><code>ngClass</code> — adds/removes CSS classes</li>
+              <li><code>ngStyle</code> — applies inline styles</li>
+              <li><code>ngModel</code> — two-way data binding</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- RXJS -->
+      <div class="cat-label">RxJS & Observables — very common at senior level</div>
+
+      <div class="q-card">
+        <div class="q-head" onclick="toggle(this)">
+          <span class="q-level lv-mid">Mid</span>
+          <span class="q-text">What is an Observable and how is it different from a Promise?</span>
+          <span class="q-toggle">▶</span>
+        </div>
+        <div class="q-body">
+          <div class="answer-label">Answer</div>
+          <div class="answer-text">
+            <ul>
+              <li><strong>Promise</strong> — handles one future value. Executes immediately when created. Cannot be cancelled. Used in plain JavaScript.</li>
+              <li><strong>Observable</strong> — handles zero or more values over time. Lazy — only executes when subscribed. Can be cancelled. Can be transformed with operators like map, filter, debounceTime.</li>
+            </ul>
+          </div>
+          <div class="code-block"><pre><span class="cc">// Promise — one value, executes immediately</span>
+<span class="ck">const</span> promise = fetch(<span class="cs">'/api/bets'</span>).then(r => r.json());
+
+<span class="cc">// Observable — lazy, cancellable, can emit multiple values</span>
+<span class="ck">const</span> bets$ = <span class="ck">this</span>.http.get&lt;<span class="cf">Bet</span>[]&gt;(<span class="cs">'/api/bets'</span>).pipe(
+  map(bets => bets.filter(b => b.status === <span class="cs">'active'</span>)),
+  catchError(err => { console.error(err); <span class="ck">return</span> of([]); })
+);
+
+<span class="cc">// Subscribe to get the value</span>
+<span class="ck">const</span> sub = bets$.subscribe(bets => <span class="ck">this</span>.bets = bets);
+
+<span class="cc">// Cancel when done (prevents memory leaks)</span>
+sub.unsubscribe();</pre></div>
+          <div class="warn-box">
+            <div class="warn-label">Memory leak warning — interviewers love this</div>
+            <div class="warn-text">Always unsubscribe from Observables in ngOnDestroy, or use the async pipe in the template which unsubscribes automatically. Forgetting to unsubscribe is the most common Angular memory leak.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head" onclick="toggle(this)">
+          <span class="q-level lv-mid">Mid</span>
+          <span class="q-text">What is the difference between Subject, BehaviorSubject, and ReplaySubject?</span>
+          <span class="q-toggle">▶</span>
+        </div>
+        <div class="q-body">
+          <div class="answer-label">Answer</div>
+          <div class="answer-text">
+            <ul>
+              <li><strong>Subject</strong> — emits values to current subscribers only. Late subscribers miss previous values.</li>
+              <li><strong>BehaviorSubject</strong> — stores the last value. New subscribers immediately get the current value. Most commonly used for shared state.</li>
+              <li><strong>ReplaySubject(n)</strong> — replays the last n values to new subscribers.</li>
+            </ul>
+          </div>
+          <div class="code-block"><pre><span class="cc">// BehaviorSubject — most common for state management</span>
+<span class="ck">private</span> currentUser$ = <span class="ck">new</span> <span class="cf">BehaviorSubject</span>&lt;<span class="cf">User</span> | <span class="ck">null</span>&gt;(<span class="ck">null</span>);
+
+<span class="cc">// Update state</span>
+setUser(user: <span class="cf">User</span>) { <span class="ck">this</span>.currentUser$.next(user); }
+
+<span class="cc">// Read state anywhere</span>
+getUser() { <span class="ck">return this</span>.currentUser$.asObservable(); }</pre></div>
+          <div class="tip-box">
+            <div class="tip-label">Interview tip</div>
+            <div class="tip-text">BehaviorSubject is the go-to for sharing state between components in Angular without a full state management library like NgRx. Mention you use it in your services to share user session data or application state.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PERFORMANCE -->
+      <div class="cat-label">Performance & Senior-level</div>
+
+      <div class="q-card">
+        <div class="q-head" onclick="toggle(this)">
+          <span class="q-level lv-mid">Mid</span>
+          <span class="q-text">What is Change Detection in Angular and how does OnPush work?</span>
+          <span class="q-toggle">▶</span>
+        </div>
+        <div class="q-body">
+          <div class="answer-label">Answer</div>
+          <div class="answer-text">
+            <p>Angular's change detection checks if the UI needs to be updated. By default (<strong>Default strategy</strong>), Angular checks every component in the tree on every event — clicks, HTTP responses, timers.</p>
+            <p><strong>OnPush strategy</strong> — Angular only checks a component when its @Input references change, or an Observable it subscribes to emits. This dramatically reduces unnecessary checks in large applications.</p>
+          </div>
+          <div class="code-block"><pre>@Component({
+  selector: <span class="cs">'app-bet-list'</span>,
+  templateUrl: <span class="cs">'./bet-list.component.html'</span>,
+  changeDetection: <span class="cf">ChangeDetectionStrategy</span>.OnPush  <span class="cc">// ← add this</span>
+})
+<span class="ck">export class</span> <span class="cf">BetListComponent</span> {
+  @Input() bets: <span class="cf">Bet</span>[] = [];  <span class="cc">// only re-renders when this reference changes</span>
+}</pre></div>
+          <div class="tip-box">
+            <div class="tip-label">Senior angle</div>
+            <div class="tip-text">"In our betting platform, real-time odds updates were causing the entire component tree to re-render constantly. Switching list components to OnPush and using the async pipe reduced unnecessary renders significantly."</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head" onclick="toggle(this)">
+          <span class="q-level lv-senior">Senior</span>
+          <span class="q-text">How do you communicate between components in Angular?</span>
+          <span class="q-toggle">▶</span>
+        </div>
+        <div class="q-body">
+          <div class="answer-label">Answer — four ways, know all of them</div>
+          <div class="answer-text">
+            <ul>
+              <li><strong>@Input / @Output</strong> — parent to child (@Input) and child to parent (@Output with EventEmitter). Use for direct parent-child relationships.</li>
+              <li><strong>Service with BehaviorSubject</strong> — shared service holds state, components subscribe. Use for sibling components or distantly related components.</li>
+              <li><strong>ViewChild</strong> — parent accesses child component directly. Use sparingly.</li>
+              <li><strong>NgRx / State management</strong> — centralised store for complex applications. Use when service-based state becomes hard to manage.</li>
+            </ul>
+          </div>
+          <div class="code-block"><pre><span class="cc">// Parent → Child with @Input</span>
+&lt;app-bet-slip [bet]="selectedBet"&gt;&lt;/app-bet-slip&gt;
+
+<span class="cc">// Child → Parent with @Output</span>
+@Output() betPlaced = <span class="ck">new</span> <span class="cf">EventEmitter</span>&lt;<span class="cf">BetResult</span>&gt;();
+onSubmit() { <span class="ck">this</span>.betPlaced.emit(result); }</pre></div>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head" onclick="toggle(this)">
+          <span class="q-level lv-senior">Senior</span>
+          <span class="q-text">What is lazy loading in Angular and why does it matter?</span>
+          <span class="q-toggle">▶</span>
+        </div>
+        <div class="q-body">
+          <div class="answer-label">Answer</div>
+          <div class="answer-text">
+            <p>Lazy loading loads feature modules only when the user navigates to that route — not upfront. This reduces the initial bundle size, making the app load faster.</p>
+          </div>
+          <div class="code-block"><pre><span class="cc">// Without lazy loading — everything loads upfront</span>
+{ path: <span class="cs">'admin'</span>, component: <span class="cf">AdminComponent</span> }
+
+<span class="cc">// With lazy loading — AdminModule only loads when user visits /admin</span>
+{
+  path: <span class="cs">'admin'</span>,
+  loadChildren: () => import(<span class="cs">'./admin/admin.module'</span>)
+    .then(m => m.<span class="cf">AdminModule</span>)
+}</pre></div>
+          <div class="answer-text">
+            <p>Combined with route guards, lazy loading also means users who don't have access to a section never even download that code.</p>
+          </div>
+          <div class="scenario">
+            <div class="scenario-label">Real scenario from your experience</div>
+            <div class="scenario-text">"In the betting platform, the admin reporting module is lazily loaded — regular users never download it. This kept the initial bundle small and improved load time for the majority of users who only use the betting interface."</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Checklist -->
+  <div class="page-section" id="checklist">
+    <div class="sec-head">
+      <span class="sec-num">02</span>
+      <span class="sec-title">Preparation checklist</span>
+      <div class="sec-rule"></div>
+    </div>
+    <p style="font-size:0.875rem;color:var(--ink3);margin-bottom:1.5rem;font-family:var(--mono)">Tick off each topic as you feel confident explaining it out loud without notes.</p>
+    <div class="checklist">
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Can explain .NET Framework vs .NET Core clearly</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Can explain middleware and the request pipeline</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Know all three DI lifetimes and can explain the captive dependency trap</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Understand async/await and when NOT to use it</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Can explain IEnumerable vs IQueryable with a real example</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Know all HTTP status codes and difference between 401 and 403</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Can explain how JWT works end to end</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Can explain database transactions with a real example from Mainframe</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Can explain repository pattern and when not to use it</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Know Angular component vs service distinction</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Can explain structural vs attribute directives with examples</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Can explain Observable vs Promise clearly</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Know Subject vs BehaviorSubject vs ReplaySubject</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Can explain OnPush change detection and when to use it</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Can explain all four component communication methods</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Can explain lazy loading with a real example</label>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p class="footer-text">.NET & Angular Interview Prep · Built for Isuru Mahanama · Know every answer here well enough to say it out loud without notes</p>
+</footer>
+
+<script>
+function toggle(head) {
+  const body = head.nextElementSibling;
+  const arrow = head.querySelector('.q-toggle');
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  arrow.classList.toggle('open', !isOpen);
+}
+
+function switchTab(tech) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tech-tab').forEach(t => {
+    t.classList.remove('active-dotnet', 'active-angular');
+  });
+  document.getElementById('panel-' + tech).classList.add('active');
+  const tabs = document.querySelectorAll('.tech-tab');
+  if (tech === 'dotnet') tabs[0].classList.add('active-dotnet');
+  else tabs[1].classList.add('active-angular');
+}
+
+function chk(input) {
+  input.closest('.check-item').classList.toggle('checked', input.checked);
+}
+</script>
+</body>
+</html>

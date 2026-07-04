@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Salary Negotiation Guide — Isuru Mahanama</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f8f8f6;--white:#ffffff;--ink:#0a0a0a;--ink2:#3a3a3a;--ink3:#6b6b6b;--ink4:#9a9a9a;
+  --rule:#e2e2e0;--rule2:#eeeeec;
+  --green:#2d6a4f;--green-bg:#f0fdf4;--green-border:#bbf7d0;
+  --blue:#2563eb;--blue-bg:#eff6ff;--blue-border:#bfdbfe;
+  --purple:#7c3aed;--purple-bg:#f5f3ff;--purple-border:#ddd6fe;
+  --amber:#b45309;--amber-bg:#fffbeb;--amber-border:#fde68a;
+  --red:#dc2626;--red-bg:#fef2f2;
+  --teal:#0d9488;--teal-bg:#f0fdfa;--teal-border:#99f6e4;
+  --mono:'DM Mono',monospace;--sans:'DM Sans',sans-serif;--serif:'Instrument Serif',serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration:none}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(248,248,246,0.93);backdrop-filter:blur(10px);border-bottom:1px solid var(--rule);padding:0 2rem;height:52px;display:flex;align-items:center;justify-content:space-between}
+.nav-title{font-family:var(--mono);font-size:0.78rem;font-weight:500;color:var(--ink)}
+.nav-left{display:flex;align-items:center;gap:1.5rem}
+.nav-pages{display:flex;gap:0.25rem;flex-wrap:wrap}
+.nav-page{font-family:var(--mono);font-size:0.72rem;color:var(--ink4);padding:4px 10px;border-radius:4px;transition:all 0.15s;white-space:nowrap}
+.nav-page:hover{color:var(--ink);background:var(--rule2)}
+.nav-links{display:flex;gap:1.5rem}
+.nav-links a{font-family:var(--mono);font-size:0.72rem;color:var(--ink4)}
+.hero{padding:8rem 2rem 4rem;max-width:860px;margin:0 auto}
+.hero-tag{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:0.72rem;font-weight:500;border-radius:100px;padding:4px 12px;margin-bottom:1.5rem}
+.hero h1{font-family:var(--serif);font-style:italic;font-size:clamp(2.2rem,5vw,3.5rem);font-weight:400;line-height:1.1;letter-spacing:-0.02em;color:var(--ink);margin-bottom:1rem}
+.hero-desc{font-size:1rem;color:var(--ink2);max-width:580px;line-height:1.75;margin-bottom:1rem}
+.hero-desc strong{color:var(--ink);font-weight:500}
+.wrap{max-width:860px;margin:0 auto;padding:0 2rem}
+.page-section{padding:3.5rem 0;border-top:1px solid var(--rule)}
+.sec-head{display:flex;align-items:center;gap:1rem;margin-bottom:2rem}
+.sec-num{font-family:var(--mono);font-size:0.7rem;color:var(--ink4)}
+.sec-title{font-size:1.2rem;font-weight:600;color:var(--ink);letter-spacing:-0.02em}
+.sec-rule{flex:1;height:1px;background:var(--rule2)}
+.cat-label{font-family:var(--mono);font-size:0.7rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink4);padding:0.5rem 0;border-bottom:1px solid var(--rule);margin-bottom:1px;margin-top:2rem}
+.cat-label:first-child{margin-top:0}
+.q-card{border:1px solid var(--rule);background:var(--white);border-radius:4px;margin-bottom:1px;overflow:hidden}
+.q-head{padding:1.1rem 1.5rem;display:flex;align-items:flex-start;gap:1rem;cursor:pointer;transition:background 0.15s;user-select:none}
+.q-head:hover{background:var(--bg)}
+.q-level{font-family:var(--mono);font-size:0.65rem;font-weight:500;padding:2px 8px;border-radius:3px;white-space:nowrap;margin-top:2px;flex-shrink:0}
+.lv-basic{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
+.lv-mid{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border)}
+.lv-senior{background:var(--red-bg);color:var(--red);border:1px solid #fecaca}
+.q-text{font-size:0.95rem;font-weight:500;color:var(--ink);flex:1;line-height:1.5}
+.q-toggle{font-family:var(--mono);font-size:0.8rem;color:var(--ink4);transition:transform 0.2s;flex-shrink:0;margin-top:2px}
+.q-toggle.open{transform:rotate(90deg)}
+.q-body{display:none;padding:0 1.5rem 1.5rem;border-top:1px solid var(--rule2)}
+.q-body.open{display:block}
+.answer-label{font-family:var(--mono);font-size:0.68rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink4);margin:1.25rem 0 0.6rem}
+.answer-text{font-size:0.9rem;color:var(--ink2);line-height:1.75}
+.answer-text p+p{margin-top:0.75rem}
+.answer-text strong{color:var(--ink);font-weight:500}
+.answer-text ul{margin:0.5rem 0 0 1rem}
+.answer-text ul li{margin-bottom:0.35rem}
+.code-block{background:#0a0a0a;border-radius:4px;padding:1.25rem 1.5rem;margin:0.75rem 0;overflow-x:auto}
+.code-block pre{font-family:var(--mono);font-size:0.78rem;color:#e0e0e0;line-height:1.7;margin:0}
+.ck{color:#a3a3ff}.cs{color:#86efac}.cf{color:#93c5fd}.cn{color:#fbbf24}.cc{color:#555}
+.tip-box{background:var(--blue-bg);border:1px solid var(--blue-border);border-radius:4px;padding:1rem 1.25rem;margin-top:1rem}
+.tip-label{font-family:var(--mono);font-size:0.68rem;font-weight:500;color:var(--blue);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.4rem}
+.tip-text{font-size:0.875rem;color:var(--ink2);line-height:1.7}
+.warn-box{background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:4px;padding:1rem 1.25rem;margin-top:1rem}
+.warn-label{font-family:var(--mono);font-size:0.68rem;font-weight:500;color:var(--amber);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.4rem}
+.warn-text{font-size:0.875rem;color:var(--ink2);line-height:1.7}
+.scenario{background:var(--purple-bg);border:1px solid var(--purple-border);border-radius:4px;padding:1.25rem 1.5rem;margin-top:1rem}
+.scenario-label{font-family:var(--mono);font-size:0.68rem;font-weight:500;color:var(--purple);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.5rem}
+.scenario-text{font-size:0.875rem;color:var(--ink2);line-height:1.7;font-style:italic}
+.checklist{display:flex;flex-direction:column;gap:0}
+.check-item{display:flex;align-items:flex-start;gap:0.75rem;padding:0.75rem 0;border-bottom:1px solid var(--rule2);font-size:0.9rem;color:var(--ink2);cursor:pointer}
+.check-item:first-child{border-top:1px solid var(--rule2)}
+.check-item input{margin-top:3px;accent-color:var(--green);cursor:pointer;flex-shrink:0}
+.check-item.checked{color:var(--ink4);text-decoration:line-through}
+footer{border-top:1px solid var(--rule);padding:2rem;text-align:center}
+.footer-text{font-family:var(--mono);font-size:0.72rem;color:var(--ink4)}
+@media(max-width:640px){nav{padding:0 1rem;height:auto;flex-wrap:wrap;padding-top:8px;padding-bottom:8px}.nav-links{display:none}.hero{padding:7rem 1rem 3rem}.wrap{padding:0 1rem}}
+.nav-page.active{color:var(--green);background:var(--green-bg);border:1px solid var(--green-border)}
+.hero-tag{color:var(--green);background:var(--green-bg);border:1px solid var(--green-border)}
+.script-box{background:var(--white);border:1px solid var(--rule);border-left:3px solid var(--green);border-radius:4px;padding:1.1rem 1.4rem;margin:0.75rem 0}
+.script-label{font-family:var(--mono);font-size:0.68rem;font-weight:500;color:var(--green);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:0.5rem}
+.script-text{font-size:0.9rem;color:var(--ink2);line-height:1.7;font-style:italic}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-left">
+    <span class="nav-title">Interview Prep</span>
+    <div class="nav-pages">
+      <a href="negotiation-prep.html" class="nav-page active">Salary Negotiation</a>
+    </div>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-tag">Salary Negotiation</div>
+  <h1>Negotiating<br>your offer</h1>
+  <p class="hero-desc">The single <strong>highest-value hour</strong> of your job search. Most engineers accept the first number out of fear. A calm, prepared negotiation can add significantly to your compensation — and companies expect it. This guide gives you the mindset and the exact words.</p>
+</div>
+
+<div class="wrap">
+
+  <div class="page-section">
+    <div class="sec-head"><span class="sec-num">01</span><span class="sec-title">The mindset — before anything else</span><div class="sec-rule"></div></div>
+    <div class="answer-text" style="font-size:0.95rem;line-height:1.8">
+      <p><strong>Negotiating is expected.</strong> Recruiters make a first offer assuming you'll negotiate. Accepting immediately often means leaving money on the table that was already budgeted for you.</p>
+      <p><strong>It won't cost you the offer.</strong> A polite, reasonable negotiation almost never makes a company rescind. They already decided they want you — that's why they made an offer.</p>
+      <p><strong>The company has more information than you.</strong> They know the salary band; you often don't. Your job is to close that information gap before committing to any number.</p>
+    </div>
+    <div class="warn-box"><div class="warn-label">The one rule that matters most</div><div class="warn-text">Never give a specific number first if you can avoid it. Whoever names a number first anchors the negotiation — and it's usually not in your favour. Deflect the "what's your expected salary" question until you have an offer.</div></div>
+  </div>
+
+  <div class="page-section">
+    <div class="sec-head"><span class="sec-num">02</span><span class="sec-title">Handling "What's your expected salary?"</span><div class="sec-rule"></div></div>
+    <p style="font-size:0.9rem;color:var(--ink2);margin-bottom:1rem;line-height:1.75">This question usually comes early — often from a recruiter in the first call. Your goal is to deflect gracefully without giving a number.</p>
+
+    <div class="script-box"><div class="script-label">Deflect — best option</div><div class="script-text">"I'd love to learn more about the role and responsibilities first before discussing numbers. I'm confident we can find a package that works for both of us if I'm the right fit. Could you share the budgeted range for this position?"</div></div>
+
+    <div class="script-box"><div class="script-label">If they push for a number</div><div class="script-text">"I'm focused on finding the right opportunity, and compensation is one part of that. I'd rather understand the full picture first — but if it helps, I'm looking for a competitive package for a senior full-stack engineer with my experience. What range did you have in mind?"</div></div>
+
+    <div class="script-box"><div class="script-label">If they absolutely insist</div><div class="script-text">Give a researched range, not a single number, and anchor slightly high: "Based on my research for this kind of role, I'd expect somewhere in the range of X to Y — but I'm flexible depending on the overall package."</div></div>
+
+    <div class="tip-box"><div class="tip-label">Do your homework first</div><div class="tip-text">Research salary ranges before any call using Levels.fyi, Glassdoor, and LinkedIn Salary for the specific company, role, and location. Know the market rate so you can recognise a low offer and justify a counter.</div></div>
+  </div>
+
+  <div class="page-section">
+    <div class="sec-head"><span class="sec-num">03</span><span class="sec-title">When you get the offer</span><div class="sec-rule"></div></div>
+
+    <div class="q-card"><div class="q-head" onclick="toggle(this)"><span class="q-level lv-basic">Step 1</span><span class="q-text">Never accept on the spot — even a great offer</span><span class="q-toggle">▶</span></div>
+      <div class="q-body"><div class="answer-text"><p>Always thank them warmly and ask for time to consider. This is completely normal and expected. Accepting instantly signals you'd have taken less.</p></div>
+      <div class="script-box"><div class="script-label">Say this</div><div class="script-text">"Thank you so much — I'm really excited about this opportunity. This is an important decision, so I'd appreciate a few days to review the full offer. Could I get back to you by [date]?"</div></div></div>
+    </div>
+
+    <div class="q-card"><div class="q-head" onclick="toggle(this)"><span class="q-level lv-mid">Step 2</span><span class="q-text">Make your counter — the actual ask</span><span class="q-toggle">▶</span></div>
+      <div class="q-body"><div class="answer-text"><p>Counter with confidence and a reason. Anchor above your target so there's room to settle. Always be specific and professional.</p></div>
+      <div class="script-box"><div class="script-label">The counter script</div><div class="script-text">"Thank you again for the offer — I'm very excited to join. Based on my experience building production full-stack systems, my research on market rates, and the value I'll bring, I was hoping we could get the base salary to [your target, anchored a bit high]. Is there flexibility there?"</div></div>
+      <div class="warn-box"><div class="warn-label">Keep it short</div><div class="warn-text">After you make the ask, stop talking. Silence is powerful. Don't over-justify or apologise. Let them respond.</div></div></div>
+    </div>
+
+    <div class="q-card"><div class="q-head" onclick="toggle(this)"><span class="q-level lv-senior">Step 3</span><span class="q-text">Negotiate the whole package, not just base salary</span><span class="q-toggle">▶</span></div>
+      <div class="q-body"><div class="answer-text"><p>If they can't move on base salary, other things are often negotiable:</p><ul><li><strong>Signing bonus</strong> — often easier to grant than raising base</li><li><strong>Equity / stock</strong> — significant at bigger companies</li><li><strong>Annual bonus target</strong></li><li><strong>Remote/flexible working arrangements</strong></li><li><strong>Extra vacation days</strong></li><li><strong>Learning/conference budget</strong></li><li><strong>Earlier salary review</strong> — e.g. a review at 6 months instead of 12</li></ul></div></div>
+    </div>
+
+    <div class="q-card"><div class="q-head" onclick="toggle(this)"><span class="q-level lv-senior">Leverage</span><span class="q-text">Using a competing offer (if you have one)</span><span class="q-toggle">▶</span></div>
+      <div class="q-body"><div class="answer-text"><p>A competing offer is the strongest leverage. Use it honestly and without threats.</p></div>
+      <div class="script-box"><div class="script-label">Say this</div><div class="script-text">"I want to be transparent — I have another offer on the table, but your company is genuinely my first choice. If we could close the gap on compensation, I'd be ready to sign immediately."</div></div>
+      <div class="warn-box"><div class="warn-label">Never bluff</div><div class="warn-text">Don't invent a competing offer. If they call your bluff (e.g. "can you send the offer letter?"), you lose all credibility. Only use real leverage.</div></div></div>
+    </div>
+  </div>
+
+  <div class="page-section">
+    <div class="sec-head"><span class="sec-num">04</span><span class="sec-title">Special note for your situation</span><div class="sec-rule"></div></div>
+    <div class="answer-text" style="font-size:0.95rem;line-height:1.8">
+      <p><strong>If you're targeting international or remote roles from Sri Lanka:</strong> compensation varies enormously by company location and whether they pay local or global rates. Research whether the company pays location-adjusted or global salaries — this hugely affects what's reasonable to ask.</p>
+      <p><strong>Your leverage points:</strong> 2.5+ years of production experience, full-stack range (Angular + .NET + SQL), a strong CS degree with an ML thesis, and rare bridge skills (ML + software engineering). These justify asking for the upper end of a range, not the middle.</p>
+      <p><strong>Don't undervalue yourself.</strong> Engineers from smaller markets often anchor too low out of habit. If you're applying to global companies, benchmark against global rates for the role, not local ones.</p>
+    </div>
+  </div>
+
+  <div class="page-section" id="checklist">
+    <div class="sec-head"><span class="sec-num">05</span><span class="sec-title">Negotiation checklist</span><div class="sec-rule"></div></div>
+    <div class="checklist">
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Researched market rates (Levels.fyi, Glassdoor, LinkedIn)</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Know my target number and my walk-away number</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Prepared to deflect "expected salary" without giving a number</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Will never accept an offer on the spot</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Prepared my counter script with a specific number and reason</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Know the other levers beyond base salary</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Understand local vs global pay if applying internationally</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Practised saying the scripts out loud so they feel natural</label>
+    </div>
+  </div>
+</div>
+
+<footer><p class="footer-text">Salary Negotiation Guide · Built for Isuru Mahanama · One prepared conversation can be worth more than months of work — take it seriously</p></footer>
+
+<script>
+function toggle(head){const body=head.nextElementSibling;const arrow=head.querySelector('.q-toggle');const isOpen=body.classList.contains('open');body.classList.toggle('open',!isOpen);arrow.classList.toggle('open',!isOpen);}
+function chk(input){input.closest('.check-item').classList.toggle('checked',input.checked);}
+</script>
+</body>
+</html>

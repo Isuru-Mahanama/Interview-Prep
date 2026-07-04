@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI, ML & Data Science Interview Prep — Isuru Mahanama</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f8f8f6;--white:#ffffff;--ink:#0a0a0a;--ink2:#3a3a3a;--ink3:#6b6b6b;--ink4:#9a9a9a;
+  --rule:#e2e2e0;--rule2:#eeeeec;
+  --green:#2d6a4f;--green-bg:#f0fdf4;--green-border:#bbf7d0;
+  --blue:#2563eb;--blue-bg:#eff6ff;--blue-border:#bfdbfe;
+  --purple:#7c3aed;--purple-bg:#f5f3ff;--purple-border:#ddd6fe;
+  --amber:#b45309;--amber-bg:#fffbeb;--amber-border:#fde68a;
+  --red:#dc2626;--red-bg:#fef2f2;
+  --mono:'DM Mono',monospace;--sans:'DM Sans',sans-serif;--serif:'Instrument Serif',serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration:none}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(248,248,246,0.93);backdrop-filter:blur(10px);border-bottom:1px solid var(--rule);padding:0 2rem;height:52px;display:flex;align-items:center;justify-content:space-between}
+.nav-title{font-family:var(--mono);font-size:0.78rem;font-weight:500;color:var(--ink)}
+.nav-left{display:flex;align-items:center;gap:1.5rem}
+.nav-pages{display:flex;gap:0.25rem;flex-wrap:wrap}
+.nav-page{font-family:var(--mono);font-size:0.72rem;color:var(--ink4);padding:4px 10px;border-radius:4px;transition:all 0.15s;white-space:nowrap}
+.nav-page:hover{color:var(--ink);background:var(--rule2)}
+.nav-page.active{color:var(--purple);background:var(--purple-bg);border:1px solid var(--purple-border)}
+.nav-links{display:flex;gap:1.5rem}
+.nav-links a{font-family:var(--mono);font-size:0.72rem;color:var(--ink4)}
+.hero{padding:8rem 2rem 4rem;max-width:860px;margin:0 auto}
+.hero-tag{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:0.72rem;font-weight:500;color:var(--purple);background:var(--purple-bg);border:1px solid var(--purple-border);border-radius:100px;padding:4px 12px;margin-bottom:1.5rem}
+.hero h1{font-family:var(--serif);font-style:italic;font-size:clamp(2.2rem,5vw,3.5rem);font-weight:400;line-height:1.1;letter-spacing:-0.02em;color:var(--ink);margin-bottom:1rem}
+.hero-desc{font-size:1rem;color:var(--ink2);max-width:580px;line-height:1.75;margin-bottom:1rem}
+.hero-desc strong{color:var(--ink);font-weight:500}
+.wrap{max-width:860px;margin:0 auto;padding:0 2rem}
+.page-section{padding:3.5rem 0;border-top:1px solid var(--rule)}
+.sec-head{display:flex;align-items:center;gap:1rem;margin-bottom:2rem}
+.sec-num{font-family:var(--mono);font-size:0.7rem;color:var(--ink4)}
+.sec-title{font-size:1.2rem;font-weight:600;color:var(--ink);letter-spacing:-0.02em}
+.sec-rule{flex:1;height:1px;background:var(--rule2)}
+.cat-label{font-family:var(--mono);font-size:0.7rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink4);padding:0.5rem 0;border-bottom:1px solid var(--rule);margin-bottom:1px;margin-top:2rem}
+.cat-label:first-child{margin-top:0}
+.q-card{border:1px solid var(--rule);background:var(--white);border-radius:4px;margin-bottom:1px;overflow:hidden}
+.q-head{padding:1.1rem 1.5rem;display:flex;align-items:flex-start;gap:1rem;cursor:pointer;transition:background 0.15s;user-select:none}
+.q-head:hover{background:var(--bg)}
+.q-level{font-family:var(--mono);font-size:0.65rem;font-weight:500;padding:2px 8px;border-radius:3px;white-space:nowrap;margin-top:2px;flex-shrink:0}
+.lv-basic{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
+.lv-mid{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border)}
+.lv-senior{background:var(--red-bg);color:var(--red);border:1px solid #fecaca}
+.q-text{font-size:0.95rem;font-weight:500;color:var(--ink);flex:1;line-height:1.5}
+.q-toggle{font-family:var(--mono);font-size:0.8rem;color:var(--ink4);transition:transform 0.2s;flex-shrink:0;margin-top:2px}
+.q-toggle.open{transform:rotate(90deg)}
+.q-body{display:none;padding:0 1.5rem 1.5rem;border-top:1px solid var(--rule2)}
+.q-body.open{display:block}
+.answer-label{font-family:var(--mono);font-size:0.68rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink4);margin:1.25rem 0 0.6rem}
+.answer-text{font-size:0.9rem;color:var(--ink2);line-height:1.75}
+.answer-text p+p{margin-top:0.75rem}
+.answer-text strong{color:var(--ink);font-weight:500}
+.answer-text ul{margin:0.5rem 0 0 1rem}
+.answer-text ul li{margin-bottom:0.35rem}
+.code-block{background:#0a0a0a;border-radius:4px;padding:1.25rem 1.5rem;margin:0.75rem 0;overflow-x:auto}
+.code-block pre{font-family:var(--mono);font-size:0.78rem;color:#e0e0e0;line-height:1.7;margin:0}
+.ck{color:#a3a3ff}.cs{color:#86efac}.cf{color:#93c5fd}.cn{color:#fbbf24}.cc{color:#555}
+.tip-box{background:var(--blue-bg);border:1px solid var(--blue-border);border-radius:4px;padding:1rem 1.25rem;margin-top:1rem}
+.tip-label{font-family:var(--mono);font-size:0.68rem;font-weight:500;color:var(--blue);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.4rem}
+.tip-text{font-size:0.875rem;color:var(--ink2);line-height:1.7}
+.warn-box{background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:4px;padding:1rem 1.25rem;margin-top:1rem}
+.warn-label{font-family:var(--mono);font-size:0.68rem;font-weight:500;color:var(--amber);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.4rem}
+.warn-text{font-size:0.875rem;color:var(--ink2);line-height:1.7}
+.scenario{background:var(--purple-bg);border:1px solid var(--purple-border);border-radius:4px;padding:1.25rem 1.5rem;margin-top:1rem}
+.scenario-label{font-family:var(--mono);font-size:0.68rem;font-weight:500;color:var(--purple);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.5rem}
+.scenario-text{font-size:0.875rem;color:var(--ink2);line-height:1.7;font-style:italic}
+.checklist{display:flex;flex-direction:column;gap:0}
+.check-item{display:flex;align-items:flex-start;gap:0.75rem;padding:0.75rem 0;border-bottom:1px solid var(--rule2);font-size:0.9rem;color:var(--ink2);cursor:pointer}
+.check-item:first-child{border-top:1px solid var(--rule2)}
+.check-item input{margin-top:3px;accent-color:var(--purple);cursor:pointer;flex-shrink:0}
+.check-item.checked{color:var(--ink4);text-decoration:line-through}
+footer{border-top:1px solid var(--rule);padding:2rem;text-align:center}
+.footer-text{font-family:var(--mono);font-size:0.72rem;color:var(--ink4)}
+@media(max-width:640px){nav{padding:0 1rem}.nav-links{display:none}.hero{padding:6rem 1rem 3rem}.wrap{padding:0 1rem}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-left">
+    <span class="nav-title">Interview Prep</span>
+    <div class="nav-pages">
+      <a href="index.html" class="nav-page">Algorithms</a>
+      <a href="dotnet-angular-prep.html" class="nav-page">.NET &amp; Angular</a>
+      <a href="ai-ml-prep.html" class="nav-page active">AI &amp; ML</a>
+      <a href="system-design-prep.html" class="nav-page">System Design</a>
+      <a href="database-prep.html" class="nav-page">Databases</a>
+      <a href="behavioural-prep.html" class="nav-page">Behavioural</a>
+      <a href="modern-tech-prep.html" class="nav-page">Modern Tech</a>
+      <a href="negotiation-prep.html" class="nav-page">Negotiation</a>
+    </div>
+  </div>
+  <div class="nav-links">
+    <a href="#checklist">Checklist</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-tag">AI · ML · Data Science Prep</div>
+  <h1>AI, Machine Learning<br>& Data Science</h1>
+  <p class="hero-desc">
+    You have a genuine edge here — an <strong>ML thesis on intrusion detection</strong>, OpenCV computer vision projects, and data engineering coursework. These questions turn that academic background into interview-ready answers. Focus on explaining concepts clearly and connecting them to your real work.
+  </p>
+</div>
+
+<div class="wrap">
+
+  <div class="page-section">
+    <div class="sec-head">
+      <span class="sec-num">01</span>
+      <span class="sec-title">Core ML concepts</span>
+      <div class="sec-rule"></div>
+    </div>
+
+    <!-- FUNDAMENTALS -->
+    <div class="cat-label">Fundamentals — always asked</div>
+
+    <div class="q-card">
+      <div class="q-head" onclick="toggle(this)">
+        <span class="q-level lv-basic">Basic</span>
+        <span class="q-text">What is the difference between supervised, unsupervised, and reinforcement learning?</span>
+        <span class="q-toggle">▶</span>
+      </div>
+      <div class="q-body">
+        <div class="answer-label">Answer</div>
+        <div class="answer-text">
+          <ul>
+            <li><strong>Supervised learning</strong> — you have labelled data (input + correct output). The model learns to map inputs to outputs. Examples: classification (spam/not spam), regression (predict house price). Your intrusion detection thesis is supervised — network traffic labelled as attack or normal.</li>
+            <li><strong>Unsupervised learning</strong> — no labels. The model finds patterns on its own. Examples: clustering customers, anomaly detection, dimensionality reduction.</li>
+            <li><strong>Reinforcement learning</strong> — an agent learns by trial and error, getting rewards or penalties. Examples: game-playing AI, robotics.</li>
+          </ul>
+        </div>
+        <div class="tip-box">
+          <div class="tip-label">Connect to your experience</div>
+          <div class="tip-text">"My thesis was a supervised classification problem — I trained models on labelled network traffic from the CSE-CIC-IDS2018 dataset to classify connections as normal or malicious."</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-head" onclick="toggle(this)">
+        <span class="q-level lv-basic">Basic</span>
+        <span class="q-text">What is overfitting and how do you prevent it?</span>
+        <span class="q-toggle">▶</span>
+      </div>
+      <div class="q-body">
+        <div class="answer-label">Answer</div>
+        <div class="answer-text">
+          <p><strong>Overfitting</strong> is when a model learns the training data too well — including its noise — and fails to generalise to new, unseen data. High accuracy on training data, poor accuracy on test data.</p>
+          <p><strong>How to prevent it:</strong></p>
+          <ul>
+            <li><strong>More training data</strong> — the most effective fix</li>
+            <li><strong>Regularisation</strong> — L1/L2 penalties that discourage overly complex models</li>
+            <li><strong>Cross-validation</strong> — validate on multiple data splits</li>
+            <li><strong>Dropout</strong> — randomly disable neurons during training (for neural networks)</li>
+            <li><strong>Early stopping</strong> — stop training when validation error starts rising</li>
+            <li><strong>Simpler model</strong> — reduce the number of features or parameters</li>
+          </ul>
+        </div>
+        <div class="warn-box">
+          <div class="warn-label">Opposite problem — underfitting</div>
+          <div class="warn-text">Underfitting is when the model is too simple to capture the pattern — poor on both training AND test data. The goal is the sweet spot between the two, called the bias-variance tradeoff.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-head" onclick="toggle(this)">
+        <span class="q-level lv-mid">Mid</span>
+        <span class="q-text">Explain the bias-variance tradeoff.</span>
+        <span class="q-toggle">▶</span>
+      </div>
+      <div class="q-body">
+        <div class="answer-label">Answer</div>
+        <div class="answer-text">
+          <ul>
+            <li><strong>Bias</strong> — error from wrong assumptions. High bias = model too simple = underfitting.</li>
+            <li><strong>Variance</strong> — error from sensitivity to small fluctuations in training data. High variance = model too complex = overfitting.</li>
+          </ul>
+          <p>The tradeoff: as you make a model more complex, bias decreases but variance increases. The goal is to find the balance that minimises total error on unseen data.</p>
+        </div>
+        <div class="tip-box">
+          <div class="tip-label">Simple analogy for the interview</div>
+          <div class="tip-text">High bias is like a student who memorised one formula and applies it to everything. High variance is like a student who memorised every past exam answer word-for-word but can't handle a slightly different question. You want the student who understood the concepts.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- METRICS -->
+    <div class="cat-label">Model evaluation — critical for your thesis topic</div>
+
+    <div class="q-card">
+      <div class="q-head" onclick="toggle(this)">
+        <span class="q-level lv-mid">Mid</span>
+        <span class="q-text">Explain precision, recall, and F1 score. When does each matter?</span>
+        <span class="q-toggle">▶</span>
+      </div>
+      <div class="q-body">
+        <div class="answer-label">Answer</div>
+        <div class="answer-text">
+          <ul>
+            <li><strong>Precision</strong> — of all the things the model flagged as positive, how many were actually positive? = TP / (TP + FP)</li>
+            <li><strong>Recall</strong> — of all the actual positives, how many did the model catch? = TP / (TP + FN)</li>
+            <li><strong>F1 score</strong> — the harmonic mean of precision and recall. Use when you need a single balanced metric.</li>
+          </ul>
+        </div>
+        <div class="answer-label">When each matters</div>
+        <div class="answer-text">
+          <ul>
+            <li><strong>Recall matters most</strong> when missing a positive is costly — e.g. intrusion detection (missing an attack is dangerous) or cancer screening (missing a tumour is fatal).</li>
+            <li><strong>Precision matters most</strong> when false alarms are costly — e.g. spam filters (blocking a real email is annoying).</li>
+          </ul>
+        </div>
+        <div class="scenario">
+          <div class="scenario-label">Your thesis is the perfect example</div>
+          <div class="scenario-text">"In my intrusion detection thesis, recall was critical — a missed attack (false negative) could mean a real security breach. But precision mattered too, because too many false alarms would overwhelm security analysts. I used F1 score to balance both, and reported the confusion matrix to show the tradeoff clearly."</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-head" onclick="toggle(this)">
+        <span class="q-level lv-mid">Mid</span>
+        <span class="q-text">Why is accuracy a bad metric for imbalanced datasets?</span>
+        <span class="q-toggle">▶</span>
+      </div>
+      <div class="q-body">
+        <div class="answer-label">Answer</div>
+        <div class="answer-text">
+          <p>If 99% of network traffic is normal and 1% is attacks, a model that predicts "normal" for everything gets 99% accuracy — while catching zero attacks. Accuracy looks great but the model is useless.</p>
+          <p>For imbalanced data, use <strong>precision, recall, F1, and the confusion matrix</strong> instead. These reveal how the model performs on the minority class that actually matters.</p>
+        </div>
+        <div class="scenario">
+          <div class="scenario-label">Directly relevant to your work</div>
+          <div class="scenario-text">"Intrusion detection datasets are heavily imbalanced — attacks are rare compared to normal traffic. That's exactly why I focused on recall and F1 rather than raw accuracy, and used techniques like resampling to handle the class imbalance."</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-head" onclick="toggle(this)">
+        <span class="q-level lv-mid">Mid</span>
+        <span class="q-text">How do you handle imbalanced datasets?</span>
+        <span class="q-toggle">▶</span>
+      </div>
+      <div class="q-body">
+        <div class="answer-label">Answer</div>
+        <div class="answer-text">
+          <ul>
+            <li><strong>Oversampling the minority class</strong> — e.g. SMOTE, which generates synthetic examples of the rare class</li>
+            <li><strong>Undersampling the majority class</strong> — remove some majority examples</li>
+            <li><strong>Class weights</strong> — penalise mistakes on the minority class more heavily during training</li>
+            <li><strong>Use the right metrics</strong> — precision, recall, F1 instead of accuracy</li>
+            <li><strong>Anomaly detection approach</strong> — treat the rare class as anomalies rather than a classification problem</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="page-section">
+    <div class="sec-head">
+      <span class="sec-num">02</span>
+      <span class="sec-title">Deep learning & neural networks</span>
+      <div class="sec-rule"></div>
+    </div>
+
+    <div class="cat-label">Neural network fundamentals</div>
+
+    <div class="q-card">
+      <div class="q-head" onclick="toggle(this)">
+        <span class="q-level lv-mid">Mid</span>
+        <span class="q-text">What is a neural network and how does it learn?</span>
+        <span class="q-toggle">▶</span>
+      </div>
+      <div class="q-body">
+        <div class="answer-label">Answer</div>
+        <div class="answer-text">
+          <p>A neural network is layers of interconnected nodes (neurons). Each connection has a weight. Data flows through: input layer → hidden layers → output layer.</p>
+          <p><strong>How it learns:</strong></p>
+          <ul>
+            <li><strong>Forward pass</strong> — data flows through, producing a prediction</li>
+            <li><strong>Loss calculation</strong> — compare prediction to actual answer</li>
+            <li><strong>Backpropagation</strong> — calculate how much each weight contributed to the error</li>
+            <li><strong>Gradient descent</strong> — adjust weights to reduce the error</li>
+            <li>Repeat thousands of times until the error is minimised</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-head" onclick="toggle(this)">
+        <span class="q-level lv-mid">Mid</span>
+        <span class="q-text">What is an activation function and why do we need it?</span>
+        <span class="q-toggle">▶</span>
+      </div>
+      <div class="q-body">
+        <div class="answer-label">Answer</div>
+        <div class="answer-text">
+          <p>An activation function decides whether a neuron should "fire" and introduces <strong>non-linearity</strong> into the network. Without it, no matter how many layers you stack, the network could only learn linear relationships.</p>
+          <p><strong>Common ones:</strong></p>
+          <ul>
+            <li><strong>ReLU</strong> — most common. Outputs the input if positive, else zero. Fast and avoids vanishing gradients.</li>
+            <li><strong>Sigmoid</strong> — squashes output to 0-1. Used for binary classification output.</li>
+            <li><strong>Softmax</strong> — converts outputs to probabilities that sum to 1. Used for multi-class classification.</li>
+            <li><strong>Tanh</strong> — squashes to -1 to 1.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-head" onclick="toggle(this)">
+        <span class="q-level lv-senior">Senior</span>
+        <span class="q-text">What is the difference between CNN, RNN, and Transformer architectures?</span>
+        <span class="q-toggle">▶</span>
+      </div>
+      <div class="q-body">
+        <div class="answer-label">Answer</div>
+        <div class="answer-text">
+          <ul>
+            <li><strong>CNN (Convolutional Neural Network)</strong> — designed for spatial data like images. Uses filters to detect features (edges, shapes). Your OpenCV work relates to this domain.</li>
+            <li><strong>RNN (Recurrent Neural Network)</strong> — designed for sequential data like time series or text. Has memory of previous inputs. LSTM and GRU are improved variants that handle long sequences.</li>
+            <li><strong>Transformer</strong> — the modern architecture behind ChatGPT and most current AI. Uses "attention" to weigh the importance of different parts of the input. Replaced RNNs for most language tasks because it processes sequences in parallel.</li>
+          </ul>
+        </div>
+        <div class="tip-box">
+          <div class="tip-label">If asked about LLMs</div>
+          <div class="tip-text">Large Language Models like GPT are built on the Transformer architecture. The key innovation is the "self-attention" mechanism, which lets the model focus on relevant words regardless of their position in the sentence. You don't need deep expertise — just understand the high-level concept.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="page-section">
+    <div class="sec-head">
+      <span class="sec-num">03</span>
+      <span class="sec-title">Data science & engineering</span>
+      <div class="sec-rule"></div>
+    </div>
+
+    <div class="cat-label">Data preparation — your data engineering background shines here</div>
+
+    <div class="q-card">
+      <div class="q-head" onclick="toggle(this)">
+        <span class="q-level lv-basic">Basic</span>
+        <span class="q-text">Walk me through a typical machine learning pipeline.</span>
+        <span class="q-toggle">▶</span>
+      </div>
+      <div class="q-body">
+        <div class="answer-label">Answer — the standard end-to-end flow</div>
+        <div class="answer-text">
+          <ul>
+            <li><strong>1. Problem definition</strong> — what are you predicting? What metric matters?</li>
+            <li><strong>2. Data collection</strong> — gather and combine data sources</li>
+            <li><strong>3. Data cleaning</strong> — handle missing values, remove duplicates, fix errors</li>
+            <li><strong>4. Exploratory data analysis (EDA)</strong> — understand distributions, correlations, outliers</li>
+            <li><strong>5. Feature engineering</strong> — create and select the most useful features</li>
+            <li><strong>6. Train/test split</strong> — separate data to evaluate honestly</li>
+            <li><strong>7. Model training</strong> — try multiple algorithms</li>
+            <li><strong>8. Evaluation</strong> — measure with the right metrics</li>
+            <li><strong>9. Tuning</strong> — optimise hyperparameters</li>
+            <li><strong>10. Deployment & monitoring</strong> — ship it and watch for drift</li>
+          </ul>
+        </div>
+        <div class="scenario">
+          <div class="scenario-label">You've done this end to end</div>
+          <div class="scenario-text">"In my thesis I went through this entire pipeline — from cleaning and preprocessing the CSE-CIC-IDS2018 network traffic dataset, through feature selection, to training and evaluating multiple ML and deep learning models, and comparing their detection performance."</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-head" onclick="toggle(this)">
+        <span class="q-level lv-mid">Mid</span>
+        <span class="q-text">How do you handle missing data?</span>
+        <span class="q-toggle">▶</span>
+      </div>
+      <div class="q-body">
+        <div class="answer-label">Answer</div>
+        <div class="answer-text">
+          <ul>
+            <li><strong>Remove</strong> — drop rows/columns if missing data is small and random</li>
+            <li><strong>Mean/median imputation</strong> — fill numeric gaps with the average (median is more robust to outliers)</li>
+            <li><strong>Mode imputation</strong> — fill categorical gaps with the most common value</li>
+            <li><strong>Forward/backward fill</strong> — for time series data</li>
+            <li><strong>Predictive imputation</strong> — train a model to predict the missing values</li>
+            <li><strong>Flag it</strong> — sometimes "missing" is itself meaningful, so add an indicator column</li>
+          </ul>
+        </div>
+        <div class="warn-box">
+          <div class="warn-label">Key point interviewers want</div>
+          <div class="warn-text">Always understand WHY data is missing before deciding how to handle it. Missing completely at random is different from missing for a systematic reason. Blindly filling with the mean can introduce bias.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-head" onclick="toggle(this)">
+        <span class="q-level lv-mid">Mid</span>
+        <span class="q-text">What is feature engineering and why is it important?</span>
+        <span class="q-toggle">▶</span>
+      </div>
+      <div class="q-body">
+        <div class="answer-label">Answer</div>
+        <div class="answer-text">
+          <p>Feature engineering is creating, transforming, or selecting the input variables that a model learns from. It's often the difference between a mediocre model and a great one — "garbage in, garbage out."</p>
+          <p><strong>Common techniques:</strong></p>
+          <ul>
+            <li><strong>Scaling/normalisation</strong> — bring features to the same range so no single feature dominates</li>
+            <li><strong>Encoding</strong> — convert categories to numbers (one-hot encoding, label encoding)</li>
+            <li><strong>Creating new features</strong> — e.g. deriving "packets per second" from raw packet counts and time</li>
+            <li><strong>Feature selection</strong> — remove irrelevant or redundant features to reduce noise</li>
+          </ul>
+        </div>
+        <div class="tip-box">
+          <div class="tip-label">Connect to your work</div>
+          <div class="tip-text">"In my thesis, feature selection was important — the network traffic dataset had many features, and selecting the most discriminative ones improved both accuracy and training speed."</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-head" onclick="toggle(this)">
+        <span class="q-level lv-senior">Senior</span>
+        <span class="q-text">What is the difference between L1 and L2 regularisation?</span>
+        <span class="q-toggle">▶</span>
+      </div>
+      <div class="q-body">
+        <div class="answer-label">Answer</div>
+        <div class="answer-text">
+          <ul>
+            <li><strong>L1 (Lasso)</strong> — adds the absolute value of weights as a penalty. Can shrink some weights to exactly zero, effectively performing feature selection. Use when you suspect many features are irrelevant.</li>
+            <li><strong>L2 (Ridge)</strong> — adds the squared value of weights as a penalty. Shrinks weights toward zero but rarely exactly zero. Use when all features are somewhat useful.</li>
+          </ul>
+          <p>Both prevent overfitting by discouraging large weights. Elastic Net combines both.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="page-section">
+    <div class="sec-head">
+      <span class="sec-num">04</span>
+      <span class="sec-title">Practical & applied AI</span>
+      <div class="sec-rule"></div>
+    </div>
+
+    <div class="cat-label">Modern AI awareness — increasingly common</div>
+
+    <div class="q-card">
+      <div class="q-head" onclick="toggle(this)">
+        <span class="q-level lv-mid">Mid</span>
+        <span class="q-text">What is the difference between AI, Machine Learning, and Deep Learning?</span>
+        <span class="q-toggle">▶</span>
+      </div>
+      <div class="q-body">
+        <div class="answer-label">Answer — think of nested circles</div>
+        <div class="answer-text">
+          <ul>
+            <li><strong>AI</strong> — the broadest concept: any technique that lets machines mimic human intelligence.</li>
+            <li><strong>Machine Learning</strong> — a subset of AI: systems that learn from data rather than being explicitly programmed.</li>
+            <li><strong>Deep Learning</strong> — a subset of ML: uses multi-layered neural networks. Powers image recognition, speech, and modern language models.</li>
+          </ul>
+          <p>AI ⊃ ML ⊃ Deep Learning</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-head" onclick="toggle(this)">
+        <span class="q-level lv-mid">Mid</span>
+        <span class="q-text">What is a confusion matrix?</span>
+        <span class="q-toggle">▶</span>
+      </div>
+      <div class="q-body">
+        <div class="answer-label">Answer</div>
+        <div class="answer-text">
+          <p>A confusion matrix is a table showing how a classification model's predictions compare to reality:</p>
+          <ul>
+            <li><strong>True Positive (TP)</strong> — predicted attack, was actually an attack ✓</li>
+            <li><strong>True Negative (TN)</strong> — predicted normal, was actually normal ✓</li>
+            <li><strong>False Positive (FP)</strong> — predicted attack, was actually normal (false alarm)</li>
+            <li><strong>False Negative (FN)</strong> — predicted normal, was actually an attack (missed threat)</li>
+          </ul>
+          <p>All the key metrics — precision, recall, accuracy, F1 — are calculated from these four numbers.</p>
+        </div>
+        <div class="scenario">
+          <div class="scenario-label">You used this in your thesis</div>
+          <div class="scenario-text">"I used confusion matrices to evaluate my intrusion detection models — they made the false negative rate visible, which was the most important number since a false negative means a missed attack."</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-head" onclick="toggle(this)">
+        <span class="q-level lv-senior">Senior</span>
+        <span class="q-text">How would you deploy and monitor a machine learning model in production?</span>
+        <span class="q-toggle">▶</span>
+      </div>
+      <div class="q-body">
+        <div class="answer-label">Answer — this connects your ML and software engineering skills</div>
+        <div class="answer-text">
+          <ul>
+            <li><strong>Wrap in an API</strong> — expose the model behind a REST endpoint (you can do this with .NET or Python/Flask)</li>
+            <li><strong>Containerise</strong> — package with Docker for consistent deployment</li>
+            <li><strong>Version everything</strong> — model version, data version, code version</li>
+            <li><strong>Monitor for data drift</strong> — the real-world data distribution changes over time, degrading model performance</li>
+            <li><strong>Monitor performance metrics</strong> — track precision/recall on live data, not just at training time</li>
+            <li><strong>Retraining pipeline</strong> — schedule periodic retraining on fresh data</li>
+            <li><strong>A/B testing</strong> — compare new model versions against the current one before full rollout</li>
+          </ul>
+        </div>
+        <div class="tip-box">
+          <div class="tip-label">Your unique selling point</div>
+          <div class="tip-text">This question is where you stand out. Most ML candidates can't deploy; most software engineers don't know ML. You can bridge both — "I understand the ML side from my thesis AND I can build the production API and deployment pipeline from my .NET Core experience." That combination is rare and valuable.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Checklist -->
+  <div class="page-section" id="checklist">
+    <div class="sec-head">
+      <span class="sec-num">05</span>
+      <span class="sec-title">Preparation checklist</span>
+      <div class="sec-rule"></div>
+    </div>
+    <p style="font-size:0.875rem;color:var(--ink3);margin-bottom:1.5rem;font-family:var(--mono)">Tick off each topic when you can explain it out loud, connected to your own work where possible.</p>
+    <div class="checklist">
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Supervised vs unsupervised vs reinforcement learning</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Overfitting, underfitting, and how to prevent each</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Bias-variance tradeoff with a clear analogy</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Precision, recall, F1 — and when each matters</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Why accuracy fails on imbalanced data (your thesis example)</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Techniques for handling imbalanced datasets</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> How a neural network learns (forward pass, backprop, gradient descent)</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Activation functions and why non-linearity matters</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> CNN vs RNN vs Transformer at a high level</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> The full ML pipeline end to end</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Handling missing data and knowing why it's missing</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Feature engineering and selection</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> L1 vs L2 regularisation</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> AI vs ML vs Deep Learning distinction</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Confusion matrix and the four outcomes</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Deploying and monitoring a model in production</label>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p class="footer-text">AI, ML & Data Science Prep · Built for Isuru Mahanama · Your ML thesis is a genuine advantage — use it in every answer</p>
+</footer>
+
+<script>
+function toggle(head){
+  const body=head.nextElementSibling;
+  const arrow=head.querySelector('.q-toggle');
+  const isOpen=body.classList.contains('open');
+  body.classList.toggle('open',!isOpen);
+  arrow.classList.toggle('open',!isOpen);
+}
+function chk(input){input.closest('.check-item').classList.toggle('checked',input.checked);}
+</script>
+</body>
+</html>

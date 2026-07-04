@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>System Design Interview Prep — Isuru Mahanama</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f8f8f6;--white:#ffffff;--ink:#0a0a0a;--ink2:#3a3a3a;--ink3:#6b6b6b;--ink4:#9a9a9a;
+  --rule:#e2e2e0;--rule2:#eeeeec;
+  --green:#2d6a4f;--green-bg:#f0fdf4;--green-border:#bbf7d0;
+  --blue:#2563eb;--blue-bg:#eff6ff;--blue-border:#bfdbfe;
+  --purple:#7c3aed;--purple-bg:#f5f3ff;--purple-border:#ddd6fe;
+  --amber:#b45309;--amber-bg:#fffbeb;--amber-border:#fde68a;
+  --red:#dc2626;--red-bg:#fef2f2;
+  --teal:#0d9488;--teal-bg:#f0fdfa;--teal-border:#99f6e4;
+  --mono:'DM Mono',monospace;--sans:'DM Sans',sans-serif;--serif:'Instrument Serif',serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration:none}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(248,248,246,0.93);backdrop-filter:blur(10px);border-bottom:1px solid var(--rule);padding:0 2rem;height:52px;display:flex;align-items:center;justify-content:space-between}
+.nav-title{font-family:var(--mono);font-size:0.78rem;font-weight:500;color:var(--ink)}
+.nav-left{display:flex;align-items:center;gap:1.5rem}
+.nav-pages{display:flex;gap:0.25rem;flex-wrap:wrap}
+.nav-page{font-family:var(--mono);font-size:0.72rem;color:var(--ink4);padding:4px 10px;border-radius:4px;transition:all 0.15s;white-space:nowrap}
+.nav-page:hover{color:var(--ink);background:var(--rule2)}
+.nav-links{display:flex;gap:1.5rem}
+.nav-links a{font-family:var(--mono);font-size:0.72rem;color:var(--ink4)}
+.hero{padding:8rem 2rem 4rem;max-width:860px;margin:0 auto}
+.hero-tag{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:0.72rem;font-weight:500;border-radius:100px;padding:4px 12px;margin-bottom:1.5rem}
+.hero h1{font-family:var(--serif);font-style:italic;font-size:clamp(2.2rem,5vw,3.5rem);font-weight:400;line-height:1.1;letter-spacing:-0.02em;color:var(--ink);margin-bottom:1rem}
+.hero-desc{font-size:1rem;color:var(--ink2);max-width:580px;line-height:1.75;margin-bottom:1rem}
+.hero-desc strong{color:var(--ink);font-weight:500}
+.wrap{max-width:860px;margin:0 auto;padding:0 2rem}
+.page-section{padding:3.5rem 0;border-top:1px solid var(--rule)}
+.sec-head{display:flex;align-items:center;gap:1rem;margin-bottom:2rem}
+.sec-num{font-family:var(--mono);font-size:0.7rem;color:var(--ink4)}
+.sec-title{font-size:1.2rem;font-weight:600;color:var(--ink);letter-spacing:-0.02em}
+.sec-rule{flex:1;height:1px;background:var(--rule2)}
+.cat-label{font-family:var(--mono);font-size:0.7rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink4);padding:0.5rem 0;border-bottom:1px solid var(--rule);margin-bottom:1px;margin-top:2rem}
+.cat-label:first-child{margin-top:0}
+.q-card{border:1px solid var(--rule);background:var(--white);border-radius:4px;margin-bottom:1px;overflow:hidden}
+.q-head{padding:1.1rem 1.5rem;display:flex;align-items:flex-start;gap:1rem;cursor:pointer;transition:background 0.15s;user-select:none}
+.q-head:hover{background:var(--bg)}
+.q-level{font-family:var(--mono);font-size:0.65rem;font-weight:500;padding:2px 8px;border-radius:3px;white-space:nowrap;margin-top:2px;flex-shrink:0}
+.lv-basic{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
+.lv-mid{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border)}
+.lv-senior{background:var(--red-bg);color:var(--red);border:1px solid #fecaca}
+.q-text{font-size:0.95rem;font-weight:500;color:var(--ink);flex:1;line-height:1.5}
+.q-toggle{font-family:var(--mono);font-size:0.8rem;color:var(--ink4);transition:transform 0.2s;flex-shrink:0;margin-top:2px}
+.q-toggle.open{transform:rotate(90deg)}
+.q-body{display:none;padding:0 1.5rem 1.5rem;border-top:1px solid var(--rule2)}
+.q-body.open{display:block}
+.answer-label{font-family:var(--mono);font-size:0.68rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink4);margin:1.25rem 0 0.6rem}
+.answer-text{font-size:0.9rem;color:var(--ink2);line-height:1.75}
+.answer-text p+p{margin-top:0.75rem}
+.answer-text strong{color:var(--ink);font-weight:500}
+.answer-text ul{margin:0.5rem 0 0 1rem}
+.answer-text ul li{margin-bottom:0.35rem}
+.code-block{background:#0a0a0a;border-radius:4px;padding:1.25rem 1.5rem;margin:0.75rem 0;overflow-x:auto}
+.code-block pre{font-family:var(--mono);font-size:0.78rem;color:#e0e0e0;line-height:1.7;margin:0}
+.ck{color:#a3a3ff}.cs{color:#86efac}.cf{color:#93c5fd}.cn{color:#fbbf24}.cc{color:#555}
+.tip-box{background:var(--blue-bg);border:1px solid var(--blue-border);border-radius:4px;padding:1rem 1.25rem;margin-top:1rem}
+.tip-label{font-family:var(--mono);font-size:0.68rem;font-weight:500;color:var(--blue);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.4rem}
+.tip-text{font-size:0.875rem;color:var(--ink2);line-height:1.7}
+.warn-box{background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:4px;padding:1rem 1.25rem;margin-top:1rem}
+.warn-label{font-family:var(--mono);font-size:0.68rem;font-weight:500;color:var(--amber);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.4rem}
+.warn-text{font-size:0.875rem;color:var(--ink2);line-height:1.7}
+.scenario{background:var(--purple-bg);border:1px solid var(--purple-border);border-radius:4px;padding:1.25rem 1.5rem;margin-top:1rem}
+.scenario-label{font-family:var(--mono);font-size:0.68rem;font-weight:500;color:var(--purple);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.5rem}
+.scenario-text{font-size:0.875rem;color:var(--ink2);line-height:1.7;font-style:italic}
+.checklist{display:flex;flex-direction:column;gap:0}
+.check-item{display:flex;align-items:flex-start;gap:0.75rem;padding:0.75rem 0;border-bottom:1px solid var(--rule2);font-size:0.9rem;color:var(--ink2);cursor:pointer}
+.check-item:first-child{border-top:1px solid var(--rule2)}
+.check-item input{margin-top:3px;accent-color:var(--green);cursor:pointer;flex-shrink:0}
+.check-item.checked{color:var(--ink4);text-decoration:line-through}
+footer{border-top:1px solid var(--rule);padding:2rem;text-align:center}
+.footer-text{font-family:var(--mono);font-size:0.72rem;color:var(--ink4)}
+@media(max-width:640px){nav{padding:0 1rem;height:auto;flex-wrap:wrap;padding-top:8px;padding-bottom:8px}.nav-links{display:none}.hero{padding:7rem 1rem 3rem}.wrap{padding:0 1rem}}
+.nav-page.active{color:var(--teal);background:var(--teal-bg);border:1px solid var(--teal-border)}
+.hero-tag{color:var(--teal);background:var(--teal-bg);border:1px solid var(--teal-border)}
+.step-box{background:var(--white);border:1px solid var(--rule);border-radius:4px;padding:1.25rem 1.5rem;margin-bottom:1px}
+.step-title{font-size:0.95rem;font-weight:600;color:var(--ink);margin-bottom:0.5rem}
+.step-title .n{font-family:var(--mono);color:var(--teal);margin-right:0.5rem}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-left">
+    <span class="nav-title">Interview Prep</span>
+    <div class="nav-pages">
+      <a href="index.html" class="nav-page">Algorithms</a>
+      <a href="dotnet-angular-prep.html" class="nav-page">.NET &amp; Angular</a>
+      <a href="ai-ml-prep.html" class="nav-page">AI &amp; ML</a>
+      <a href="system-design-prep.html" class="nav-page active">System Design</a>
+      <a href="database-prep.html" class="nav-page">Databases</a>
+      <a href="behavioural-prep.html" class="nav-page">Behavioural</a>
+      <a href="modern-tech-prep.html" class="nav-page">Modern Tech</a>
+      <a href="negotiation-prep.html" class="nav-page">Negotiation</a>
+    </div>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-tag">System Design Prep</div>
+  <h1>System Design<br>interviews</h1>
+  <p class="hero-desc">The <strong>defining round</strong> for senior roles. There's no single right answer — interviewers watch how you think, handle tradeoffs, and scale a system. This guide gives you a repeatable framework plus the classic problems.</p>
+</div>
+
+<div class="wrap">
+
+  <div class="page-section">
+    <div class="sec-head"><span class="sec-num">01</span><span class="sec-title">The framework — use this every time</span><div class="sec-rule"></div></div>
+    <p style="font-size:0.9rem;color:var(--ink2);margin-bottom:1.5rem;line-height:1.75">Never start drawing boxes immediately. Follow these steps in order — interviewers are specifically looking for this structured approach.</p>
+
+    <div class="step-box"><div class="step-title"><span class="n">1</span>Clarify requirements (5 min)</div><div class="answer-text">Ask about functional requirements (what it must do) and non-functional ones (scale, latency, availability). Never assume — the interviewer deliberately keeps it vague. Ask: "How many users? Read-heavy or write-heavy? What's the acceptable latency?"</div></div>
+    <div class="step-box"><div class="step-title"><span class="n">2</span>Estimate scale (5 min)</div><div class="answer-text">Do rough back-of-envelope math. Daily active users, requests per second, storage needed, bandwidth. This shows you think about scale from the start.</div></div>
+    <div class="step-box"><div class="step-title"><span class="n">3</span>Define the API (5 min)</div><div class="answer-text">Sketch the main endpoints. e.g. for a URL shortener: <code>POST /shorten</code> and <code>GET /{shortCode}</code>. This anchors the whole design.</div></div>
+    <div class="step-box"><div class="step-title"><span class="n">4</span>High-level design (10 min)</div><div class="answer-text">Draw the major components: client, load balancer, web servers, application servers, database, cache. Show how a request flows through them.</div></div>
+    <div class="step-box"><div class="step-title"><span class="n">5</span>Deep dive (10 min)</div><div class="answer-text">Pick the most interesting or critical component and go deep. Database schema, caching strategy, how you handle the bottleneck.</div></div>
+    <div class="step-box"><div class="step-title"><span class="n">6</span>Address bottlenecks & scale (10 min)</div><div class="answer-text">Identify single points of failure. Discuss database replication, sharding, caching, CDN, horizontal scaling. This is where senior candidates shine.</div></div>
+  </div>
+
+  <div class="page-section">
+    <div class="sec-head"><span class="sec-num">02</span><span class="sec-title">Core concepts you must know</span><div class="sec-rule"></div></div>
+
+    <div class="cat-label">Scaling & availability</div>
+
+    <div class="q-card"><div class="q-head" onclick="toggle(this)"><span class="q-level lv-basic">Core</span><span class="q-text">Horizontal vs vertical scaling</span><span class="q-toggle">▶</span></div>
+      <div class="q-body"><div class="answer-text"><p><strong>Vertical scaling</strong> — add more power (CPU, RAM) to a single server. Simple but has a ceiling and a single point of failure.</p><p><strong>Horizontal scaling</strong> — add more servers and distribute load. More complex but virtually unlimited and fault-tolerant. This is how big systems scale.</p></div></div>
+    </div>
+
+    <div class="q-card"><div class="q-head" onclick="toggle(this)"><span class="q-level lv-basic">Core</span><span class="q-text">What is a load balancer and why do you need one?</span><span class="q-toggle">▶</span></div>
+      <div class="q-body"><div class="answer-text"><p>A load balancer distributes incoming requests across multiple servers so no single server is overwhelmed. It also provides failover — if one server dies, traffic routes to healthy ones.</p><p><strong>Common algorithms:</strong> Round Robin (rotate evenly), Least Connections (send to least busy), IP Hash (same client → same server).</p></div></div>
+    </div>
+
+    <div class="q-card"><div class="q-head" onclick="toggle(this)"><span class="q-level lv-mid">Mid</span><span class="q-text">Explain caching and cache invalidation strategies</span><span class="q-toggle">▶</span></div>
+      <div class="q-body"><div class="answer-text"><p>Caching stores frequently accessed data in fast memory (like Redis) to avoid hitting the database every time. Dramatically reduces latency and database load.</p><p><strong>Strategies:</strong></p><ul><li><strong>Cache-aside</strong> — app checks cache first, falls back to DB, then populates cache</li><li><strong>Write-through</strong> — write to cache and DB simultaneously</li><li><strong>Write-back</strong> — write to cache first, DB later (faster but risk of data loss)</li></ul><p><strong>Invalidation:</strong> TTL (time-to-live expiry), or explicit eviction when data changes.</p></div>
+      <div class="tip-box"><div class="tip-label">Famous quote</div><div class="tip-text">"There are only two hard things in computer science: cache invalidation and naming things." Mention this — interviewers appreciate it and it shows you understand cache invalidation is genuinely hard.</div></div></div>
+    </div>
+
+    <div class="cat-label">Databases at scale</div>
+
+    <div class="q-card"><div class="q-head" onclick="toggle(this)"><span class="q-level lv-mid">Mid</span><span class="q-text">SQL vs NoSQL — when do you use each?</span><span class="q-toggle">▶</span></div>
+      <div class="q-body"><div class="answer-text"><ul><li><strong>SQL (relational)</strong> — structured data, strong consistency, complex queries and joins, ACID transactions. Use for financial systems, anything needing consistency. Your betting platform uses SQL Server for exactly this reason.</li><li><strong>NoSQL</strong> — flexible schema, horizontal scaling, high throughput. Types: document (MongoDB), key-value (Redis), column (Cassandra), graph (Neo4j). Use for massive scale, unstructured data, or when schema changes often.</li></ul></div>
+      <div class="scenario"><div class="scenario-label">Your real experience</div><div class="scenario-text">"At Mainframe we use MS SQL Server for the betting platform specifically because financial transactions need ACID guarantees — you can't have eventual consistency when real money and bet settlements are involved."</div></div></div>
+    </div>
+
+    <div class="q-card"><div class="q-head" onclick="toggle(this)"><span class="q-level lv-senior">Senior</span><span class="q-text">What is database sharding and replication?</span><span class="q-toggle">▶</span></div>
+      <div class="q-body"><div class="answer-text"><p><strong>Replication</strong> — keep copies of the same data on multiple servers. Improves read performance (read from replicas) and availability (if one fails, others serve). Usually one primary for writes, multiple replicas for reads.</p><p><strong>Sharding</strong> — split data across multiple databases by some key (e.g. user ID). Each shard holds a subset. Improves write performance and storage capacity but adds complexity — cross-shard queries are hard.</p></div></div>
+    </div>
+
+    <div class="q-card"><div class="q-head" onclick="toggle(this)"><span class="q-level lv-senior">Senior</span><span class="q-text">Explain the CAP theorem</span><span class="q-toggle">▶</span></div>
+      <div class="q-body"><div class="answer-text"><p>CAP theorem says a distributed system can only guarantee two of three:</p><ul><li><strong>Consistency</strong> — every read gets the most recent write</li><li><strong>Availability</strong> — every request gets a response</li><li><strong>Partition tolerance</strong> — the system works despite network failures</li></ul><p>Since network partitions are unavoidable in distributed systems, you're really choosing between <strong>consistency and availability</strong>. Banking systems choose consistency (CP). Social media feeds choose availability (AP) — a slightly stale like count is fine.</p></div></div>
+    </div>
+
+    <div class="cat-label">Communication patterns</div>
+
+    <div class="q-card"><div class="q-head" onclick="toggle(this)"><span class="q-level lv-mid">Mid</span><span class="q-text">What is a message queue and when do you use one?</span><span class="q-toggle">▶</span></div>
+      <div class="q-body"><div class="answer-text"><p>A message queue (RabbitMQ, Kafka, Azure Service Bus) lets services communicate asynchronously. The producer puts a message on the queue; the consumer processes it later.</p><p><strong>Why use it:</strong> decouples services, handles traffic spikes (buffer), enables retry on failure, and lets slow operations happen in the background.</p><p><strong>Example:</strong> when a user places a bet, put "send confirmation email" on a queue instead of blocking the request while the email sends.</p></div></div>
+    </div>
+
+    <div class="q-card"><div class="q-head" onclick="toggle(this)"><span class="q-level lv-senior">Senior</span><span class="q-text">Monolith vs Microservices</span><span class="q-toggle">▶</span></div>
+      <div class="q-body"><div class="answer-text"><ul><li><strong>Monolith</strong> — one deployable unit. Simpler to build, test, deploy initially. Gets harder to scale and maintain as it grows.</li><li><strong>Microservices</strong> — many small independent services. Each scales and deploys independently, teams work autonomously. But adds huge operational complexity — networking, distributed transactions, monitoring.</li></ul><p><strong>Senior insight:</strong> Don't start with microservices. Start with a well-structured monolith and extract services only when you have a clear reason (a component that needs independent scaling, or a team that needs autonomy). Premature microservices is a classic mistake.</p></div></div>
+    </div>
+  </div>
+
+  <div class="page-section">
+    <div class="sec-head"><span class="sec-num">03</span><span class="sec-title">Classic problems — practice these</span><div class="sec-rule"></div></div>
+
+    <div class="q-card"><div class="q-head" onclick="toggle(this)"><span class="q-level lv-mid">Practice</span><span class="q-text">Design a URL shortener (like bit.ly)</span><span class="q-toggle">▶</span></div>
+      <div class="q-body"><div class="answer-label">Key points to hit</div><div class="answer-text"><ul><li><strong>API:</strong> POST /shorten (long → short), GET /{code} (redirect)</li><li><strong>Short code generation:</strong> base62 encoding of an auto-increment ID, or a hash. 7 characters of base62 = 3.5 trillion URLs</li><li><strong>Database:</strong> key-value store mapping shortCode → longURL. NoSQL works well here</li><li><strong>Scale reads:</strong> heavy caching (Redis) since it's read-heavy — most short URLs are clicked far more than created</li><li><strong>Redirect:</strong> use 301 (permanent) or 302 (temporary — lets you track analytics)</li></ul></div></div>
+    </div>
+
+    <div class="q-card"><div class="q-head" onclick="toggle(this)"><span class="q-level lv-senior">Practice</span><span class="q-text">Design a rate limiter</span><span class="q-toggle">▶</span></div>
+      <div class="q-body"><div class="answer-label">Key points to hit</div><div class="answer-text"><ul><li><strong>Purpose:</strong> prevent abuse, protect the system from being overwhelmed</li><li><strong>Algorithms:</strong> Token Bucket (most common — refills tokens at a fixed rate), Sliding Window, Fixed Window Counter</li><li><strong>Storage:</strong> Redis with TTL to track request counts per user/IP</li><li><strong>Response:</strong> return HTTP 429 Too Many Requests when the limit is exceeded</li><li><strong>Where:</strong> at the API gateway or load balancer level, before requests hit your servers</li></ul></div></div>
+    </div>
+
+    <div class="q-card"><div class="q-head" onclick="toggle(this)"><span class="q-level lv-senior">Practice</span><span class="q-text">Design a real-time betting/odds system (your domain!)</span><span class="q-toggle">▶</span></div>
+      <div class="q-body"><div class="answer-label">You have a genuine advantage here</div><div class="answer-text"><ul><li><strong>Real-time odds:</strong> WebSockets or Server-Sent Events to push live odds to clients instead of polling</li><li><strong>Bet placement:</strong> must be transactional and consistent (ACID) — deduct balance and record bet atomically</li><li><strong>Handle concurrency:</strong> optimistic locking or DB transactions to prevent double-spending balance</li><li><strong>Scale reads:</strong> cache odds heavily, they're read far more than written</li><li><strong>Message queue:</strong> for settling bets and sending notifications asynchronously</li><li><strong>Consistency over availability:</strong> for the money parts — you cannot have eventual consistency on account balances</li></ul></div>
+      <div class="scenario"><div class="scenario-label">Use your Mainframe experience</div><div class="scenario-text">"I've actually worked on a production betting platform, so I can speak to the real tradeoffs — like why bet placement must be strongly consistent while odds display can tolerate a caching layer, and how we handled transactional integrity for balance deductions."</div></div></div>
+    </div>
+  </div>
+
+  <div class="page-section" id="checklist">
+    <div class="sec-head"><span class="sec-num">04</span><span class="sec-title">Preparation checklist</span><div class="sec-rule"></div></div>
+    <div class="checklist">
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Memorised the 6-step framework and can apply it under pressure</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Horizontal vs vertical scaling</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Load balancers and their algorithms</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Caching strategies and invalidation</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> SQL vs NoSQL tradeoffs</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Sharding and replication</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> CAP theorem and consistency vs availability</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Message queues and async communication</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Monolith vs microservices — and why not to start with microservices</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Can design a URL shortener end to end</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Can design a rate limiter</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Can design a real-time betting system using your own experience</label>
+    </div>
+  </div>
+</div>
+
+<footer><p class="footer-text">System Design Prep · Built for Isuru Mahanama · Your betting platform experience is a real advantage — lean on it</p></footer>
+
+<script>
+function toggle(head){const body=head.nextElementSibling;const arrow=head.querySelector('.q-toggle');const isOpen=body.classList.contains('open');body.classList.toggle('open',!isOpen);arrow.classList.toggle('open',!isOpen);}
+function chk(input){input.closest('.check-item').classList.toggle('checked',input.checked);}
+</script>
+</body>
+</html>

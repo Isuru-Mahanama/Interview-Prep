@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modern Technologies Interview Prep — Isuru Mahanama</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f8f8f6;--white:#ffffff;--ink:#0a0a0a;--ink2:#3a3a3a;--ink3:#6b6b6b;--ink4:#9a9a9a;
+  --rule:#e2e2e0;--rule2:#eeeeec;
+  --green:#2d6a4f;--green-bg:#f0fdf4;--green-border:#bbf7d0;
+  --blue:#2563eb;--blue-bg:#eff6ff;--blue-border:#bfdbfe;
+  --purple:#7c3aed;--purple-bg:#f5f3ff;--purple-border:#ddd6fe;
+  --amber:#b45309;--amber-bg:#fffbeb;--amber-border:#fde68a;
+  --red:#dc2626;--red-bg:#fef2f2;
+  --teal:#0d9488;--teal-bg:#f0fdfa;--teal-border:#99f6e4;
+  --mono:'DM Mono',monospace;--sans:'DM Sans',sans-serif;--serif:'Instrument Serif',serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration:none}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(248,248,246,0.93);backdrop-filter:blur(10px);border-bottom:1px solid var(--rule);padding:0 2rem;height:52px;display:flex;align-items:center;justify-content:space-between}
+.nav-title{font-family:var(--mono);font-size:0.78rem;font-weight:500;color:var(--ink)}
+.nav-left{display:flex;align-items:center;gap:1.5rem}
+.nav-pages{display:flex;gap:0.25rem;flex-wrap:wrap}
+.nav-page{font-family:var(--mono);font-size:0.72rem;color:var(--ink4);padding:4px 10px;border-radius:4px;transition:all 0.15s;white-space:nowrap}
+.nav-page:hover{color:var(--ink);background:var(--rule2)}
+.nav-links{display:flex;gap:1.5rem}
+.nav-links a{font-family:var(--mono);font-size:0.72rem;color:var(--ink4)}
+.hero{padding:8rem 2rem 4rem;max-width:860px;margin:0 auto}
+.hero-tag{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:0.72rem;font-weight:500;border-radius:100px;padding:4px 12px;margin-bottom:1.5rem}
+.hero h1{font-family:var(--serif);font-style:italic;font-size:clamp(2.2rem,5vw,3.5rem);font-weight:400;line-height:1.1;letter-spacing:-0.02em;color:var(--ink);margin-bottom:1rem}
+.hero-desc{font-size:1rem;color:var(--ink2);max-width:580px;line-height:1.75;margin-bottom:1rem}
+.hero-desc strong{color:var(--ink);font-weight:500}
+.wrap{max-width:860px;margin:0 auto;padding:0 2rem}
+.page-section{padding:3.5rem 0;border-top:1px solid var(--rule)}
+.sec-head{display:flex;align-items:center;gap:1rem;margin-bottom:2rem}
+.sec-num{font-family:var(--mono);font-size:0.7rem;color:var(--ink4)}
+.sec-title{font-size:1.2rem;font-weight:600;color:var(--ink);letter-spacing:-0.02em}
+.sec-rule{flex:1;height:1px;background:var(--rule2)}
+.cat-label{font-family:var(--mono);font-size:0.7rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink4);padding:0.5rem 0;border-bottom:1px solid var(--rule);margin-bottom:1px;margin-top:2rem}
+.cat-label:first-child{margin-top:0}
+.q-card{border:1px solid var(--rule);background:var(--white);border-radius:4px;margin-bottom:1px;overflow:hidden}
+.q-head{padding:1.1rem 1.5rem;display:flex;align-items:flex-start;gap:1rem;cursor:pointer;transition:background 0.15s;user-select:none}
+.q-head:hover{background:var(--bg)}
+.q-level{font-family:var(--mono);font-size:0.65rem;font-weight:500;padding:2px 8px;border-radius:3px;white-space:nowrap;margin-top:2px;flex-shrink:0}
+.lv-basic{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
+.lv-mid{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border)}
+.lv-senior{background:var(--red-bg);color:var(--red);border:1px solid #fecaca}
+.q-text{font-size:0.95rem;font-weight:500;color:var(--ink);flex:1;line-height:1.5}
+.q-toggle{font-family:var(--mono);font-size:0.8rem;color:var(--ink4);transition:transform 0.2s;flex-shrink:0;margin-top:2px}
+.q-toggle.open{transform:rotate(90deg)}
+.q-body{display:none;padding:0 1.5rem 1.5rem;border-top:1px solid var(--rule2)}
+.q-body.open{display:block}
+.answer-label{font-family:var(--mono);font-size:0.68rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink4);margin:1.25rem 0 0.6rem}
+.answer-text{font-size:0.9rem;color:var(--ink2);line-height:1.75}
+.answer-text p+p{margin-top:0.75rem}
+.answer-text strong{color:var(--ink);font-weight:500}
+.answer-text ul{margin:0.5rem 0 0 1rem}
+.answer-text ul li{margin-bottom:0.35rem}
+.code-block{background:#0a0a0a;border-radius:4px;padding:1.25rem 1.5rem;margin:0.75rem 0;overflow-x:auto}
+.code-block pre{font-family:var(--mono);font-size:0.78rem;color:#e0e0e0;line-height:1.7;margin:0}
+.ck{color:#a3a3ff}.cs{color:#86efac}.cf{color:#93c5fd}.cn{color:#fbbf24}.cc{color:#555}
+.tip-box{background:var(--blue-bg);border:1px solid var(--blue-border);border-radius:4px;padding:1rem 1.25rem;margin-top:1rem}
+.tip-label{font-family:var(--mono);font-size:0.68rem;font-weight:500;color:var(--blue);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.4rem}
+.tip-text{font-size:0.875rem;color:var(--ink2);line-height:1.7}
+.warn-box{background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:4px;padding:1rem 1.25rem;margin-top:1rem}
+.warn-label{font-family:var(--mono);font-size:0.68rem;font-weight:500;color:var(--amber);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.4rem}
+.warn-text{font-size:0.875rem;color:var(--ink2);line-height:1.7}
+.scenario{background:var(--purple-bg);border:1px solid var(--purple-border);border-radius:4px;padding:1.25rem 1.5rem;margin-top:1rem}
+.scenario-label{font-family:var(--mono);font-size:0.68rem;font-weight:500;color:var(--purple);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.5rem}
+.scenario-text{font-size:0.875rem;color:var(--ink2);line-height:1.7;font-style:italic}
+.checklist{display:flex;flex-direction:column;gap:0}
+.check-item{display:flex;align-items:flex-start;gap:0.75rem;padding:0.75rem 0;border-bottom:1px solid var(--rule2);font-size:0.9rem;color:var(--ink2);cursor:pointer}
+.check-item:first-child{border-top:1px solid var(--rule2)}
+.check-item input{margin-top:3px;accent-color:var(--green);cursor:pointer;flex-shrink:0}
+.check-item.checked{color:var(--ink4);text-decoration:line-through}
+footer{border-top:1px solid var(--rule);padding:2rem;text-align:center}
+.footer-text{font-family:var(--mono);font-size:0.72rem;color:var(--ink4)}
+@media(max-width:640px){nav{padding:0 1rem;height:auto;flex-wrap:wrap;padding-top:8px;padding-bottom:8px}.nav-links{display:none}.hero{padding:7rem 1rem 3rem}.wrap{padding:0 1rem}}
+.nav-page.active{color:var(--blue);background:var(--blue-bg);border:1px solid var(--blue-border)}
+.hero-tag{color:var(--blue);background:var(--blue-bg);border:1px solid var(--blue-border)}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-left">
+    <span class="nav-title">Interview Prep</span>
+    <div class="nav-pages">
+      <a href="index.html" class="nav-page">Algorithms</a>
+      <a href="dotnet-angular-prep.html" class="nav-page">.NET &amp; Angular</a>
+      <a href="ai-ml-prep.html" class="nav-page">AI &amp; ML</a>
+      <a href="system-design-prep.html" class="nav-page">System Design</a>
+      <a href="database-prep.html" class="nav-page">Databases</a>
+      <a href="behavioural-prep.html" class="nav-page">Behavioural</a>
+      <a href="modern-tech-prep.html" class="nav-page active">Modern Tech</a>
+      <a href="negotiation-prep.html" class="nav-page">Negotiation</a>
+    </div>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-tag">Modern Technologies Prep</div>
+  <h1>Modern tech<br>& industry trends</h1>
+  <p class="hero-desc">Big companies increasingly ask about <strong>current tools and practices</strong> — cloud, containers, CI/CD, DevOps, and AI tooling. You don't need to be an expert in all of them, but you should be able to talk intelligently about each. This is where you show you're current, not stuck in old ways.</p>
+</div>
+
+<div class="wrap">
+
+  <div class="page-section">
+    <div class="sec-head"><span class="sec-num">01</span><span class="sec-title">Cloud & DevOps</span><div class="sec-rule"></div></div>
+
+    <div class="cat-label">Containers & orchestration</div>
+
+    <div class="q-card"><div class="q-head" onclick="toggle(this)"><span class="q-level lv-basic">Core</span><span class="q-text">What is Docker and why is it useful?</span><span class="q-toggle">▶</span></div>
+      <div class="q-body"><div class="answer-text"><p>Docker packages an application and all its dependencies into a <strong>container</strong> — a lightweight, portable unit that runs identically everywhere. "It works on my machine" becomes "it works everywhere".</p><p><strong>Why it matters:</strong> consistent environments across dev/test/production, faster deployment, isolation between apps, and efficient resource use compared to full virtual machines.</p></div>
+      <div class="tip-box"><div class="tip-label">Simple explanation</div><div class="tip-text">A container is like a shipping container — it doesn't matter what's inside or what ship carries it, the container has a standard interface. Your app runs the same on your laptop, a colleague's machine, and the production server.</div></div></div>
+    </div>
+
+    <div class="q-card"><div class="q-head" onclick="toggle(this)"><span class="q-level lv-mid">Mid</span><span class="q-text">What is Kubernetes and when do you need it?</span><span class="q-toggle">▶</span></div>
+      <div class="q-body"><div class="answer-text"><p>Kubernetes (K8s) is a container orchestration platform. When you have many containers across many servers, it handles: deployment, scaling up/down based on load, self-healing (restarting failed containers), load balancing, and rolling updates with zero downtime.</p><p><strong>When you need it:</strong> when running microservices at scale. For a small app, it's overkill — Docker alone or a simple cloud service is enough.</p></div></div>
+    </div>
+
+    <div class="cat-label">CI/CD & automation</div>
+
+    <div class="q-card"><div class="q-head" onclick="toggle(this)"><span class="q-level lv-basic">Core</span><span class="q-text">What is CI/CD?</span><span class="q-toggle">▶</span></div>
+      <div class="q-body"><div class="answer-text"><ul><li><strong>CI (Continuous Integration)</strong> — developers merge code frequently, and each merge automatically triggers a build and runs tests. Catches bugs early.</li><li><strong>CD (Continuous Delivery/Deployment)</strong> — code that passes tests is automatically prepared for release (delivery) or actually deployed to production (deployment).</li></ul><p><strong>Tools:</strong> GitHub Actions, Azure DevOps Pipelines, Jenkins, GitLab CI.</p></div>
+      <div class="scenario"><div class="scenario-label">Your experience</div><div class="scenario-text">"At Mainframe we used Azure DevOps for our CI/CD pipelines — every commit triggered automated builds and tests before deployment, which caught issues before they reached production."</div></div></div>
+    </div>
+
+    <div class="q-card"><div class="q-head" onclick="toggle(this)"><span class="q-level lv-mid">Mid</span><span class="q-text">What is Infrastructure as Code (IaC)?</span><span class="q-toggle">▶</span></div>
+      <div class="q-body"><div class="answer-text"><p>IaC means managing your infrastructure (servers, networks, databases) through code and configuration files rather than manual clicking in a console. Tools: Terraform, Azure Bicep, AWS CloudFormation.</p><p><strong>Benefits:</strong> reproducible environments, version-controlled infrastructure, easy to spin up identical staging/production, and no "it worked when I set it up manually" problems.</p></div></div>
+    </div>
+
+    <div class="cat-label">Cloud platforms</div>
+
+    <div class="q-card"><div class="q-head" onclick="toggle(this)"><span class="q-level lv-basic">Core</span><span class="q-text">What are the main cloud service models (IaaS, PaaS, SaaS)?</span><span class="q-toggle">▶</span></div>
+      <div class="q-body"><div class="answer-text"><ul><li><strong>IaaS (Infrastructure as a Service)</strong> — you rent raw servers/storage. You manage the OS and everything above. e.g. Azure VMs, AWS EC2.</li><li><strong>PaaS (Platform as a Service)</strong> — you deploy your code, the platform manages servers, scaling, OS. e.g. Azure App Service, Heroku.</li><li><strong>SaaS (Software as a Service)</strong> — fully managed software you just use. e.g. Gmail, Office 365.</li></ul></div></div>
+    </div>
+
+    <div class="q-card"><div class="q-head" onclick="toggle(this)"><span class="q-level lv-mid">Mid</span><span class="q-text">What is serverless computing?</span><span class="q-toggle">▶</span></div>
+      <div class="q-body"><div class="answer-text"><p>Serverless means you write functions that run on-demand without managing any servers. The cloud provider handles all infrastructure and scaling, and you only pay when your code runs. e.g. Azure Functions, AWS Lambda.</p><p><strong>Good for:</strong> event-driven tasks, APIs with variable traffic, background jobs. <strong>Not good for:</strong> long-running processes or apps needing consistent low latency (cold starts).</p></div></div>
+    </div>
+  </div>
+
+  <div class="page-section">
+    <div class="sec-head"><span class="sec-num">02</span><span class="sec-title">Modern development practices</span><div class="sec-rule"></div></div>
+
+    <div class="cat-label">APIs & architecture</div>
+
+    <div class="q-card"><div class="q-head" onclick="toggle(this)"><span class="q-level lv-mid">Mid</span><span class="q-text">REST vs GraphQL — what's the difference?</span><span class="q-toggle">▶</span></div>
+      <div class="q-body"><div class="answer-text"><ul><li><strong>REST</strong> — multiple endpoints, each returns a fixed data structure. Simple, cacheable, widely used. Can over-fetch (get more data than needed) or under-fetch (need multiple calls).</li><li><strong>GraphQL</strong> — single endpoint, the client specifies exactly what data it wants. Solves over/under-fetching. More complex to set up and cache.</li></ul><p>Use REST for most APIs; GraphQL when clients need flexible queries or you have many different frontend needs (mobile vs web).</p></div></div>
+    </div>
+
+    <div class="q-card"><div class="q-head" onclick="toggle(this)"><span class="q-level lv-mid">Mid</span><span class="q-text">What are WebSockets and when do you use them?</span><span class="q-toggle">▶</span></div>
+      <div class="q-body"><div class="answer-text"><p>WebSockets provide a persistent, two-way connection between client and server. Unlike HTTP (request-response), the server can push data to the client anytime.</p><p><strong>Use for:</strong> real-time features — live chat, notifications, live sports scores, collaborative editing, and live odds updates in a betting platform.</p></div>
+      <div class="scenario"><div class="scenario-label">Connect to your domain</div><div class="scenario-text">"For real-time odds in a betting platform, WebSockets are ideal — instead of the client polling for updates every second, the server pushes new odds the moment they change."</div></div></div>
+    </div>
+
+    <div class="cat-label">Testing & quality</div>
+
+    <div class="q-card"><div class="q-head" onclick="toggle(this)"><span class="q-level lv-basic">Core</span><span class="q-text">Explain the testing pyramid</span><span class="q-toggle">▶</span></div>
+      <div class="q-body"><div class="answer-text"><p>The testing pyramid describes the ideal balance of test types:</p><ul><li><strong>Unit tests (base, most numerous)</strong> — test individual functions in isolation. Fast, cheap.</li><li><strong>Integration tests (middle)</strong> — test how components work together, e.g. API + database.</li><li><strong>End-to-end tests (top, fewest)</strong> — test the whole flow like a user would. Slow, expensive, but valuable.</li></ul><p>The principle: many fast unit tests, fewer slow E2E tests. An inverted pyramid (mostly E2E) is a common anti-pattern — slow and brittle.</p></div></div>
+    </div>
+
+    <div class="cat-label">Version control</div>
+
+    <div class="q-card"><div class="q-head" onclick="toggle(this)"><span class="q-level lv-mid">Mid</span><span class="q-text">Explain Git branching strategies</span><span class="q-toggle">▶</span></div>
+      <div class="q-body"><div class="answer-text"><ul><li><strong>Feature branching</strong> — each feature developed in its own branch, merged via pull request after review</li><li><strong>Git Flow</strong> — structured branches: main, develop, feature, release, hotfix. Good for scheduled releases</li><li><strong>Trunk-based</strong> — everyone commits to main frequently behind feature flags. Favoured by big tech for continuous deployment</li></ul><p><strong>Common commands to know:</strong> merge vs rebase, cherry-pick, resolving conflicts, reverting.</p></div></div>
+    </div>
+  </div>
+
+  <div class="page-section">
+    <div class="sec-head"><span class="sec-num">03</span><span class="sec-title">AI in modern development</span><div class="sec-rule"></div></div>
+    <p style="font-size:0.9rem;color:var(--ink2);margin-bottom:1.5rem;line-height:1.75">Increasingly asked in 2025+ interviews. Companies want engineers who use AI tools effectively and understand their limits.</p>
+
+    <div class="q-card"><div class="q-head" onclick="toggle(this)"><span class="q-level lv-mid">Trending</span><span class="q-text">How do you use AI coding assistants responsibly?</span><span class="q-toggle">▶</span></div>
+      <div class="q-body"><div class="answer-text"><p>A strong answer shows you use tools like GitHub Copilot or Claude to boost productivity but with judgment:</p><ul><li>Use them to accelerate boilerplate, tests, and exploring unfamiliar APIs</li><li>Always review and understand generated code — never ship what you don't understand</li><li>Be aware of security and licensing concerns with generated code</li><li>They augment your skills, they don't replace understanding fundamentals</li></ul></div>
+      <div class="tip-box"><div class="tip-label">The balanced answer</div><div class="tip-text">"I use AI assistants to move faster on routine tasks, but I treat their output like a junior developer's PR — I review everything before it goes in. The fundamentals still matter; the tools just remove friction."</div></div></div>
+    </div>
+
+    <div class="q-card"><div class="q-head" onclick="toggle(this)"><span class="q-level lv-mid">Trending</span><span class="q-text">What is RAG (Retrieval-Augmented Generation)?</span><span class="q-toggle">▶</span></div>
+      <div class="q-body"><div class="answer-text"><p>RAG is a technique to make LLMs more accurate by giving them relevant external information at query time. Instead of relying only on training data, the system retrieves relevant documents (from a database or knowledge base) and includes them in the prompt.</p><p><strong>Why it matters:</strong> reduces hallucinations, lets the model answer about private/current data it wasn't trained on. It's how most enterprise AI chatbots work today.</p></div></div>
+    </div>
+
+    <div class="q-card"><div class="q-head" onclick="toggle(this)"><span class="q-level lv-mid">Trending</span><span class="q-text">What is an API rate limit and why do LLM APIs have them?</span><span class="q-toggle">▶</span></div>
+      <div class="q-body"><div class="answer-text"><p>Rate limits cap how many requests you can make in a time window. LLM APIs use them to manage compute costs and ensure fair usage. As a developer integrating these, you handle them with retry logic, exponential backoff, and caching responses where possible.</p></div></div>
+    </div>
+  </div>
+
+  <div class="page-section">
+    <div class="sec-head"><span class="sec-num">04</span><span class="sec-title">Security fundamentals</span><div class="sec-rule"></div></div>
+
+    <div class="q-card"><div class="q-head" onclick="toggle(this)"><span class="q-level lv-mid">Mid</span><span class="q-text">What are common web security vulnerabilities?</span><span class="q-toggle">▶</span></div>
+      <div class="q-body"><div class="answer-text"><ul><li><strong>SQL Injection</strong> — malicious SQL in inputs. Prevent with parameterised queries (which EF Core does by default)</li><li><strong>XSS (Cross-Site Scripting)</strong> — injecting malicious scripts. Prevent by escaping output and using Content Security Policy</li><li><strong>CSRF (Cross-Site Request Forgery)</strong> — tricking a user into unwanted actions. Prevent with anti-forgery tokens</li><li><strong>Broken authentication</strong> — weak session/password handling. Use proven auth like JWT with proper validation</li></ul><p>These are the OWASP Top 10 basics — worth knowing given your security background.</p></div>
+      <div class="scenario"><div class="scenario-label">Your edge</div><div class="scenario-text">"With my intrusion detection thesis background, I'm particularly conscious of security — I understand both the attack side and how to defend against it in application code."</div></div></div>
+    </div>
+  </div>
+
+  <div class="page-section" id="checklist">
+    <div class="sec-head"><span class="sec-num">05</span><span class="sec-title">Preparation checklist</span><div class="sec-rule"></div></div>
+    <div class="checklist">
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Can explain Docker and containers simply</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Understand Kubernetes and when it's needed</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Can explain CI/CD (connect to your Azure DevOps experience)</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Understand Infrastructure as Code</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Know IaaS vs PaaS vs SaaS</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Understand serverless computing</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> REST vs GraphQL tradeoffs</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> WebSockets and real-time use cases</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> The testing pyramid</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Git branching strategies</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Responsible use of AI coding tools</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> What RAG is at a high level</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Common web security vulnerabilities (OWASP basics)</label>
+    </div>
+  </div>
+</div>
+
+<footer><p class="footer-text">Modern Technologies Prep · Built for Isuru Mahanama · You don't need to master all of these — just speak intelligently about each</p></footer>
+
+<script>
+function toggle(head){const body=head.nextElementSibling;const arrow=head.querySelector('.q-toggle');const isOpen=body.classList.contains('open');body.classList.toggle('open',!isOpen);arrow.classList.toggle('open',!isOpen);}
+function chk(input){input.closest('.check-item').classList.toggle('checked',input.checked);}
+</script>
+</body>
+</html>

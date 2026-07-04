@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Behavioural Interview Prep — Isuru Mahanama</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f8f8f6;--white:#ffffff;--ink:#0a0a0a;--ink2:#3a3a3a;--ink3:#6b6b6b;--ink4:#9a9a9a;
+  --rule:#e2e2e0;--rule2:#eeeeec;
+  --green:#2d6a4f;--green-bg:#f0fdf4;--green-border:#bbf7d0;
+  --blue:#2563eb;--blue-bg:#eff6ff;--blue-border:#bfdbfe;
+  --purple:#7c3aed;--purple-bg:#f5f3ff;--purple-border:#ddd6fe;
+  --amber:#b45309;--amber-bg:#fffbeb;--amber-border:#fde68a;
+  --red:#dc2626;--red-bg:#fef2f2;
+  --teal:#0d9488;--teal-bg:#f0fdfa;--teal-border:#99f6e4;
+  --mono:'DM Mono',monospace;--sans:'DM Sans',sans-serif;--serif:'Instrument Serif',serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration:none}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(248,248,246,0.93);backdrop-filter:blur(10px);border-bottom:1px solid var(--rule);padding:0 2rem;height:52px;display:flex;align-items:center;justify-content:space-between}
+.nav-title{font-family:var(--mono);font-size:0.78rem;font-weight:500;color:var(--ink)}
+.nav-left{display:flex;align-items:center;gap:1.5rem}
+.nav-pages{display:flex;gap:0.25rem;flex-wrap:wrap}
+.nav-page{font-family:var(--mono);font-size:0.72rem;color:var(--ink4);padding:4px 10px;border-radius:4px;transition:all 0.15s;white-space:nowrap}
+.nav-page:hover{color:var(--ink);background:var(--rule2)}
+.nav-links{display:flex;gap:1.5rem}
+.nav-links a{font-family:var(--mono);font-size:0.72rem;color:var(--ink4)}
+.hero{padding:8rem 2rem 4rem;max-width:860px;margin:0 auto}
+.hero-tag{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:0.72rem;font-weight:500;border-radius:100px;padding:4px 12px;margin-bottom:1.5rem}
+.hero h1{font-family:var(--serif);font-style:italic;font-size:clamp(2.2rem,5vw,3.5rem);font-weight:400;line-height:1.1;letter-spacing:-0.02em;color:var(--ink);margin-bottom:1rem}
+.hero-desc{font-size:1rem;color:var(--ink2);max-width:580px;line-height:1.75;margin-bottom:1rem}
+.hero-desc strong{color:var(--ink);font-weight:500}
+.wrap{max-width:860px;margin:0 auto;padding:0 2rem}
+.page-section{padding:3.5rem 0;border-top:1px solid var(--rule)}
+.sec-head{display:flex;align-items:center;gap:1rem;margin-bottom:2rem}
+.sec-num{font-family:var(--mono);font-size:0.7rem;color:var(--ink4)}
+.sec-title{font-size:1.2rem;font-weight:600;color:var(--ink);letter-spacing:-0.02em}
+.sec-rule{flex:1;height:1px;background:var(--rule2)}
+.cat-label{font-family:var(--mono);font-size:0.7rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink4);padding:0.5rem 0;border-bottom:1px solid var(--rule);margin-bottom:1px;margin-top:2rem}
+.cat-label:first-child{margin-top:0}
+.q-card{border:1px solid var(--rule);background:var(--white);border-radius:4px;margin-bottom:1px;overflow:hidden}
+.q-head{padding:1.1rem 1.5rem;display:flex;align-items:flex-start;gap:1rem;cursor:pointer;transition:background 0.15s;user-select:none}
+.q-head:hover{background:var(--bg)}
+.q-level{font-family:var(--mono);font-size:0.65rem;font-weight:500;padding:2px 8px;border-radius:3px;white-space:nowrap;margin-top:2px;flex-shrink:0}
+.lv-basic{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
+.lv-mid{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border)}
+.lv-senior{background:var(--red-bg);color:var(--red);border:1px solid #fecaca}
+.q-text{font-size:0.95rem;font-weight:500;color:var(--ink);flex:1;line-height:1.5}
+.q-toggle{font-family:var(--mono);font-size:0.8rem;color:var(--ink4);transition:transform 0.2s;flex-shrink:0;margin-top:2px}
+.q-toggle.open{transform:rotate(90deg)}
+.q-body{display:none;padding:0 1.5rem 1.5rem;border-top:1px solid var(--rule2)}
+.q-body.open{display:block}
+.answer-label{font-family:var(--mono);font-size:0.68rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink4);margin:1.25rem 0 0.6rem}
+.answer-text{font-size:0.9rem;color:var(--ink2);line-height:1.75}
+.answer-text p+p{margin-top:0.75rem}
+.answer-text strong{color:var(--ink);font-weight:500}
+.answer-text ul{margin:0.5rem 0 0 1rem}
+.answer-text ul li{margin-bottom:0.35rem}
+.code-block{background:#0a0a0a;border-radius:4px;padding:1.25rem 1.5rem;margin:0.75rem 0;overflow-x:auto}
+.code-block pre{font-family:var(--mono);font-size:0.78rem;color:#e0e0e0;line-height:1.7;margin:0}
+.ck{color:#a3a3ff}.cs{color:#86efac}.cf{color:#93c5fd}.cn{color:#fbbf24}.cc{color:#555}
+.tip-box{background:var(--blue-bg);border:1px solid var(--blue-border);border-radius:4px;padding:1rem 1.25rem;margin-top:1rem}
+.tip-label{font-family:var(--mono);font-size:0.68rem;font-weight:500;color:var(--blue);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.4rem}
+.tip-text{font-size:0.875rem;color:var(--ink2);line-height:1.7}
+.warn-box{background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:4px;padding:1rem 1.25rem;margin-top:1rem}
+.warn-label{font-family:var(--mono);font-size:0.68rem;font-weight:500;color:var(--amber);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.4rem}
+.warn-text{font-size:0.875rem;color:var(--ink2);line-height:1.7}
+.scenario{background:var(--purple-bg);border:1px solid var(--purple-border);border-radius:4px;padding:1.25rem 1.5rem;margin-top:1rem}
+.scenario-label{font-family:var(--mono);font-size:0.68rem;font-weight:500;color:var(--purple);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.5rem}
+.scenario-text{font-size:0.875rem;color:var(--ink2);line-height:1.7;font-style:italic}
+.checklist{display:flex;flex-direction:column;gap:0}
+.check-item{display:flex;align-items:flex-start;gap:0.75rem;padding:0.75rem 0;border-bottom:1px solid var(--rule2);font-size:0.9rem;color:var(--ink2);cursor:pointer}
+.check-item:first-child{border-top:1px solid var(--rule2)}
+.check-item input{margin-top:3px;accent-color:var(--green);cursor:pointer;flex-shrink:0}
+.check-item.checked{color:var(--ink4);text-decoration:line-through}
+footer{border-top:1px solid var(--rule);padding:2rem;text-align:center}
+.footer-text{font-family:var(--mono);font-size:0.72rem;color:var(--ink4)}
+@media(max-width:640px){nav{padding:0 1rem;height:auto;flex-wrap:wrap;padding-top:8px;padding-bottom:8px}.nav-links{display:none}.hero{padding:7rem 1rem 3rem}.wrap{padding:0 1rem}}
+.nav-page.active{color:var(--amber);background:var(--amber-bg);border:1px solid var(--amber-border)}
+.hero-tag{color:var(--amber);background:var(--amber-bg);border:1px solid var(--amber-border)}
+.star-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--rule);border:1px solid var(--rule);margin:1rem 0}
+.star-cell{background:var(--white);padding:1.25rem}
+.star-letter{font-family:var(--serif);font-style:italic;font-size:1.8rem;color:var(--amber);line-height:1}
+.star-name{font-weight:600;font-size:0.9rem;color:var(--ink);margin:0.4rem 0 0.3rem}
+.star-desc{font-size:0.82rem;color:var(--ink3);line-height:1.6}
+@media(max-width:640px){.star-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-left">
+    <span class="nav-title">Interview Prep</span>
+    <div class="nav-pages">
+      <a href="index.html" class="nav-page">Algorithms</a>
+      <a href="dotnet-angular-prep.html" class="nav-page">.NET &amp; Angular</a>
+      <a href="ai-ml-prep.html" class="nav-page">AI &amp; ML</a>
+      <a href="system-design-prep.html" class="nav-page">System Design</a>
+      <a href="database-prep.html" class="nav-page">Databases</a>
+      <a href="behavioural-prep.html" class="nav-page active">Behavioural</a>
+      <a href="modern-tech-prep.html" class="nav-page">Modern Tech</a>
+      <a href="negotiation-prep.html" class="nav-page">Negotiation</a>
+    </div>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-tag">Behavioural Prep</div>
+  <h1>Behavioural<br>interviews</h1>
+  <p class="hero-desc">Technical skill gets you in the room. <strong>Behavioural answers get you the offer.</strong> Companies like Amazon weight these as heavily as coding. The secret is preparing real stories in advance using the STAR method.</p>
+</div>
+
+<div class="wrap">
+
+  <div class="page-section">
+    <div class="sec-head"><span class="sec-num">01</span><span class="sec-title">The STAR method — your framework</span><div class="sec-rule"></div></div>
+    <p style="font-size:0.9rem;color:var(--ink2);margin-bottom:0.5rem;line-height:1.75">Every behavioural answer should follow this structure. It keeps you focused and ensures you actually answer the question instead of rambling.</p>
+    <div class="star-grid">
+      <div class="star-cell"><div class="star-letter">S</div><div class="star-name">Situation</div><div class="star-desc">Set the scene briefly. What was the context? Keep it to 1-2 sentences.</div></div>
+      <div class="star-cell"><div class="star-letter">T</div><div class="star-name">Task</div><div class="star-desc">What was your responsibility or the challenge you faced?</div></div>
+      <div class="star-cell"><div class="star-letter">A</div><div class="star-name">Action</div><div class="star-desc">What did YOU specifically do? Use "I" not "we". This is the longest part.</div></div>
+      <div class="star-cell"><div class="star-letter">R</div><div class="star-name">Result</div><div class="star-desc">What was the outcome? Quantify it if possible. What did you learn?</div></div>
+    </div>
+    <div class="warn-box"><div class="warn-label">The number one mistake</div><div class="warn-text">Candidates say "we" too much. The interviewer wants to know what YOU did. Even in a team effort, be clear about your specific contribution. Say "I designed the transaction flow" not "we built the system".</div></div>
+  </div>
+
+  <div class="page-section">
+    <div class="sec-head"><span class="sec-num">02</span><span class="sec-title">Prepare these stories in advance</span><div class="sec-rule"></div></div>
+    <p style="font-size:0.9rem;color:var(--ink2);margin-bottom:1.5rem;line-height:1.75">Most behavioural questions map to a handful of story types. Prepare 5-6 solid stories from your Mainframe and university experience, and you can adapt them to almost any question.</p>
+
+    <div class="cat-label">The essential questions</div>
+
+    <div class="q-card"><div class="q-head" onclick="toggle(this)"><span class="q-level lv-basic">Must prep</span><span class="q-text">Tell me about yourself</span><span class="q-toggle">▶</span></div>
+      <div class="q-body"><div class="answer-label">How to answer</div><div class="answer-text"><p>This is your opening pitch — 60-90 seconds. Structure: <strong>present → past → future.</strong></p><p><strong>Present:</strong> "I'm a software engineer at Mainframe, where I build full-stack systems for a live betting platform using Angular and .NET Core."</p><p><strong>Past:</strong> "I have a Computer Science degree from Peradeniya where I focused on machine learning — my thesis was on network intrusion detection. I started at Mainframe as an intern and was converted to full-time based on my delivery."</p><p><strong>Future:</strong> "Now I'm looking to take on bigger challenges at scale, which is what drew me to this role."</p></div>
+      <div class="warn-box"><div class="warn-label">Don't</div><div class="warn-text">Don't recite your entire CV chronologically. Don't talk about personal life. Keep it professional, tight, and end with why you're excited about THIS role.</div></div></div>
+    </div>
+
+    <div class="q-card"><div class="q-head" onclick="toggle(this)"><span class="q-level lv-mid">Must prep</span><span class="q-text">Tell me about a challenging technical problem you solved</span><span class="q-toggle">▶</span></div>
+      <div class="q-body"><div class="answer-label">Your story bank — betting transaction integrity</div><div class="answer-text"><p><strong>S:</strong> "On the betting platform, we needed bet placement to be completely reliable — placing a bet and deducting the user's balance had to happen atomically."</p><p><strong>T:</strong> "My task was to build this flow ensuring no scenario could leave a user with a placed bet but no balance deducted, or vice versa, even under concurrent requests."</p><p><strong>A:</strong> "I implemented the flow using database transactions so both operations committed together or rolled back together. I also handled the concurrency case to prevent double-spending of balance."</p><p><strong>R:</strong> "The result was a reliable transaction flow with no consistency issues in production. It taught me how critical correctness is when real money is involved."</p></div></div>
+    </div>
+
+    <div class="q-card"><div class="q-head" onclick="toggle(this)"><span class="q-level lv-mid">Must prep</span><span class="q-text">Tell me about a time you had a conflict with a colleague</span><span class="q-toggle">▶</span></div>
+      <div class="q-body"><div class="answer-label">How to approach it</div><div class="answer-text"><p>Interviewers want to see maturity, not that you never disagree. Show you can handle disagreement professionally and reach a good outcome.</p><p><strong>Framework:</strong> describe a genuine technical disagreement (e.g. an approach to a feature), explain how you listened to their view, presented your reasoning with data or examples, and reached a resolution together — ideally one that improved on both original ideas.</p><p><strong>Key:</strong> end by showing you prioritised the outcome and the relationship over being "right".</p></div>
+      <div class="warn-box"><div class="warn-label">Avoid</div><div class="warn-text">Never badmouth the colleague or make them the villain. Never pick a conflict where you were clearly wrong or behaved badly. Show emotional maturity.</div></div></div>
+    </div>
+
+    <div class="q-card"><div class="q-head" onclick="toggle(this)"><span class="q-level lv-mid">Must prep</span><span class="q-text">Tell me about a time you failed or made a mistake</span><span class="q-toggle">▶</span></div>
+      <div class="q-body"><div class="answer-label">How to approach it</div><div class="answer-text"><p>They want to see accountability and growth — not perfection. The structure that works: own the mistake honestly, explain the impact, describe what you did to fix it, and most importantly what you changed afterward so it never happened again.</p><p><strong>Good example type:</strong> a bug that reached production, a missed edge case, an underestimated timeline. Something real but not catastrophic.</p></div>
+      <div class="tip-box"><div class="tip-label">The golden rule</div><div class="tip-text">Always end a failure story with the lesson and how you apply it now. The failure is the setup; the growth is the point. That's what they're actually evaluating.</div></div></div>
+    </div>
+
+    <div class="q-card"><div class="q-head" onclick="toggle(this)"><span class="q-level lv-mid">Must prep</span><span class="q-text">Tell me about a time you took initiative / went beyond your role</span><span class="q-toggle">▶</span></div>
+      <div class="q-body"><div class="answer-label">Your story bank options</div><div class="answer-text"><ul><li>Building the interactive learning resources and documentation at Mainframe beyond your assigned tasks</li><li>The NX monorepo migration — modernising the frontend architecture proactively</li><li>Taking on the mobile backend API work in addition to web development</li></ul><p>Pick one, frame it in STAR, and emphasise that you saw a need and acted on it without being asked.</p></div></div>
+    </div>
+
+    <div class="q-card"><div class="q-head" onclick="toggle(this)"><span class="q-level lv-senior">Must prep</span><span class="q-text">Why do you want to work here / why are you leaving?</span><span class="q-toggle">▶</span></div>
+      <div class="q-body"><div class="answer-label">How to answer</div><div class="answer-text"><p><strong>Why here:</strong> Be specific to the company. Research their products, engineering culture, or tech stack. "I'm drawn to the scale of problems you work on and your engineering culture around X."</p><p><strong>Why leaving:</strong> Always stay positive about your current role. Frame it as moving toward growth, not running away. "I've learned a huge amount at Mainframe building production systems, and now I want to work on larger-scale challenges with a bigger engineering team."</p></div>
+      <div class="warn-box"><div class="warn-label">Never</div><div class="warn-text">Never badmouth your current employer, salary complaints, or "I'm bored". These are all red flags. Always frame the move as toward something, not away from something.</div></div></div>
+    </div>
+  </div>
+
+  <div class="page-section">
+    <div class="sec-head"><span class="sec-num">03</span><span class="sec-title">Amazon Leadership Principles (if targeting Amazon)</span><div class="sec-rule"></div></div>
+    <p style="font-size:0.9rem;color:var(--ink2);margin-bottom:1.5rem;line-height:1.75">Amazon interviews are built entirely around 16 Leadership Principles. Every behavioural question maps to one. The most commonly tested ones:</p>
+    <div class="q-card"><div class="q-head" onclick="toggle(this)"><span class="q-level lv-senior">Amazon</span><span class="q-text">The key principles to prepare stories for</span><span class="q-toggle">▶</span></div>
+      <div class="q-body"><div class="answer-text"><ul><li><strong>Customer Obsession</strong> — a time you prioritised the user's needs</li><li><strong>Ownership</strong> — a time you took responsibility beyond your role</li><li><strong>Invent and Simplify</strong> — a time you simplified something complex</li><li><strong>Dive Deep</strong> — a time you dug into details to find a root cause</li><li><strong>Bias for Action</strong> — a time you moved fast under uncertainty</li><li><strong>Deliver Results</strong> — a time you delivered despite obstacles</li><li><strong>Earn Trust</strong> — a time you built trust with a team or handled a disagreement</li></ul><p>Prepare one strong STAR story for each. Many of your Mainframe experiences can map to several of these.</p></div></div>
+    </div>
+  </div>
+
+  <div class="page-section">
+    <div class="sec-head"><span class="sec-num">04</span><span class="sec-title">Questions to ask THEM</span><div class="sec-rule"></div></div>
+    <p style="font-size:0.9rem;color:var(--ink2);margin-bottom:1rem;line-height:1.75">Always have questions ready. "No questions" signals disinterest. Good ones:</p>
+    <div class="answer-text" style="font-size:0.9rem"><ul><li>"What does success look like in this role in the first 6 months?"</li><li>"What are the biggest technical challenges the team is facing right now?"</li><li>"How does the team approach code review and technical decisions?"</li><li>"What does the deployment and on-call process look like?"</li><li>"What growth opportunities exist for engineers here?"</li></ul></div>
+  </div>
+
+  <div class="page-section" id="checklist">
+    <div class="sec-head"><span class="sec-num">05</span><span class="sec-title">Preparation checklist</span><div class="sec-rule"></div></div>
+    <div class="checklist">
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Memorised the STAR structure</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Polished 90-second "tell me about yourself" pitch</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Prepared a challenging technical problem story (STAR)</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Prepared a conflict/disagreement story</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Prepared a failure/mistake story with a lesson</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Prepared an initiative/ownership story</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Prepared "why this company" and "why leaving" answers</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Prepared Amazon LP stories (if targeting Amazon)</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Prepared 3-5 questions to ask the interviewer</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Practised saying stories out loud — not just reading them</label>
+    </div>
+  </div>
+</div>
+
+<footer><p class="footer-text">Behavioural Prep · Built for Isuru Mahanama · Prepare 5-6 real STAR stories and you can handle almost any question</p></footer>
+
+<script>
+function toggle(head){const body=head.nextElementSibling;const arrow=head.querySelector('.q-toggle');const isOpen=body.classList.contains('open');body.classList.toggle('open',!isOpen);arrow.classList.toggle('open',!isOpen);}
+function chk(input){input.closest('.check-item').classList.toggle('checked',input.checked);}
+</script>
+</body>
+</html>

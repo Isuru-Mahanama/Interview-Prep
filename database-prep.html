@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Database Interview Prep — Isuru Mahanama</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f8f8f6;--white:#ffffff;--ink:#0a0a0a;--ink2:#3a3a3a;--ink3:#6b6b6b;--ink4:#9a9a9a;
+  --rule:#e2e2e0;--rule2:#eeeeec;
+  --green:#2d6a4f;--green-bg:#f0fdf4;--green-border:#bbf7d0;
+  --blue:#2563eb;--blue-bg:#eff6ff;--blue-border:#bfdbfe;
+  --purple:#7c3aed;--purple-bg:#f5f3ff;--purple-border:#ddd6fe;
+  --amber:#b45309;--amber-bg:#fffbeb;--amber-border:#fde68a;
+  --red:#dc2626;--red-bg:#fef2f2;
+  --teal:#0d9488;--teal-bg:#f0fdfa;--teal-border:#99f6e4;
+  --mono:'DM Mono',monospace;--sans:'DM Sans',sans-serif;--serif:'Instrument Serif',serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration:none}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(248,248,246,0.93);backdrop-filter:blur(10px);border-bottom:1px solid var(--rule);padding:0 2rem;height:52px;display:flex;align-items:center;justify-content:space-between}
+.nav-title{font-family:var(--mono);font-size:0.78rem;font-weight:500;color:var(--ink)}
+.nav-left{display:flex;align-items:center;gap:1.5rem}
+.nav-pages{display:flex;gap:0.25rem;flex-wrap:wrap}
+.nav-page{font-family:var(--mono);font-size:0.72rem;color:var(--ink4);padding:4px 10px;border-radius:4px;transition:all 0.15s;white-space:nowrap}
+.nav-page:hover{color:var(--ink);background:var(--rule2)}
+.nav-links{display:flex;gap:1.5rem}
+.nav-links a{font-family:var(--mono);font-size:0.72rem;color:var(--ink4)}
+.hero{padding:8rem 2rem 4rem;max-width:860px;margin:0 auto}
+.hero-tag{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:0.72rem;font-weight:500;border-radius:100px;padding:4px 12px;margin-bottom:1.5rem}
+.hero h1{font-family:var(--serif);font-style:italic;font-size:clamp(2.2rem,5vw,3.5rem);font-weight:400;line-height:1.1;letter-spacing:-0.02em;color:var(--ink);margin-bottom:1rem}
+.hero-desc{font-size:1rem;color:var(--ink2);max-width:580px;line-height:1.75;margin-bottom:1rem}
+.hero-desc strong{color:var(--ink);font-weight:500}
+.wrap{max-width:860px;margin:0 auto;padding:0 2rem}
+.page-section{padding:3.5rem 0;border-top:1px solid var(--rule)}
+.sec-head{display:flex;align-items:center;gap:1rem;margin-bottom:2rem}
+.sec-num{font-family:var(--mono);font-size:0.7rem;color:var(--ink4)}
+.sec-title{font-size:1.2rem;font-weight:600;color:var(--ink);letter-spacing:-0.02em}
+.sec-rule{flex:1;height:1px;background:var(--rule2)}
+.cat-label{font-family:var(--mono);font-size:0.7rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink4);padding:0.5rem 0;border-bottom:1px solid var(--rule);margin-bottom:1px;margin-top:2rem}
+.cat-label:first-child{margin-top:0}
+.q-card{border:1px solid var(--rule);background:var(--white);border-radius:4px;margin-bottom:1px;overflow:hidden}
+.q-head{padding:1.1rem 1.5rem;display:flex;align-items:flex-start;gap:1rem;cursor:pointer;transition:background 0.15s;user-select:none}
+.q-head:hover{background:var(--bg)}
+.q-level{font-family:var(--mono);font-size:0.65rem;font-weight:500;padding:2px 8px;border-radius:3px;white-space:nowrap;margin-top:2px;flex-shrink:0}
+.lv-basic{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
+.lv-mid{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border)}
+.lv-senior{background:var(--red-bg);color:var(--red);border:1px solid #fecaca}
+.q-text{font-size:0.95rem;font-weight:500;color:var(--ink);flex:1;line-height:1.5}
+.q-toggle{font-family:var(--mono);font-size:0.8rem;color:var(--ink4);transition:transform 0.2s;flex-shrink:0;margin-top:2px}
+.q-toggle.open{transform:rotate(90deg)}
+.q-body{display:none;padding:0 1.5rem 1.5rem;border-top:1px solid var(--rule2)}
+.q-body.open{display:block}
+.answer-label{font-family:var(--mono);font-size:0.68rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink4);margin:1.25rem 0 0.6rem}
+.answer-text{font-size:0.9rem;color:var(--ink2);line-height:1.75}
+.answer-text p+p{margin-top:0.75rem}
+.answer-text strong{color:var(--ink);font-weight:500}
+.answer-text ul{margin:0.5rem 0 0 1rem}
+.answer-text ul li{margin-bottom:0.35rem}
+.code-block{background:#0a0a0a;border-radius:4px;padding:1.25rem 1.5rem;margin:0.75rem 0;overflow-x:auto}
+.code-block pre{font-family:var(--mono);font-size:0.78rem;color:#e0e0e0;line-height:1.7;margin:0}
+.ck{color:#a3a3ff}.cs{color:#86efac}.cf{color:#93c5fd}.cn{color:#fbbf24}.cc{color:#555}
+.tip-box{background:var(--blue-bg);border:1px solid var(--blue-border);border-radius:4px;padding:1rem 1.25rem;margin-top:1rem}
+.tip-label{font-family:var(--mono);font-size:0.68rem;font-weight:500;color:var(--blue);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.4rem}
+.tip-text{font-size:0.875rem;color:var(--ink2);line-height:1.7}
+.warn-box{background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:4px;padding:1rem 1.25rem;margin-top:1rem}
+.warn-label{font-family:var(--mono);font-size:0.68rem;font-weight:500;color:var(--amber);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.4rem}
+.warn-text{font-size:0.875rem;color:var(--ink2);line-height:1.7}
+.scenario{background:var(--purple-bg);border:1px solid var(--purple-border);border-radius:4px;padding:1.25rem 1.5rem;margin-top:1rem}
+.scenario-label{font-family:var(--mono);font-size:0.68rem;font-weight:500;color:var(--purple);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.5rem}
+.scenario-text{font-size:0.875rem;color:var(--ink2);line-height:1.7;font-style:italic}
+.checklist{display:flex;flex-direction:column;gap:0}
+.check-item{display:flex;align-items:flex-start;gap:0.75rem;padding:0.75rem 0;border-bottom:1px solid var(--rule2);font-size:0.9rem;color:var(--ink2);cursor:pointer}
+.check-item:first-child{border-top:1px solid var(--rule2)}
+.check-item input{margin-top:3px;accent-color:var(--green);cursor:pointer;flex-shrink:0}
+.check-item.checked{color:var(--ink4);text-decoration:line-through}
+footer{border-top:1px solid var(--rule);padding:2rem;text-align:center}
+.footer-text{font-family:var(--mono);font-size:0.72rem;color:var(--ink4)}
+@media(max-width:640px){nav{padding:0 1rem;height:auto;flex-wrap:wrap;padding-top:8px;padding-bottom:8px}.nav-links{display:none}.hero{padding:7rem 1rem 3rem}.wrap{padding:0 1rem}}
+.nav-page.active{color:var(--red);background:var(--red-bg);border:1px solid #fecaca}
+.hero-tag{color:var(--red);background:var(--red-bg);border:1px solid #fecaca}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-left">
+    <span class="nav-title">Interview Prep</span>
+    <div class="nav-pages">
+      <a href="index.html" class="nav-page">Algorithms</a>
+      <a href="dotnet-angular-prep.html" class="nav-page">.NET &amp; Angular</a>
+      <a href="ai-ml-prep.html" class="nav-page">AI &amp; ML</a>
+      <a href="system-design-prep.html" class="nav-page">System Design</a>
+      <a href="database-prep.html" class="nav-page active">Databases</a>
+      <a href="behavioural-prep.html" class="nav-page">Behavioural</a>
+      <a href="modern-tech-prep.html" class="nav-page">Modern Tech</a>
+      <a href="negotiation-prep.html" class="nav-page">Negotiation</a>
+    </div>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-tag">Database Deep-Dive</div>
+  <h1>Database<br>interviews</h1>
+  <p class="hero-desc">You list <strong>MS SQL Server as a core skill</strong> and optimised million-row tables at Mainframe — interviewers will drill deep here. This covers everything from indexing internals to transaction isolation levels. Your real production experience is a huge advantage; this arms you to explain it.</p>
+</div>
+
+<div class="wrap">
+
+  <div class="page-section">
+    <div class="sec-head"><span class="sec-num">01</span><span class="sec-title">Indexing — the most asked topic</span><div class="sec-rule"></div></div>
+
+    <div class="q-card"><div class="q-head" onclick="toggle(this)"><span class="q-level lv-basic">Core</span><span class="q-text">What is an index and how does it work?</span><span class="q-toggle">▶</span></div>
+      <div class="q-body"><div class="answer-text"><p>An index is a data structure (usually a B-tree) that speeds up data retrieval, like the index at the back of a book. Instead of scanning every row (a table scan), the database can jump straight to the data.</p><p><strong>The tradeoff:</strong> indexes speed up reads but slow down writes (inserts/updates/deletes must also update the index) and take extra storage. So you index columns you frequently search, filter, or join on — not everything.</p></div></div>
+    </div>
+
+    <div class="q-card"><div class="q-head" onclick="toggle(this)"><span class="q-level lv-mid">Mid</span><span class="q-text">Clustered vs non-clustered index — what's the difference?</span><span class="q-toggle">▶</span></div>
+      <div class="q-body"><div class="answer-text"><ul><li><strong>Clustered index</strong> — determines the physical order of data in the table. There can be only ONE per table (usually the primary key). The data IS the index — leaf nodes contain the actual rows.</li><li><strong>Non-clustered index</strong> — a separate structure that points to the data. You can have many. Leaf nodes contain pointers to the actual rows.</li></ul><p><strong>Analogy:</strong> a clustered index is like a phone book sorted by last name — the data itself is ordered. A non-clustered index is like the index at the back of a textbook — a separate list pointing to page numbers.</p></div>
+      <div class="scenario"><div class="scenario-label">Your experience</div><div class="scenario-text">"At Mainframe I added composite indexes on the columns we filtered by most — like UserId and CreatedDate together — which dramatically cut query time on transaction tables with millions of rows."</div></div></div>
+    </div>
+
+    <div class="q-card"><div class="q-head" onclick="toggle(this)"><span class="q-level lv-mid">Mid</span><span class="q-text">What is a composite index and does column order matter?</span><span class="q-toggle">▶</span></div>
+      <div class="q-body"><div class="answer-text"><p>A composite index covers multiple columns. <strong>Column order matters a lot</strong> — this is the "leftmost prefix" rule.</p><p>An index on (UserId, CreatedDate) can be used for queries filtering on UserId alone, or UserId + CreatedDate. But it CANNOT efficiently serve a query filtering only on CreatedDate — because CreatedDate isn't the leading column.</p></div>
+      <div class="code-block"><pre><span class="cc">-- Index on (UserId, CreatedDate)</span>
+CREATE INDEX IX_Bets_User_Date ON Bets (UserId, CreatedDate);
+
+<span class="cc">-- ✓ Uses the index (UserId is leading column)</span>
+SELECT * FROM Bets WHERE UserId = 42;
+
+<span class="cc">-- ✓ Uses the index fully</span>
+SELECT * FROM Bets WHERE UserId = 42 AND CreatedDate > '2024-01-01';
+
+<span class="cc">-- ✗ Does NOT use index efficiently (CreatedDate not leading)</span>
+SELECT * FROM Bets WHERE CreatedDate > '2024-01-01';</pre></div>
+      <div class="tip-box"><div class="tip-label">Senior-level point</div><div class="tip-text">Put the most selective column (the one that filters out the most rows) or the most frequently queried column first. Getting composite index order right is exactly the kind of optimisation you did at Mainframe — lead with that.</div></div></div>
+    </div>
+
+    <div class="q-card"><div class="q-head" onclick="toggle(this)"><span class="q-level lv-senior">Senior</span><span class="q-text">What is a covering index?</span><span class="q-toggle">▶</span></div>
+      <div class="q-body"><div class="answer-text"><p>A covering index includes all the columns a query needs — so the database can answer the query entirely from the index without touching the table at all. In SQL Server you add extra columns with the INCLUDE clause.</p></div>
+      <div class="code-block"><pre><span class="cc">-- Index covers the query completely</span>
+CREATE INDEX IX_Bets_User ON Bets (UserId)
+    INCLUDE (Amount, Status);
+
+<span class="cc">-- This query is fully served by the index — no table lookup</span>
+SELECT Amount, Status FROM Bets WHERE UserId = 42;</pre></div></div>
+    </div>
+  </div>
+
+  <div class="page-section">
+    <div class="sec-head"><span class="sec-num">02</span><span class="sec-title">Transactions & ACID</span><div class="sec-rule"></div></div>
+
+    <div class="q-card"><div class="q-head" onclick="toggle(this)"><span class="q-level lv-basic">Core</span><span class="q-text">What does ACID stand for?</span><span class="q-toggle">▶</span></div>
+      <div class="q-body"><div class="answer-text"><ul><li><strong>Atomicity</strong> — all operations in a transaction succeed, or none do. No partial completion.</li><li><strong>Consistency</strong> — a transaction brings the database from one valid state to another, respecting all rules and constraints.</li><li><strong>Isolation</strong> — concurrent transactions don't interfere with each other.</li><li><strong>Durability</strong> — once committed, the data survives even a crash or power loss.</li></ul></div>
+      <div class="scenario"><div class="scenario-label">Perfect example from your work</div><div class="scenario-text">"In our betting platform, placing a bet and deducting the balance is one atomic transaction. Atomicity guarantees you can't deduct the balance without recording the bet, or vice versa — both happen or neither does."</div></div></div>
+    </div>
+
+    <div class="q-card"><div class="q-head" onclick="toggle(this)"><span class="q-level lv-senior">Senior</span><span class="q-text">Explain transaction isolation levels</span><span class="q-toggle">▶</span></div>
+      <div class="q-body"><div class="answer-text"><p>Isolation levels control how much one transaction sees of another's uncommitted changes. From least to most strict:</p><ul><li><strong>Read Uncommitted</strong> — can read uncommitted changes (dirty reads). Fastest, least safe.</li><li><strong>Read Committed</strong> — only reads committed data. SQL Server default. Prevents dirty reads.</li><li><strong>Repeatable Read</strong> — guarantees rows read won't change during the transaction. Prevents non-repeatable reads.</li><li><strong>Serializable</strong> — full isolation, transactions behave as if run one at a time. Safest, slowest.</li></ul></div>
+      <div class="answer-label">The three read phenomena to know</div>
+      <div class="answer-text"><ul><li><strong>Dirty read</strong> — reading uncommitted data that might be rolled back</li><li><strong>Non-repeatable read</strong> — same query returns different values within a transaction</li><li><strong>Phantom read</strong> — new rows appear in repeated queries within a transaction</li></ul></div>
+      <div class="warn-box"><div class="warn-label">Senior insight</div><div class="warn-text">Higher isolation = more safety but more locking = less concurrency. It's a tradeoff. For a betting balance you might need a higher level to prevent double-spending, but for reading odds, Read Committed is fine. Knowing this tradeoff signals senior-level understanding.</div></div></div>
+    </div>
+
+    <div class="q-card"><div class="q-head" onclick="toggle(this)"><span class="q-level lv-senior">Senior</span><span class="q-text">What is a deadlock and how do you handle it?</span><span class="q-toggle">▶</span></div>
+      <div class="q-body"><div class="answer-text"><p>A deadlock happens when two transactions each hold a lock the other needs — both wait forever. e.g. Transaction A locks row 1 and wants row 2; Transaction B locks row 2 and wants row 1.</p><p><strong>How databases handle it:</strong> SQL Server detects deadlocks and kills one transaction (the "victim"), rolling it back so the other can proceed.</p><p><strong>How you prevent it:</strong> access resources in a consistent order across all transactions, keep transactions short, and use appropriate isolation levels. In code, retry the victim transaction.</p></div></div>
+    </div>
+
+    <div class="q-card"><div class="q-head" onclick="toggle(this)"><span class="q-level lv-senior">Senior</span><span class="q-text">Optimistic vs pessimistic locking</span><span class="q-toggle">▶</span></div>
+      <div class="q-body"><div class="answer-text"><ul><li><strong>Pessimistic locking</strong> — lock the row when you read it, blocking others until you're done. Safe but reduces concurrency. Use when conflicts are likely.</li><li><strong>Optimistic locking</strong> — don't lock; instead check at write time whether the data changed since you read it (using a version/timestamp column). If it changed, reject and retry. Better concurrency. Use when conflicts are rare.</li></ul></div>
+      <div class="scenario"><div class="scenario-label">Relevant to betting</div><div class="scenario-text">"For balance deductions where double-spending must be prevented, you have to think carefully about locking strategy — optimistic locking with a version check works well when conflicts are rare, and avoids the concurrency cost of locking every read."</div></div></div>
+    </div>
+  </div>
+
+  <div class="page-section">
+    <div class="sec-head"><span class="sec-num">03</span><span class="sec-title">Schema design & normalization</span><div class="sec-rule"></div></div>
+
+    <div class="q-card"><div class="q-head" onclick="toggle(this)"><span class="q-level lv-mid">Mid</span><span class="q-text">What is normalization? Explain the normal forms.</span><span class="q-toggle">▶</span></div>
+      <div class="q-body"><div class="answer-text"><p>Normalization organises tables to reduce redundancy and improve data integrity. The main forms:</p><ul><li><strong>1NF</strong> — each column holds atomic (indivisible) values; no repeating groups</li><li><strong>2NF</strong> — 1NF + every non-key column depends on the WHOLE primary key (no partial dependency)</li><li><strong>3NF</strong> — 2NF + no non-key column depends on another non-key column (no transitive dependency)</li></ul><p>Most well-designed databases aim for 3NF.</p></div></div>
+    </div>
+
+    <div class="q-card"><div class="q-head" onclick="toggle(this)"><span class="q-level lv-senior">Senior</span><span class="q-text">When would you denormalize a database?</span><span class="q-toggle">▶</span></div>
+      <div class="q-body"><div class="answer-text"><p>Denormalization deliberately introduces redundancy to improve read performance — trading storage and write complexity for faster reads.</p><p><strong>When:</strong> read-heavy systems where joins are expensive, reporting/analytics tables, or when a frequently-run query joins many tables. e.g. storing a precomputed "total bets" count rather than counting every time.</p><p><strong>The tradeoff:</strong> you now have to keep the redundant data in sync on writes. Only denormalize when you have a proven performance need — premature denormalization creates bugs.</p></div></div>
+    </div>
+
+    <div class="q-card"><div class="q-head" onclick="toggle(this)"><span class="q-level lv-mid">Mid</span><span class="q-text">What is the N+1 query problem?</span><span class="q-toggle">▶</span></div>
+      <div class="q-body"><div class="answer-text"><p>The N+1 problem: you run 1 query to get a list of N items, then N more queries to get related data for each item — N+1 total queries instead of a smart 1 or 2.</p><p>Classic in ORMs like EF Core when lazy loading. Fix it with eager loading (.Include()) to fetch related data in one query.</p></div>
+      <div class="code-block"><pre><span class="cc">// ❌ N+1 problem — 1 query for bets, then 1 per bet for user</span>
+<span class="ck">var</span> bets = <span class="ck">await</span> _db.Bets.ToListAsync();
+<span class="ck">foreach</span> (<span class="ck">var</span> bet <span class="ck">in</span> bets)
+    Console.WriteLine(bet.User.Name);  <span class="cc">// triggers a query each time!</span>
+
+<span class="cc">// ✓ Fixed — one query with a join</span>
+<span class="ck">var</span> bets = <span class="ck">await</span> _db.Bets.Include(b => b.User).ToListAsync();</pre></div></div>
+    </div>
+  </div>
+
+  <div class="page-section">
+    <div class="sec-head"><span class="sec-num">04</span><span class="sec-title">Query optimization & practical SQL</span><div class="sec-rule"></div></div>
+
+    <div class="q-card"><div class="q-head" onclick="toggle(this)"><span class="q-level lv-mid">Mid</span><span class="q-text">How do you find and fix a slow query?</span><span class="q-toggle">▶</span></div>
+      <div class="q-body"><div class="answer-text"><ul><li><strong>Read the execution plan</strong> — SQL Server shows how it runs the query. Look for table scans (bad) vs index seeks (good)</li><li><strong>Add missing indexes</strong> — on WHERE, JOIN, ORDER BY columns</li><li><strong>Avoid SELECT *</strong> — fetch only needed columns</li><li><strong>Avoid functions on indexed columns</strong> — WHERE YEAR(date) = 2024 can't use an index; use a range instead</li><li><strong>Check for N+1</strong> — batch queries where possible</li><li><strong>Use pagination</strong> — never return unbounded result sets</li></ul></div>
+      <div class="scenario"><div class="scenario-label">Your direct experience</div><div class="scenario-text">"This is exactly what I did at Mainframe — I used execution plans to identify table scans, added composite indexes on the filtered columns, and switched from selecting full entities to projecting only needed fields. Query times dropped significantly on our largest transaction tables."</div></div></div>
+    </div>
+
+    <div class="q-card"><div class="q-head" onclick="toggle(this)"><span class="q-level lv-mid">Mid</span><span class="q-text">Explain the difference between the JOIN types</span><span class="q-toggle">▶</span></div>
+      <div class="q-body"><div class="answer-text"><ul><li><strong>INNER JOIN</strong> — only rows with matches in both tables</li><li><strong>LEFT JOIN</strong> — all rows from the left table, matched rows from the right (NULLs where no match)</li><li><strong>RIGHT JOIN</strong> — all rows from the right, matched from the left</li><li><strong>FULL OUTER JOIN</strong> — all rows from both, matched where possible</li></ul></div></div>
+    </div>
+
+    <div class="q-card"><div class="q-head" onclick="toggle(this)"><span class="q-level lv-senior">Senior</span><span class="q-text">WHERE vs HAVING — what's the difference?</span><span class="q-toggle">▶</span></div>
+      <div class="q-body"><div class="answer-text"><p><strong>WHERE</strong> filters rows BEFORE grouping. <strong>HAVING</strong> filters groups AFTER a GROUP BY aggregation.</p></div>
+      <div class="code-block"><pre><span class="cc">-- WHERE filters individual rows first, HAVING filters the groups</span>
+SELECT UserId, COUNT(*) AS BetCount
+FROM Bets
+WHERE Amount > 100          <span class="cc">-- filter rows before grouping</span>
+GROUP BY UserId
+HAVING COUNT(*) > 5;        <span class="cc">-- filter groups after aggregation</span></pre></div></div>
+    </div>
+  </div>
+
+  <div class="page-section" id="checklist">
+    <div class="sec-head"><span class="sec-num">05</span><span class="sec-title">Preparation checklist</span><div class="sec-rule"></div></div>
+    <div class="checklist">
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> How indexes work and their read/write tradeoff</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Clustered vs non-clustered index</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Composite indexes and why column order matters</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Covering indexes</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> ACID properties with your betting example</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Transaction isolation levels and the three read phenomena</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Deadlocks — cause, detection, prevention</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Optimistic vs pessimistic locking</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> Normalization and the normal forms (1NF-3NF)</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> When and why to denormalize</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> The N+1 query problem and how to fix it</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> How to find and fix a slow query (your Mainframe story)</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> All JOIN types</label>
+      <label class="check-item"><input type="checkbox" onchange="chk(this)"> WHERE vs HAVING</label>
+    </div>
+  </div>
+</div>
+
+<footer><p class="footer-text">Database Deep-Dive · Built for Isuru Mahanama · Your million-row optimisation work at Mainframe is gold — use it in every relevant answer</p></footer>
+
+<script>
+function toggle(head){const body=head.nextElementSibling;const arrow=head.querySelector('.q-toggle');const isOpen=body.classList.contains('open');body.classList.toggle('open',!isOpen);arrow.classList.toggle('open',!isOpen);}
+function chk(input){input.closest('.check-item').classList.toggle('checked',input.checked);}
+</script>
+</body>
+</html>
